@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .parents div {
+      width: 200px;
+      height: 200px;
+      float: left;
+    }
+
+    .parents {
+      overflow: hidden;
+    }
+
+    #box1 {
+      background-color: #ff6d6d;
+    }
+
+    .box2 {
+      background-color: #70f1ff;
+    }
+
+    .box3 {
+      background-color: #de49ff;
+    }
+
+    .box4 {
+      width: 150px;
+      height: 150px;
+      background-color: #ffdec4;
+      position: fixed;
+      left: 0;
+      top: 0;
+    }
+    .parents2 {
+      /* 부모기준 위치 */
+      position: relative;
+    }
+    .parents2 .more {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parents">
+    <div id="box1">박스1</div>
+    <div class="box2">박스2</div>
+    <div class="box3">박스3</div>
+  </div>
+  <p>단락</p>
+
+  <div class="box4">단독으로 고정배치</div>
+  <!-- 고정값으로 부모 안에서 배치 position:relarive를 이용하면 컨텐츠안에 태그를 겹칠 수 있다. -->
+  <div class="parents2">
+    <a href="" class="more">더보기</a>
+  </div>
+
+</body>
+
+</html>

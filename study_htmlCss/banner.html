@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>서울시 어쩌구</title>
+  <style>
+    body,
+    div,
+    h1,
+    ul,
+    li,
+    dl,
+    dt,
+    dd {
+      padding: 0;
+      margin: 0;
+    }
+
+    ul,
+    ol,
+    li {
+      list-style: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong {
+      font-weight: normal;
+      font-size: 15px;
+    }
+
+    .banner {
+      width: 770px;
+      height: 300px;
+      background-color: red;
+      position: relative;
+    }
+
+    .banner h1 {
+      width: 60px;
+      height: 175px;
+      background-color: blue;
+    }
+
+    .banner h1.on {
+      background-color: brown;
+    }
+
+    /* 보이는 곳 : div / 움직이는 것 : ul
+    즉, ul이 움직이고 div는 고정 */
+    .banner div {
+      position: absolute;
+      left: 60px;
+      top:0;
+      z-index: 1;
+      /* width: 2070px; */
+      overflow: hidden;
+      width: 690px;
+    }
+
+    .banner div.on {z-index: 10;}
+    
+    .banner ul {
+      width: 2070px;
+      /* 이동예시 */
+      margin-left: -690px;
+    }
+    
+        .banner li {
+          float: left;
+        }
+    
+  </style>
+</head>
+
+<body>
+  <div class="banner">
+    <h1 class="on">주요뉴스</h1>
+    <div class="on">
+      <ul>
+        <!-- 절대주소:링크 / 상대주소:현재 파일에서의 파일 위치 -->
+        <li><img src="./img/banner.jpg" alt="서울야외도서관 개장"></li>
+        <li><img src="./img/banner2.jpg" alt="해치 콘텐츠 공모전"></li>
+        <li><img src="./img/banner3.jpg" alt="동네 병의원 정보제공"></li>
+      </ul>
+    </div>
+
+    <h1>시민참여</h1>
+    <div>
+      <ul>
+        <!-- 절대주소:링크 / 상대주소:현재 파일에서의 파일 위치 -->
+        <li><img src="https://www.seoul.go.kr/upload/hotissue/8a2dc0ccf3e84a2db0f2d6a279fd6cc4.jpg"
+            alt="2024 쉬엄쉬엄 한강축제">
+        </li>
+        <li><img src="https://www.seoul.go.kr/upload/hotissue/21916fa8d233472e80045e94718fe836.jpg"
+            alt="2024 서울특별시 환경상">
+        </li>
+        <li><img src="https://www.seoul.go.kr/upload/hotissue/a3fb4ce99ea14f87aa04aca857ebb7ef.jpg" alt="넥스트로컬 6기 모집">
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

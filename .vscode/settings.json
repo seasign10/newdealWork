@@ -1,0 +1,14 @@
+{
+    // "terminal.integrated.cwd": "{workspaceFolder}",
+    "liveServer.settings.NoBrowser": false,
+    "[html]": {
+        "editor.tabSize": 2
+    },
+    "[css]": {
+        "editor.tabSize": 2
+    },
+    "auto-rename-tag.activationOnLanguage": [
+        "*"
+    ],
+    "liveServer.settings.port": 5501,
+}

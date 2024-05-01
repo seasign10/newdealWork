@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* reset */
+    body, div, h1, h2, h3, ul, li {padding: 0; margin: 0;}
+    ul, li {list-style: none;}
+    body {font-size: 12px;}
+    h1, h2, h3 {font-size: 14px; font-weight: normal;}
+    /* img의 생성특성 상 약간의 여백이 생기는 것을 붙여주는 것 */
+    img {vertical-align: middle;}
+
+    /* 알림판 */
+    /* 해당 container 최종 부모가 크기를 가진다. */
+    .notice {
+      position: relative;
+
+      width: 404px;
+      height: 280px;
+      background-color: #ffa7a7;
+      overflow: hidden;
+    }
+
+    /* 종속 길이는 최대한 간결하게 */
+    .notice li {
+      position: absolute;
+      left: 404px;
+      bottom: 0;
+    }
+
+    .notice li.on {
+      left: 0;
+    }
+
+    .notice .btn1 {
+      position: absolute;
+      right: 200px;
+      top: 10px;
+    }
+
+    .notice .btn2 {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+    }
+
+    .notice .btn1 a {
+      /* 굳이 float을 사용하지 않아도 inline-block을 이요하면 된다. */
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+
+      /* 텍스트를 사라지도록 */
+      text-indent: -999px;
+    }
+
+    .notice .btn1 a.on {
+      background-color: #6c2b8b;
+    }
+
+    .notice .btn2 a.on {
+      display: none;
+    }
+    
+
+
+  </style>
+</head>
+<body>
+  <div class="notice">
+    <h1>알림판</h1>
+    <ul>
+      <li class="on"><img src="https://www.cha.go.kr/popupzone/getImage.do;jsessionid=1395zMCICr6KWVm1C9yMK2NXT6IkLJxVtZvPYSTx49Z2FQmozRXaZTxVdUi8XTyN.cha-was02_servlet_engine1?id=322987" alt="대체 텍스트1"></li>
+      <li><img src="https://www.cha.go.kr/popupzone/getImage.do;jsessionid=1395zMCICr6KWVm1C9yMK2NXT6IkLJxVtZvPYSTx49Z2FQmozRXaZTxVdUi8XTyN.cha-was02_servlet_engine1?id=322989" alt="대체 텍스트2"></li>
+      <li><img src="https://www.cha.go.kr/popupzone/getImage.do;jsessionid=1395zMCICr6KWVm1C9yMK2NXT6IkLJxVtZvPYSTx49Z2FQmozRXaZTxVdUi8XTyN.cha-was02_servlet_engine1?id=322983" alt="대체 텍스트3"></li>
+    </ul>
+    <div class="btn1">
+      <!-- 소리로 인해 인식할 수 있는 사용자를 위해 텍스트만 따로 빼놓음. | 즉, 없애지 않는다. -->
+      <a href="#" class="on">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+    </div>
+    <div class="btn2">
+      <a href="#">이전</a>
+      <a href="#" class="on">재생</a>
+      <a href="#">정지</a>
+      <a href="#">다음</a>
+    </div>
+  </div>
+
+  <!-- line-height - 줄 간격 설정 -->
+  <div style="width: 400px; line-height: 2rem; background-color: #ffe3e3;">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae ipsa minima reprehenderit illum tenetur cupiditate veritatis, nostrum enim inventore harum, ea exercitationem. Dolorem nihil hic numquam dolores voluptatibus beatae optio!
+  </div>
+
+  <!-- text-indent : 텍스트를 들여쓴다. 양수 > 오른쪽으로 | 음수 > 왼쪽으로 사라진다. position과 많이  -->
+  <div style="text-indent: 5rem;">text-indent1</div>
+  <div style="text-indent: -1rem;">text-indent2</div>
+</body>
+</html>

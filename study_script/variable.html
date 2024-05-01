@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>script</title>
+</head>
+<body>
+  <span>1</span>
+
+  <!-- script는 어디에도 들어갈 수 있지만, 기본은 body가장 아래에 준다. -->
+  <!-- 대상이 늘 준비되어야 하기 때문 -->
+  <script>
+
+    // str 형식을 담고 싶을때는 쿼트('') 사용
+    const numBox = "span 요소";
+    let num = 1;
+    console.log(numBox);
+    console.log(num+1);
+
+    // let bool = confirm('장바구니를 담으시겠겠습니까?')
+    // 확인(참, true, 1) | 취소(거짓, false, 0)
+
+    // if(bool){
+    //   alert('담았습니다.');
+    // }else{
+    //   console('취소했습니다.');
+    //   // alert('취소했습니다.')
+    // }
+    
+    let classA = ['홍씨', '김씨', '이씨', 2]; // 데이터 형식 : 배열
+    // index : 순번은 0 부터
+    console.log(classA[0]);
+
+    function banner() { //직접 만드는 함수 - 호출해야 함
+      console.log('내가 만드는 함수');
+      console.log(num+1)
+    }
+
+    banner();
+
+    let obj = {
+      objName : '블라우스',
+      objColor : 'red', // ['red', 'yellow'...]
+      objCodeNum : 12345,
+    }
+
+    console.log(obj.objColor);
+
+    let pd = {
+      pdTxt : '제주도 달콤한 한라봉 10호',
+      pdPrice : '23,000',
+      pdDel : '무료'
+    }
+
+  </script>
+</body>
+</html>

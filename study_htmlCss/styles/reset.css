@@ -1,0 +1,5 @@
+body {margin: 0; padding: 0; width: 100%;}
+/* ol, li, ul, li {list-style: none; margin: 0;} */
+ol, li, li {list-style: none; margin: 0;}
+a {text-decoration-line: none; color: black;}
+a:hover {color: #0c82e9;; font-weight: 700;}

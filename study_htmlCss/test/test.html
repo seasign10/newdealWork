@@ -1,0 +1,165 @@
+<html lang="ko">
+
+<head>
+  <title>진료과목 | 서울대병원</title>
+  <style>
+    h1 {
+      color: orange;
+      font-size: 14px;
+    }
+
+    p {
+      background-color: yellowgreen;
+      width: 200px;
+    }
+
+    strong {
+      background-color: mediumaquamarine;
+      width: 200px;
+    }
+
+    ul {
+      background-color: rgb(243, 176, 113);
+      width: 200px;
+    }
+
+    table {
+      width: 200px;
+    }
+
+    th {
+      width: 50px;
+      /* width를 주면 동일한 크기로 맞춰지고 설정하지 않을 시,
+        텍스트 길이에 따라 유동적으로 바뀜 */
+    }
+
+    a {
+      width: 200px;
+    }
+
+    .sign_up {
+      margin-top: 1rem;
+      border: 1px solid black;
+      width: 500px;
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>대제목</h1>
+  <h2>중제목</h2>
+  <h3>소제목</h3>
+  <!-- h1(~h3)~h6 -->
+  <!-- 크기와 디자인을 염두하지 말고, 의미적으로 염두를 두고 작성 -->
+  <br />
+
+  <p>(단락) Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex illum laudantium, cumque accusantium enim aliquid
+    quos omnis nulla nihil, dolor temporibus! Quisquam earum praesentium perferendis cumque quaerat obcaecati dicta
+    beatae. </p>
+
+  <!-- 순서가 없는 리스트 -->
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
+  <!-- 순서가 있는 리스트 -->
+  <!-- (ex)요리 순서 -->
+  <ol>
+    <li>쌀을 씻는다.</li>
+    <li>밥솥을 취사한다.</li>
+    <li>뜸을 들인다.</li>
+  </ol>
+
+  <dl>
+    <!-- dt > heading -->
+    <dt>사과</dt>
+    <!-- dd가 dt에 대한 부연설명 -->
+    <dd>색상은 빨강</dd>
+    <dd>가격은 2000원</dd>
+  </dl>
+  <!-- 여기까지 block 요소 : width 100% 혼자 사용 -->
+  <!-- width를 줄인다고 해서 나란해지지 않는다. -->
+
+  <table border="1" style="border-color: rgb(255, 0, 136);">
+    <tr>
+      <th>111</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+    <tr>
+      <th>4</th>
+      <th>5</th>
+      <!-- <th>6</th> -->
+    </tr>
+  </table>
+
+  <form action="" method="get" class="sign_up">
+    <!-- get-노출 허용(검색 정보)/post-노출 안됨(비밀번호) -->
+    <div style="margin: 1rem;">
+      <label>
+        ID
+        <input type="" />
+      </label>
+      <label class="password">
+        PASSWORD
+        <input type="password" />
+      </label>
+      <br />
+      <label>
+        <input type="checkbox" />
+        정보수집에 동의합니다.
+      </label>
+
+      <br />
+      <label>
+        <!-- 동일한 name에서 한가지만 선택 가능 -->
+        남<input type="radio" name="gender" id="g1" />
+        여<input type="radio" name="gender" id="g2" />
+      </label>
+      <br /><br />
+      <input type="button" value="로그인" style="float: right;" />
+    </div>
+  </form>
+
+  <div>
+    <label for="">CAFE MENU</label>
+    <select name="cafe menu" id="" style="margin-bottom: 12px;">
+      <option value="americano">아메리카노</option>
+      <option value="caffe latte">카페라떼</option>
+      <option value="espresso">에스프레소</option>
+    </select>
+  </div>
+
+  <div>
+    <!-- inline 요소 : block처럼 <br/> 및 공백 효과 없이 나란히 나열-->
+    <!-- 어디에서 속하지 않으며, width(너비) 영향을 받지 않는다. -->
+    <a href="">text 링크</a>
+    <br />
+    box 링크
+    <a href="" style="width: 100px; height: 100px; background-color: aqua; display: block;"></a>
+    img 링크
+    <br />
+    <a href="">
+      <img src="./img.jpg" alt="" style="width: 100px; height: 100px;">
+    </a>
+  </div>
+  <br />
+
+  <div style="width: 100px; height: 100px; margin: 1rem; border: 10px soild yellow;">
+    box
+  </div>
+
+  <strong>텍스트 강조</strong>
+  <button onclick="test()">버튼</button>
+  <!-- onclck => 스크립트에서 test를 찾음 -->
+  <script>
+    function test() {
+      confirm('yes')
+      // alert('버튼을 클릭하면 처리하는 함수');
+    }
+  </script>
+</body>
+
+</html>

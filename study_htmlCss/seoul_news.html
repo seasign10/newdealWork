@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="widli=device-widli, initial-scale=1.0">
+  <title>분야별 새소식 | 서울특별시</title>
+  <link rel="stylesheet" href="./styles/reset.css">
+  <style>
+    #container {
+      overflow: hidden;
+      /* footer가 영향을 받지 않게 할 수 있다. */
+
+      margin: 0 auto;
+      /* 가운데 정렬 | block 상태일 때(width가 있을 때) 가능하다. */
+      width: 1120px;
+    }
+
+    #aside {
+      float: left;
+      width: 160px;
+      padding-right: 40px;
+      /* background-color: rgb(203, 233, 255); */
+    }
+    #aside li span {
+      display: block;
+      padding: 10px 20px;
+      /* border-top: 1px solid white; */
+      border-bottom: 1px solid white;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    #aside li li {
+      /* display: block; */
+    padding: 10px 20px;
+    /* border-top: 1px solid #a3a3a3; */
+    background-color: #efefef;
+    font-size: 14px;
+    /* color: rgb(75, 75, 75); */
+    }
+
+    #aside h1 {
+      border-bottom: 2px solid black;
+      text-align: center;
+      padding-bottom: 20px;
+      font-size: 28px;
+    }
+
+    #aside ul {padding: 0;}
+
+    #content {
+      /* float을 여기에도 사용해야, 앞의 aside와 겹치지 않는다. */
+      float: left;
+      width: 920px;
+      /* background-color: rgb(103, 151, 184); */
+
+      /* position: relative; */
+    }
+
+    #aside ul.on {
+      display: none;
+    }
+
+    /* 자식 선택자, 공백(space bar)이 모든 자식을 뜻하는거면 >는 바로 아래의 자식만 적용된다  */
+    li>ul {
+      cursor: pointer;
+    }
+
+    li>ul>li:hover {
+      color: rgb(80, 150, 211);
+      font-weight: bold;
+    }
+
+    li>ul>li {
+      background-color: #fff;
+    }
+
+     li>span {
+      background-color: #0c82e9;
+    }
+
+    .content_title {
+      text-align: center;
+    }
+
+    .link_route {
+      /* position: absolute;
+      left: 35%; */
+      display: block;
+      width: 920px;
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .field {
+      width: 920px;
+      height: 40px;
+      padding: 12px 20px;
+      line-height: 40px;
+      
+      /* background-color: #fff; */
+    }
+
+    .field li {
+      display: block;
+      float: left;
+      padding: 0 1rem;
+      border-right: 1px solid #ececec;
+    }
+
+    .field li:nth-child(1) {
+      margin-left: 2rem;
+    }
+    .detail li:nth-child(1) {
+      margin-left: 2rem;
+    }
+    
+    .period li:nth-child(1) {
+      margin-left: 2rem;
+    }
+
+    .field .on {
+      color: #0c82e9;
+      text-decoration-line: underline;
+    }
+
+    .detail {
+      width: 920px;
+      height: 40px;
+      padding: 12px 20px;
+      line-height: 40px;
+      /* background-color: #988dff; */
+    }
+
+    .tables span {
+      width: 168px;
+      display: block;
+      text-align: center;
+      background-color: #ececec;
+      height: 40px;
+      line-height: 40px;
+      float: left;
+      padding: 12px 0;
+      border-right: 1px solid #b9b9b9;
+    }
+
+    .detail li {
+      float: left;
+      margin: 0 1rem;
+    }
+
+    .period {
+      width: 920px;
+      height: 40px;
+      padding: 12px 20px;
+      line-height: 40px;
+      /* background-color: #adff56; */
+      
+    }
+    
+    .period li {
+      float: left;
+      margin: 0 1rem;
+      /* background-color: red; */
+    }
+
+    .input_submit {
+      float: left;
+      width: 600px;
+      height: 40px;
+      padding: 12px 20px;
+      line-height: 40px;
+      /* background-color: #ffa0a0; */
+    }
+
+    .input_submit li{
+      margin: 0 1rem;
+    }
+    
+    .tables>ul {
+      border-bottom: 1px solid #b9b9b9;
+    }
+
+    .tables li {
+      float: left;
+    }
+    
+    .tables ul {
+      /* padding: 0; */
+      margin: 0;
+    }
+
+    .tables_contain {
+      border: 1px solid rgb(185, 185, 185);
+      height: 259px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- 상단 : header -->
+  <div id="header"></div>
+
+  <!-- 본문 내용 : 사이드 메뉴, 본문 -->
+  <div id="container">
+    <div id="aside">
+      <h1>서울소식</h1>
+      <ul>
+        <li>
+          <!-- div도 가능 -->
+          <span>새소식</span>
+
+          <!-- li 안에 ui 포함 가능 -->
+          <ul class="on">
+            <li>분야별 새소식</li>
+            <li>이달의 행사 및 축제</li>
+            <li>이벤트 신청</li>
+            <li>자치구 주요뉴스</li>
+            <li>강좌 교육</li>
+            <li>인사발령</li>
+          </ul>
+        </li>
+
+        <li>
+          <span>공고</span>
+          <ul>
+            <li>입찰공고</li>
+            <li>채용시험</li>
+            <li>서울시보</li>
+            <li>고시공고</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div id="content">
+      <h1 class="content_title">분야별 새소식</h1>
+      <span class="link_route">
+        <a href="">HOME</a> >
+        <a href="">서울소식</a> >
+        <a href="">새소식</a> >
+        <a href="">분야별 새소식</a>
+      </span>
+      <div class="tables_contain">
+        <form action="" class="tables">
+          <span>분야 선택</span>
+          <ul class="field">
+            <li class="on">모든분야</li>
+            <li>교통</li>
+            <li>안전</li>
+            <li>주택</li>
+            <li>경제</li>
+            <li>환경</li>
+            <li>문화</li>
+            <li>복지</li>
+            <li>행정</li>
+          </ul>
+          <span>상세 선택</span>
+          <ul class="detail">
+            <li><input type="checkbox"> 모집</li>
+            <li><input type="checkbox"> 공고</li>
+            <li><input type="checkbox"> 신청</li>
+            <li><input type="checkbox"> 위촉</li>
+          </ul>
+          <span>기간 선택</span>
+          <ul class="period">
+            <li> 오늘 </li>
+            <li> 최근 일주일 </li>
+            <li> 최근 한달 </li>
+            <!-- <li> 예) 2024-04-26 <input type="date"> - <input type="date"></li> -->
+          </ul>
+          <span>검색어</span>
+          <ul class="input_submit" style="border-bottom:0 none;">
+            <li><input type="text"></li>
+            <li><input type="submit"></li>
+            <li><button>초기화</button></li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 하단 : footer -->
+  <div id="footer">하단 영역</div>
+
+</body>
+
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    $("#header").load("./practice/header.html"); // 원하는 파일 경로를 삽입하면 된다
+    //$("#footers").load("common/footer.html"); // 추가 인클루드를 원할 경우 이런식으로 추가하면 된다
+
+  });
+</script>
+
+</html>

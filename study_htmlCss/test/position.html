@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Css - 배치</title>
+  <style>
+    body {
+      /* padding: 100px; */
+    }
+    .parent1 {position: relative; width: 500px;height: 350px;background-color: antiquewhite;}
+    .parent1 .box {position: absolute; z-index: 1; width: 200px;height: 200px;}
+    .parent1 .box1 {z-index: 10; background-color: yellow;}
+    .parent1 .box2 {background-color: pink;}
+    .parent1 .box3 {background-color: green;}
+
+    /* reset, base */
+    body, h1, ul, li, div {
+      margin: 0;
+    }
+
+    .tabbox {
+      position: relative;
+      /* 부모를 relative로 지정되면 absolute에 영향이 감 지정하지 않으면 바로 위 부모(스크린)를 잡는다.*/
+      background-color: #ffd0d0;
+      width: 600px;
+      height: 250px;
+    }
+
+    .tabbox ul {
+      position: absolute;
+      left: 10px;
+      top: 100px;
+      z-index: 1;
+      /* 사용자가 원하는 박스를 따로 부를 수 있도록 해야한다. */
+      /* 즉 동작(스크립트)를 넣을 때를 유의해야 함 */
+      background-color: aqua;
+      /* 뒤에 가려 안보이는 것들 가리기 */
+      display: none;
+    }
+
+    .tabbox h1 {
+      float: left;
+      color: grey;
+    }
+    .tabbox .tab.on h1 {
+      float: left;
+      color: blue;
+    }
+    
+    /* 작동(on)하게 되면 해당 스타일(화면 앞으로 가져옴)을 가질 수 있게 함 */
+    /* .tabbox ul.on {z-index:10} */
+    .tabbox .on ul {z-index:10}
+    .tabbox .on .more {z-index:10}
+    .tabbox .on .title {z-index:10}
+
+    .tabbox .tab div {
+      position: absolute;
+      top: 20px;
+      right: 10px;
+      z-index: 1;
+      background-color: #ff5353;
+    }
+    
+    /* .tabbox div.on {
+      z-index:10
+    } */
+    
+    /* .tabbox .tab h1 {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1;
+      background-color: #ff5353;
+    } */
+
+    .tabbox .tab.on ul {
+      /* 보이도록 설정 */
+      display: block;
+    }
+/* 
+    .tabbox .tab h1.on {
+      z-index: 10;
+    }
+
+    .tab .on {
+      z-index: 10;
+    } */
+
+    .board {
+      float: left;
+    }
+
+    .content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      /* 원하는 라인수 */
+      -webkit-box-orient: vertical;
+    }
+    li,
+    ol {
+      list-style: none;
+    }
+
+    .boxlist {
+      width: 180px;
+      float: left;
+      position: relative;
+    }
+
+    .boxlist .date {
+      position: absolute;
+      left: 12px;
+      bottom: 2px;
+      margin:0;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="tabbox">
+    <div class="tab tab1 on">
+      <h1 class="title">탭메뉴1</h1>
+      <ul class="active">
+        <!-- 스크립트로 유동적으로 사용하는 클래스를 보통 active라고 지정한다. -->
+        <li class="boxlist">
+          <dl>
+            <dt>게시글제목</dt>
+            <dd class="content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque repellat minima mollitia dolor, beatae laborum autem, facilis saepe similique ullam incidunt voluptas iure eius ducimus voluptatem aliquam error, voluptate quibusdam.</dd>
+            <dd class="date">2222.02.20</dd>
+          </dl>
+        </li>
+        <li class="boxlist">
+          <dl>
+            <dt>게시글제목</dt>
+            <dd class="content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque repellat minima mollitia dolor, beatae laborum autem, facilis saepe similique ullam incidunt voluptas iure eius ducimus voluptatem aliquam error, voluptate quibusdam.</dd>
+            <dd class="date">2222.02.20</dd>
+          </dl>
+        </li>
+        <li class="boxlist">
+          <dl>
+            <dt>게시글제목</dt>
+            <dd class="content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque repellat minima mollitia dolor, beatae laborum autem, facilis saepe similique ullam incidunt voluptas iure eius ducimus voluptatem aliquam error, voluptate quibusdam.</dd>
+            <dd class="date">2222.02.20</dd>
+          </dl>
+        </li>
+
+      </ul>
+      <div class="more">더보기1</div>
+    </div>
+
+    <div class="tab tab2">
+      <h1 class="title">탭메뉴2</h1>
+      <ul>
+        <li>리스트2</li>
+        <li>리스트2</li>
+        <li>리스트2</li>
+      </ul>
+      <div class="more">더보기2</div>
+    </div>
+
+    <div class="tab tab3">
+      <h1 class="title">탭메뉴3</h1>
+      <ul>
+        <li>리스트3</li>
+        <li>리스트3</li>
+        <li>리스트3</li>
+      </ul>
+      <div class="more">더보기3</div>
+    </div>
+  </div>
+  <!-- tabbox end -->
+  
+  <!-- <div class="parent1">
+    <div class="box box1">box1</div>
+    <div class="box box2">box2</div>
+    <div class="box box3">box3</div>
+  </div> -->
+</body>
+</html>

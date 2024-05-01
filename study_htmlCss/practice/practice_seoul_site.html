@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>서울특별시</title>
+  <link rel="icon" href="../img/favi.svg">
+  <style>
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    a {
+      text-decoration-line: none;
+      color: black;
+    }
+
+    ul {
+      padding: 0;
+    }
+
+    li,
+    ol {
+      list-style: none;
+    }
+
+    .bg_style {
+      width: 1152px;
+      margin: auto;
+    }
+
+    .header {
+      height: 80px;
+      position: relative;
+      /* background-color: grey; */
+    }
+
+    .header_manu {
+      line-height: 52px;
+      font-size: 16px;
+    }
+
+    .menu_list {
+      position: absolute;
+      top: 0px;
+      left: 124px;
+      width: 800px;
+    }
+
+    .menu_list li {
+      display: block;
+      float: left;
+      margin-right: 1rem;
+      font-weight: 600;
+    }
+
+    .menu_other {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+
+    .menu_other li {
+      display: block;
+      float: left;
+      margin-right: 1rem;
+    }
+
+    .page_link {
+      width: 100%;
+      height: 80px;
+      background-color: #e9e9e9;
+      position: absolute;
+      top: 828px;
+      left: 0;
+    }
+
+    .page_link_position {
+      position: relative;
+      margin-top: 3rem;
+    }
+
+    .link_box {
+      float: left;
+      margin-left: auto;
+      width: 180px;
+      height: 60px;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 60px;
+      text-align: center;
+    }
+
+    .page_line {
+      width: 1px;
+      height: 60px;
+      background-color: #9d9d9d;
+      float: left;
+      margin-top: 10px;
+    }
+
+    .board {
+      /* white-space: nowrap; */
+      width: 1152px;
+      height: 100%;
+      margin-top: 2rem;
+    }
+
+    .board strong {
+      font-weight: normal;
+    }
+
+    .board_title {
+      white-space: nowrap;
+      border-bottom: 2px solid rgb(142, 142, 142);
+      position: relative;
+    }
+
+    .board_title button {
+      position: absolute;
+      right: 0;
+      top: 0.5rem;
+    }
+
+    .event {
+      width: 360px;
+      float: left;
+      margin-right: 2rem;
+    }
+
+    .festival {
+      float: left;
+      width: 360px;
+      /* background-color: blue; */
+      margin-right: 2rem;
+    }
+
+    .best_service_content {
+      background-color: rgb(217, 217, 217);
+      height: 136px;
+      padding-top: 1rem;
+      padding-left: 1rem;
+    }
+
+    .best_service_content a {
+      float: left;
+      width: 45%;
+      margin-top: 0.5rem;
+      margin-left: 1rem;
+    }
+
+    .best_service {
+      float: left;
+      width: 360px;
+    }
+
+    .board_content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .search_button {
+      height: 40px;
+      width: 60px;
+      border-radius: 20px;
+      border: none;
+      background-color: #d5d5d5;
+      vertical-align: middle;
+    }
+
+    .search_button:hover {
+      background-color: #989898;
+      cursor: pointer;
+    }
+
+    .search_button:active {
+      background-color: #606060;
+    }
+
+    .search_bar {
+      text-align: center;
+      margin-top: 4rem;
+      margin-bottom: 40px;
+    }
+
+    .banner {
+      width: 770px;
+      height: 350px;
+      overflow: hidden;
+      float: left;
+      margin-right: 1rem;
+    }
+
+    .ban_title {
+      width: 80px;
+      height: 50%;
+      text-align: center;
+      line-height: 175px;
+    }
+
+    .ban_title a {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .choice_ban {
+      height: 350px;
+      float: left;
+    }
+
+    .mini_m1 img {
+      width: 360px;
+      height: 190px;
+    }
+
+    .seoul_mater {
+      width: 360px;
+      height: 90px;
+      display: inline-block;
+      background-color: rgb(232, 232, 232);
+      line-height: 68px;
+      position: absolute;
+      left: 0;
+      padding-left: 1rem;
+    }
+
+    .wish_btn1 {
+      margin-top: 20px;
+      position: absolute;
+      right: 1rem;
+      bottom: 2.4rem;
+      border-radius: 20px;
+      width: 120px;
+      background-color: rgb(173, 173, 173);
+      text-align: center;
+      line-height: 40px;
+    }
+
+    .mini_content {
+      width: 360px;
+      height: 90px;
+      position: relative;
+      right: 0;
+      display: inline-block;
+      overflow: hidden;
+    }
+
+    .mini_group {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 360px;
+      height: 26px;
+      background-color: #c0c0c0;
+    }
+
+    .mini_m2 {
+      width: 89px;
+      height: 26px;
+      background-color: #9f9f9f;
+      text-align: center;
+      line-height: 26px;
+      float: left;
+      border-right: 1px solid #686868;
+    }
+
+    .mini_m2_ {
+      width: 90px;
+      width: 89px;
+      height: 26px;
+      background-color: #9f9f9f;
+      text-align: center;
+      line-height: 26px;
+      float: left;
+    }
+
+    .kakao_link {
+      width: 344px;
+      height: 44px;
+      background-color: rgb(255, 200, 0);
+      display: block;
+      padding-top: 16px;
+      padding-left: 1rem;
+      display: inline-block;
+      position: relative;
+    }
+
+    .kakao_link img {
+      position: absolute;
+      left:12px;
+      top:16px;
+    }
+
+    .service_title {
+      margin-top: 3rem;
+      border-bottom: 2px solid #9c9c9c;
+      padding-bottom: 1rem;
+    }
+
+    .service_name {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .service_content li {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      text-align: center;
+      line-height: 80px;
+      background-color: #ebebeb;
+      margin-right: 0.3rem;
+      margin-left: 0.3rem;
+    }
+    
+    .service_content {
+      text-align: center;
+    }
+
+    .welfare {
+      color: rgb(74, 180, 111);
+    }
+
+    .economy {
+      color: rgb(87, 87, 221);
+    }
+
+    .admini {
+      color: rgb(230, 66, 66);
+    } 
+
+    .eco {
+      color: rgb(152, 182, 62);
+    }
+
+    .culture {
+      color: rgb(193, 86, 219);
+    }
+
+    .board a {
+      font-weight: 100;
+    }
+
+    .header_manu a:hover {
+      color: #9d9d9d;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="bg_style">
+      <div class="header">
+        <img src="../img/header_img.png" alt="seoul_site_image" style="width: 120px; height: 80px;">
+        <nav class="header_manu">
+          <ul class="menu_list">
+            <li><a href="">서울소식</a></li>
+            <li><a href="">시민참여</a></li>
+            <li><a href="">분야별정보</a></li>
+            <li><a href="">서울소개</a></li>
+            <li><a href="">부서안내</a></li>
+            <li><a href="">정보공개</a></li>
+            <li><a href="">응답소</a></li>
+          </ul>
+          <ul class="menu_other">
+            <li><a href="">로그인</a></li>
+            <li><a href="">나의서울</a></li>
+            <li><a href="">전자우편</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="content">
+        <div class="search_bar">
+          <form action="" method="get">
+            <input type="search" placeholder="검색어를 입력해주세요."
+              style="width: 400px; height: 40px; border: 3px solid gray; padding-left: 0.5rem;">
+            <input type="submit" value="검색" class="search_button">
+          </form>
+        </div>
+        <div class="banner">
+          <div class="choice_ban">
+            <div class="ban_title" style="background-color: #888888;"><a href="">주요뉴스</a></div>
+            <div class="ban_title" style="background-color: #c9c9c9;"><a href="">시민참여</a></div>
+          </div>
+          <li><img src="../img/banner.jpg" alt="서울야외도서관 개장"></li>
+        </div>
+        <div class="side_banner">
+          <div class="mini_manu">
+            <div class="mini_m1">
+              <img
+                src="https://mayor.seoul.go.kr/file/getImage.do?guid=1669B7CD84EF0180E063C0A8A06874C5&programSe=IMG&thumbAt=Y"
+                alt="안심소득">
+            </div>
+            <div class="mini_content">
+              <a href="https://시장" class="seoul_mater">서울특별시장</a>
+              <a href="https://건의" class="wish_btn1">시장에게 건의</a>
+              <div class="mini_group">
+                <a href="https://공약" class="mini_m2">공약</a>
+                <a href="https://정책제안" class="mini_m2">정책제안</a>
+                <a href="https://투표" class="mini_m2">투표</a>
+                <a href="https://설문조사" class="mini_m2_">설문조사</a>
+              </div>
+            </div>
+          </div>
+          <a href="" class="kakao_link">
+            <img src="https://www.seoul.go.kr/res_newseoul/images/main/txt-kakao-new.png" alt="카카오톡 서울시 채널 추가">
+          </a>
+        </div>
+        <div class="service">
+          <h1 class="service_title">주요 서비스</h1>
+          <ul class="service_content">
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+            <li><a href="" class="service_name">서비스</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="text_div" style="background-color: #0000ff; height: 600px;">~~~~</div> -->
+
+    <div class="page_link"></div>
+    <!-- <ul style="display:inline-block;"> -->
+    <div class="bg_style">
+      <ul class="page_link_position">
+        <li><a href="" class="link_box">사이트</a></li>
+        <div class="page_line"></div>
+        <li><a href="" class="link_box">사이트</a></li>
+        <div class="page_line"></div>
+        <li><a href="" class="link_box">사이트</a></li>
+        <div class="page_line"></div>
+        <li><a href="" class="link_box">사이트</a></li>
+        <div class="page_line"></div>
+        <li><a href="" class="link_box">사이트</a></li>
+        <div class="page_line"></div>
+        <li><a href="" class="link_box">사이트</a></li>
+      </ul>
+      <div style="height: 80px;"></div>
+
+      <div class="board">
+        <div class="event">
+          <div class="board_title">
+            <h2>이벤트 신청</h2>
+            <button>더 보기</button>
+          </div>
+          <ul class="board_content">
+            <li><strong class="welfare">복지</strong> <a href="">이벤트</a></li>
+            <li><strong class="admini">행정</strong> <a href="">이벤트</a></li>
+            <li><strong class="welfare">복지</strong> <a href="">이벤트</a></li>
+            <li><strong class="admini">행정</strong> <a href="">이벤트</a></li>
+            <li><strong class="economy">경제</strong> <a href="">이벤트</a></li>
+          </ul>
+        </div>
+        <div class="festival">
+          <div class="board_title">
+            <h2>이달의 행사 및 축제</h2>
+            <button>더 보기</button>
+          </div>
+          <ul class="board_content">
+
+            <li><strong class="eco">환경</strong> <a href="">행사 및 축제</a></li>
+            <li><strong class="culture">문화</strong> <a href="">행사 및 축제</a></li>
+            <li><strong class="culture">문화</strong> <a href="">행사 및 축제</a></li>
+            <li><strong class="culture">문화</strong> <a href="">행사 및 축제</a></li>
+            <li><strong class="culture">문화</strong> <a href="">행사 및 축제</a></li>
+          </ul>
+        </div>
+        <div class="best_service">
+          <div class="board_title">
+            <h2>자주찾은 서비스</h2>
+          </div>
+          <ul class="best_service_content">
+            <li><a href="">서비스</a></li>
+            <li><a href="">서비스</a></li>
+            <li><a href="">서비스</a></li>
+            <li><a href="">서비스</a></li>
+            <li><a href="">서비스</a></li>
+            <li><a href="">서비스</a></li>
+            <li><a href="">서비스</a></li>
+            <li><a href="">서비스</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="major_info"></div>
+      <div class="news"></div>
+
+      <div class="footer"></div>
+    </div>
+</body>
+
+</html>
+
+<div class="apple"></div>
+
+<div class="box"></div>
+<div class="box"></div>
