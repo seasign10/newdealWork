@@ -35,16 +35,29 @@
     }
 
     //1~100까지 모두 더한 합
-    let res = 0
+    let total = 0
     for (let i=0; i<=100; i++) {
-      res += i
-      console.log(res)
+      total += i
+      console.log(total)
       // if(i==100) {
-      //   document.write('<p> 100! == '+res+'</p>')
+      //   document.write('<p> 100! == '+total+'</p>')
       // }
     }
-    document.write('<p> 100! == '+res+'</p>')
+    document.write('<p> 100! == '+total+'</p>')
 
+
+    let totalEven = 0
+    // 아래처럼 i 를 +=2하면 짝수만 더할 수 있다.
+    // for (let i=0; i<=100; i+=2) 
+    for (let i=0; i<=100; i++) {
+      if(i%2 == 0) {
+        console.log(totalEven)
+        totalEven += i
+      }
+    }
+    document.write('<p> 1~100까지 짝수만 더한 합 : <strong>'+totalEven+'</strong></p>')
+
+    
 
   </script>
 </body>
