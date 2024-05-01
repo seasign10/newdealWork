@@ -30,19 +30,20 @@
     }
 
     // 1~100까지의 숫자를 출력 : p태그
-    for (i=0; i<=100; i++) {
+    for (let i=0; i<=100; i++) {
       document.write(' <p style="display: inline-block">['+i+']</p>')
     }
 
     //1~100까지 모두 더한 합
-    res = 0
-    for (i=0; i<=100; i++) {
+    let res = 0
+    for (let i=0; i<=100; i++) {
       res += i
       console.log(res)
-      if(i==100) {
-        document.write('<p> 100! == '+res+'</p>')
-      }
+      // if(i==100) {
+      //   document.write('<p> 100! == '+res+'</p>')
+      // }
     }
+    document.write('<p> 100! == '+res+'</p>')
 
 
   </script>
