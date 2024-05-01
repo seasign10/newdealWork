@@ -47,15 +47,19 @@
 
 
     let totalEven = 0
+    let totalOdd = 0
     // 아래처럼 i 를 +=2하면 짝수만 더할 수 있다.
     // for (let i=0; i<=100; i+=2) 
     for (let i=0; i<=100; i++) {
       if(i%2 == 0) {
         console.log(totalEven)
-        totalEven += i
+        totalEven += i;
+      } else {
+        totalOdd += i;
       }
     }
     document.write('<p> 1~100까지 짝수만 더한 합 : <strong>'+totalEven+'</strong></p>')
+    document.write('<p> 1~100까지 홀수만 더한 합 : <strong>'+totalOdd+'</strong></p>')
 
     
 
