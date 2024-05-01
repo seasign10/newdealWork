@@ -62,6 +62,15 @@
 
     // 사용자 휴대폰 번호를 받아서 DB에 저장
     let phoneNum = prompt('휴대폰 번호 입력하세요.')
+    if(phoneNum.length == 11 & phoneNum.substr(0, 3) == '010') {
+      console.log(phoneNum.substr(0, 3))
+      alert('확인')
+    }else{
+      alert('올바르게 입력해주세요.')
+      console.log(phoneNum.substr(0, 3))
+      console.log(phoneNum)
+      // console.warn('')
+    }
   </script>
 </body>
 </html>

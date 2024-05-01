@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반복문</title>
+</head>
+<body>
+  
+  <script>
+    // 반복문
+    // index 의 i 
+    // (0부터 시작해서; 5가될 때까지만; 1씩증가하면서; 반복하기)
+    for (let i=0; i<5; i++) { // (조건) > 초기값;조건식;증감식;
+      console.log(i);
+      document.write('<li>리스트</li>');
+    }
+
+    // h1~h6
+    for (let i=1; i<7; i++) {
+      document.write('<h' + i + '> 제목' + i + ' </h' + i + '>');
+    }
+
+    // 문단(p)
+    // '우리반에는 i(이)가 있습니다.'
+    let classWeb = ['사과', '귤', '바나나', '포도'];
+    console.log('개수 : ' + classWeb.length);
+    for(let i=0; i<classWeb.length; i++) {
+      document.write('<p>우리반에는 ' + classWeb[i] + '(이)가 있습니다.</p>');
+    }
+
+    // 1~100까지의 숫자를 출력 : p태그
+    for (i=0; i<=100; i++) {
+      document.write(' <p style="display: inline-block">['+i+']</p>')
+    }
+
+    //1~100까지 모두 더한 합
+    res = 0
+    for (i=0; i<=100; i++) {
+      res += i
+      console.log(res)
+      if(i==100) {
+        document.write('<p> 100! == '+res+'</p>')
+      }
+    }
+
+
+  </script>
+</body>
+</html>

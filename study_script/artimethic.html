@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // 산술연산 (+ - * / % : 나머지) , ++ --
+    let num1 = 10; // let num1 = 10, num2 = 3, result = 0; 
+    let num2 = 3;
+    // 초기 값 설정
+    let result = 0;
+    
+    result = num1 + num2;
+    console.log('10 + 3 = ' + result)
+    console.log(result)
+
+    result = num1 - num2;
+    console.log('10 - 3 = ' + result)
+    result++;
+    console.log(result)
+
+    result = num1 * num2;
+    console.log('10 * 3 = ' + result)
+
+    result = num1 / num2;
+    console.log('10 / 3 = ' + result)
+
+    result = num1 % num2;
+    console.log('10 % 3 = ' + result)
+
+    console.log('console.log(result++) = ' + result++);
+    console.log('result == ' + result)
+
+    result++; // result + 1
+    console.log('result++ == result +1')
+    console.log('(result == 2)++ = ' + result);
+
+    console.log('result == ' + result)
+    //result == 3
+    result--;
+    console.log('(result == 2)-- = ' + result);
+    console.log(result);
+
+    //result == 2
+    result+=3;
+    console.log(result)
+
+    result-=1;
+    console.log(result)
+
+    //a=a+b ( = a+b )
+    let numA=5, numB=2, result1=0;
+    result1 += numA; // result1 = result1 + numA
+    console.log(result1);
+    result1 -= numB; // result1 = result1 - numB
+    console.log(result1);
+
+    // 비교연산자 ( A>B, A<B, A>=B, A==B, A!=B)
+    //console.log('010'=='012'); true 아니면 false를 반환 / 값만 비교
+    let dataA = '010';
+    let dataB = prompt('숫자 세자리 입력');
+    // != 를 사용해서 true 와 false가 거꾸로 나온다.
+    let bools = dataA != dataB;
+
+    // 값+데이터타입 전부 일치하는지
+    // let bools = dataA === dataB;
+    console.log(bools);
+    alert(bools)
+  </script>
+
+<!-- ul>li*5 -->
+<!-- 반복문을 배울 것 -->
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+</body>
+</html>
