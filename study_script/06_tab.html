@@ -3,25 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>문화재청 메인 탭메뉴</title>
+  <style>
+    .tab_area .on h1 {background-color: yellow;}
+    .tab_area .on p {background-color: aqua;}
+    .tab_area .on span {background-color: pink;}
+
+    .mas {text-align: center;}
+
+  </style>
 </head>
 <body>
   <div class="tab_area">
-    <h1>제목1</h1>
-    <p>리스트1</p>
-    <span>더보기1</span>
-    <h1>제목2</h1>
-    <p>리스트2</p>
-    <span>더보기2</span>
-    <h1>제목3</h1>
-    <p>리스트3</p>
-    <span>더보기3</span>
+    <div class="on">
+      <h1>제목1</h1>
+      <p>리스트1</p>
+      <span>더보기1</span>
+    </div>
+    <div>
+      <h1>제목2</h1>
+      <p>리스트2</p>
+      <span>더보기2</span>
+    </div>
+    <div>
+      <h1>제목3</h1>
+      <p>리스트3</p>
+      <span>더보기3</span>
+    </div>
   </div>
 
   <script>
     // h1을 클릭하면 p, span 디자인 변경
     // query로 부르는게 더 편리하고 유연하다.
-    const hns1 = document.querySelectorAll('.tab_area h1')
+    const tabBoxs = document.querySelectorAll('.tab_area div');
+    const hns1 = document.querySelectorAll('.tab_area h1');
+    const listBox = document.querySelectorAll('.tab_area p');
+    const mores = document.querySelectorAll('.tab_area span');
+    
+    const lens = hns1.length;
+    for(let i=0; i<lens; i++){
+      // 클릭할 h1 | 모든 h1를 클릭 했을 때 클릭이벤트 함수가 발동 되도록 for문 작성
+      hns1[i].addEventListener('click', ()=>{
+
+        // 한 번 클릭할 때, 나머지 모든 class에 on을 전부 reset 시켜주기 위해 이중 for문을 사용
+        for(let k=0; k<lens; k++) {
+          tabBoxs[k].className = ''
+        }
+
+        // 클릭한 h1 따라 i번째 class를 on
+        tabBoxs[i].className = 'on';
+      });
+      };
+
+
+
+
+    // 1)
+    // // 0번째 h1 클릭하면 0번째 h1, 0번째 p, 0번째 span 디자인(배경색 바꾸기)
+    // hns1[0].addEventListener('click', ()=>{// 동작(event), 익명함수
+      //     hns1[0].style.backgroundColor = 'aqua'
+      //     listBox[0].style.backgroundColor = 'yellow'
+      //     mores[0].style.backgroundColor = 'pink'
+      //   }); 
+      
+      // 2)
+      // // 0번째 h1 클릭하면 0번째 h1, 0번째 p, 0번째 span 디자인(배경색 바꾸기)
+      // hns1[0].addEventListener('click', ()=>{// 동작(event), 익명함수
+      //   tabBoxs[0].className = 'on'
+        
+      //   // hns1[0].className = 'on'
+      //   // listBox[0].className = 'on'
+      //   // mores[0].className = 'on'
+      //   }); 
   </script>
+
+  <!-- div 10줄 span 10칸 -->
+  <div class="star"></div>
+  
+
+  <script>
+    let starLine = '';
+    // class를 가져올 때 . 없어야 한다.
+    let starBox = document.getElementsByClassName('star');
+    for(let i=0; i<10; i++) {
+      starLine += '<div>';
+      for(let k=0; k<10; k++) {
+        starLine += '<span>⭐️</span>';
+      }
+      starLine += '</div>';
+    }
+    document.write(starLine);
+  </script>
+
+  <div class="mul_table"></div>
+
+  <script>
+    let mul = document.getElementsByClassName('mul_table');
+    mulBox = 0
+    for(let i=2; i<10; i++) {
+      for(let k=1; k<10; k++) {
+        mulBox = k * i;
+        document.write('<div>'+i+' x '+k+' = '+mulBox+'</div>');
+        // 우선 연산이 필요하다면 괄호:()를 사용해야 함
+      }
+      numBox = 0
+    }
+  </script>
+
+  <div class="christ"></div>
+  <script>
+    for (let i = 1; i < 11; i++) {
+      document.write(i % 2 === 0 ? `<div class="color">` : '<div>');
+      for (let j = 1; j <= i; j++) {
+          document.write(j % 2 === 0 ? `<span>⭐️</span>` : `<span>🔥</span>`)
+      }
+      document.write('</div>')
+    }
+
+
+    // let cnt = 0
+    // for(let i=0;i<8;i++){
+    //   document.write('<div class="mas">')
+    //     cnt += 1
+    //     for(let k=1;k<=i;k++){
+    //       document.write('<span>⭐️</span>')
+    //     }
+    //     document.write('</div>')
+    //     let stCl = document.querySelectorAll('.mas');
+    //     if(cnt%2==0){
+    //       stCl[i].style.backgroundColor = 'green';
+    //     }else{
+    //       stCl[i].style.backgroundColor = 'red';
+    //     }
+    //   }
+  </script>
+
+
 </body>
 </html>

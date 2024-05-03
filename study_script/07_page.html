@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>페이지 영역</title>
+  <style>
+    ul, li {padding: 0;margin: 0;list-style: none;}
+    ul {width: 300px;height: 200px;overflow: hidden;}
+    li {display: none;}
+    li:first-child {display: block;}
+    li img {width: 100%;}
+
+    .total {
+      color: grey;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="paging">
+    <ul>
+      <li>
+        <img src="https://plus.unsplash.com/premium_photo-1714115034964-16b20994142a?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+      </li>
+      <li>
+        <img src="https://images.unsplash.com/photo-1714548529006-aea2b7530e6e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+      </li>
+      <li>
+      <img src="https://images.unsplash.com/photo-1686715612818-11ab5b79770b?q=80&w=1635&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""></li>
+    </ul>
+    <button type=button" class="btn_prev">이전</button>
+    <span class="cnt">현재페이지번호</span>
+    /
+    <span class="total">총페이지수</span>
+    <button type=button" class="btn_next">다음</button>
+  </div>
+
+  <script>
+    const lists = document.querySelectorAll('li');
+    const nextBtn = document.querySelector('.btn_next');
+    const prevBtn = document.querySelector('.btn_prev')
+    nextBtn.addEventListener('click', ()=>{
+      if(cntNum==totalNum){
+        cntNum = 1
+        lists[cntNum-1].style.display = 'block';
+        lists[cntNum].style.display = 'none';
+        cntBox.innerText = cntNum
+      }else{
+        // 0번째 배너 안보이게
+        // 1번째 배너 보이게
+        lists[cntNum-1].style.display = 'none';
+        lists[cntNum].style.display = 'block';
+        
+        if(cntNum<totalNum){
+          cntNum++;
+          cntBox.innerText = cntNum;
+        }
+      }
+    });
+    
+    prevBtn.addEventListener('click', ()=> {
+      if(cntNum>1) {
+        cntNum--;
+        lists[cntNum].style.display = 'none'
+        lists[cntNum-1].style.display = 'block'
+        cntBox.innerText = cntNum;
+      }
+      if(cntNum<=1) {
+        cntNum = totalNum; //3
+        // console.log()
+        lists[cntNum-1].style.display = 'block' // 인덱스2(3번째 사진 보여주기)
+        lists[0].style.display = 'none' // 첫 이미지 감추기
+        cntBox.innerText = cntNum; //3
+        console.log(cntNum)
+      }
+    });
+
+    // 현재페이지번호, 총페이지수 생성
+    let cntNum = 1;
+    let totalNum = 3;
+
+    // const btnNext = document.querySelector('.paging .btn_next');
+    // btnNext.addEventListener('click', ()=>{
+    //   if(cntNum==totalNum){cntNum=0;}
+    //   cntNum ++;
+    //   cntBox.innerText =  cntNum;
+    // });
+
+    // const btnPrev = document.querySelector('.paging .btn_prev');
+    // btnPrev.addEventListener('click', ()=>{
+    //   if(cntNum==1){cntNum=totalNum+1;}
+    //   cntNum --;
+    //   cntBox.innerText =  cntNum;
+    // });
+    
+    const cntBox = document.querySelector('.paging .cnt');
+    const totalBox = document.querySelector('.paging .total');
+    cntBox.innerText =  cntNum;
+    totalBox.innerText = totalNum;
+  </script>
+</body>
+</html>
