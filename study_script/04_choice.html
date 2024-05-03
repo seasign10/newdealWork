@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .naver_webtoon .on {color: red; background-color: aqua;}
+
+    .familysite dd {display: none;}
+    .familysite dd.on {display: block; background-color: violet;}
+  </style>
+</head>
+<body>
+  
+  <div id="box1">id:box1 아이디를 가진</div>
+  <div class="box2">class:box2 이름을 가진 div</div> <!-- 여기서 부터 선택해서 여기서 부터 0번 째 -->
+  <div class="box2">class:box2 이름을 가진 div</div> <!-- 1번 째 -->
+  <div class="box2">class:box2 이름을 가진 div</div> <!-- 2번 째 -->
+  <div class="box2">class:box2 이름을 가진 div</div> <!-- 3번 째 -->
+
+  <script>
+    let array = [1, 2, 3, 4, 5, 6];
+
+    const box1 = document.getElementById('box1');
+    box1.style.color = 'red';
+    box1.style.backgroundColor = 'yellow';
+
+    const boxs2 = document.getElementsByClassName('box2');
+    // boxs2[1].style.border = '2px solid black';
+    // boxs2[3].style.backgroundColor = 'silver';
+    
+    // .box2에 모두 동일한 디자인 : 테두리, 색상, 배경색, 글자크기 20px
+    for(i=0; i<boxs2.length; i++) {
+      boxs2[i].style.border = '1px solid grey';
+      boxs2[i].style.color = 'white';
+      boxs2[i].style.backgroundColor = 'silver';
+      boxs2[i].style.fontSize = '20px';
+    }
+  </script>
+
+      <!-- 문화재청 banner -->
+      <div class="banner">
+        <ul class="lists">
+          <li>list</li>
+          <li>list</li>
+          <li>list</li>
+          <li>list</li>
+          <li>list</li>
+          <li>list</li>
+          <li>list</li>
+        </ul>
+        <div class="indicator">아이콘 생성될 영역</div>
+      </div>
+      
+      <!-- list를 생성한 개수만큼 indicator안에 span태그를 생성해보자. -->
+      <script>
+        // class를 가져올 때는 인덱스를 가져온다. id는 유일해서 괜찮다. 클래스가 1개여도 붙인다.
+        let bannerBox = document.getElementsByClassName('banner')[0];
+        let bannerLists = bannerBox.getElementsByTagName('li');
+        // console.log(bannerLists)
+        // li가 배열[li, li, li ...]로 들어가는 것을 확인 가능
+  
+        let bannerLength = bannerLists.length;
+        console.log(bannerLength);
+        // li 개수 가져오기
+
+        // span tag를 넣을 class 를 가져와서 iconBox에 담자.
+        // indicator[0]에서 넣을 것이니 정확한 인덱스 입력 필수
+        let iconBox = bannerBox.getElementsByClassName('indicator')[0];
+    
+        let icons = ''; // span 태그 값을 넣기 위해 빈 문자열을 넣어준다.
+        for(let i=1; i<=bannerLength; i++) { //1부터 시작해서; li 개수 만큼; i++;
+          // console.log('반복'+i)
+          icons += '<span>'+i+'번 </span>'
+          // icons 에 <span>1</span> 2, 3, 4, 5... 를 넣기
+        }
+
+        // <span>1</span> 2, 3, 4, 5... 이 str로 삽입되어있는 것을 확인 가능
+        console.log(icons)
+
+
+        //innerText > text형식으로 들어간다. (태그 같은게 그대로 출력)
+        //innerHTML > html형식으로 들어간다.
+          iconBox.innerHTML = icons;
+      </script>
+
+
+      <!-- 네이버 웹툰 리스트와 요일 표시 -->
+      <!-- 15개의 리스트 작성 -->
+      <!-- 1~15 번호를 부여 -->
+      <div class="naver_webtoon">
+        <p>월요웹툰</p>
+        <p>화요웹툰</p>
+        <p>수요웹툰</p>
+        <p>목요웹툰</p>
+        <p>금요웹툰</p>
+        <p>토요웹툰</p>
+        <p>일요웹툰</p>
+        <ul>네이버 웹툰</ul>
+      </div>
+
+      <script>
+        // 함수이름() > 내장된 함수
+        // naver_webtoon이라는 class에 p태그 찾기
+        const tabmenu = document.querySelectorAll('.naver_webtoon p');
+        // 만들어진 p 태그 개수 만큼 담긴다.
+        const tabLength = tabmenu.length;
+        console.log('네이버 탭메뉴 개수'+tabLength);
+        const today = new Date().getDay(); // 오늘과 관련된 요일 번호가 들어올 것
+
+        // 일0 월1 화2 수3 목4 금5 토6 이므로
+        // 월0 화1 수2 목3 금4 토5 일6 이 되어야 한다.
+        // 즉 today-1을 해야 하며, 일요일0 일때만 조건을 걸어주면 된다. 
+        if(today==0){
+          today = 7
+        }
+        // 요일 웹툰 해당 일자에 class="on" 활성화 시키기
+        // 요일관련 숫자를 인덱스에 넣어 p태그 위치를 찾고 class="on" 부여
+        tabmenu[today-1].className = 'on';
+
+
+
+
+
+        // const는 한번만 업데이트 가능, 중복 불가
+        // let은 업데이트 가능 단, {블록}내에서만, 다른 블록{}에서 재선언은 불가
+        // var은 전부 가능해서 오류가 생길 확률이 높아지므로 지양한다.
+        const webtBox = document.getElementsByClassName('naver_webtoon')[0];
+        console.log(webtBox)
+        const webtUl = webtBox.getElementsByTagName('ul')[0];
+        // console.log(webtUl)
+
+        let webts = '';
+        for(let i=1; i<=15; i++) {
+          webts += '<li><span>'+i+'</span></li>';
+        }
+        webtUl.innerHTML = webts;
+
+        // 요일 넣기
+        console.log(new Date().getDay()); // 저장된 index번호 순차 : 일요일(0)~
+      </script>
+
+
+
+      <!-- 메뉴바 만들기 -->
+      <dl class="familysite">
+        <dt>소속기관</dt>
+        <dd>
+          <div>기관리스트</div>
+          <div>기관리스트</div>
+          <div>기관리스트</div>
+          <div>기관리스트</div>
+          <div>기관리스트</div>
+        </dd>
+      </dl>
+
+      <script>
+        // dt를 클릭하면 dd(보이게/안보이게)
+        // 대상을 하나만 지정 할 때는 All 을 쓰지 않는다.
+        // 클릭 할 dt 부르기
+        const dtBox = document.querySelector('.familysite dt');
+        // 보여졌다가 안보였다가 할 dd 부르기
+        const ddBox = document.querySelector('.familysite dd');
+
+        // 이벤트를 발생하게 만드는 함수 / 동작이 발생할 때
+        // function()=> 기본 | 얘를 호출했을 때만 발생
+        // ()=> 익명 함수 | 현재 사용하는 함수처럼 네임 호출이 필요 없을 때
+        dtBox.addEventListener('click', ()=>{
+
+          // let bools = true;
+          // console.log('클릭 실행');
+          if(ddBox.className==''){
+            ddBox.className = 'on';
+            // bools = false;
+          }else{
+            ddBox.className = '';
+            // bools = true;
+          }
+        });
+        // ddBox.className = 'on'
+        // ddBox.className = ''
+      </script>
+
+      <h1>태그</h1>
+      <h1>태그</h1>
+      <h1>태그</h1>
+      <script>
+        // query 
+        // get ~
+        // 메써드() | 내장 함수
+        // Name을 받기 때문에 '' 문자 | string을 받음
+        // 너무 길면 변수로 받는다.
+        let box = document.getElementsByTagName('h1')[1].style.color = 'red';
+      </script>
+
+</body>
+</html>

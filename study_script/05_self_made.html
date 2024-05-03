@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* position을 사용하기위해 relative할 부모를 잡는다. */
+    .cha_tab {position: relative;}
+    /* 목차를 수평으로 만들고 */
+    .cha_tab .tab_title {display: flex;}
+    /* 단순 목차를 편하게 보기 위해 꾸민 css */
+    .cha_tab .tab_title h1{margin: 0.5rem 1rem 0.5rem 0; background-color: #ff91a3;}
+    /* 뒤에 숨어져있는 div 크기와 position이 다르면 튀어나올 수 있으니 지정 */
+    .cha_tab .cha {position: absolute; top: 60px;left: 0;width: 200px; height: 120px;}
+    /* 실행(on)이 되었을 경우 나타나는 div | z-index를 주어서 맨 위로 올린다. */
+    .cha_tab .on{display: block; z-index: 10;background-color: #ffdfdf;text-align: center;position: absolute; top: 60px;left: 0;width: 200px;height: 120px;}
+  
+    /* 알아낸 지식 : className 을 넣으면 안의 class가 초기화되며 새값이 들어간다. */
+  </style>
+</head>
+<body>
+  <!-- ----------------------------------------------------------------- -->
+
+      <!-- 문화재청 공지사항 | 직접 코드를 짜봅시다! -->
+      <div class="cha_tab">
+        <!-- 목차끼리 묶어준다. 차후 index 번호만 맞도록 순서를 나열한다. -->
+        <div class="tab_title">
+          <h1>공지사항</h1>
+          <h1>보도자료</h1>
+        </div>
+        <div class="list">
+          <!-- 새로고침을 해도 기본으로 지정 되어있을 div에 미리 on을 부여 -->
+          <div class="notice cha on">
+            <p>공지사항 리스트</p>
+            <span>공지사항 더보기</span>
+          </div>
+          <div class="news cha">
+            <p>보도자료 리스트</p>
+            <span>보도자료 더보기</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        // 모든 content 태그 | n번째 content를 활성화(on)시키기 위함
+        const content = document.querySelectorAll('.list .cha');
+        
+        // 메뉴를 배열로 정리해서 번호를 매치
+        const menuList = ['공지사항', '보도자료'];
+        // console.log(menuList.indexOf('공지사항'))
+        
+        // 클릭할 제목(h1) 리스트 전체 찾기
+        const titleIndex = document.querySelectorAll('.tab_title h1');
+        
+        // 클릭하는 제목(h1)의 인덱스 구하기
+        titleIndex.forEach((el, index) => {
+          el.onclick = () => {
+            // console.log(index); // 인덱스 확인
+            
+            // on 클래스가 붙은 태그를 찾기
+            // 함수 바깥에서 선언을 하면 적용이 되지 않는다. 블록내에서 선언.
+            const onClass = document.querySelectorAll('.list .on')[0];
+
+            // 해당 메뉴(제목|h1)에 따라 on 이 발동되는 조건
+            if(index==menuList.indexOf('공지사항')){
+              onClass.className = '';
+              content[index].className = 'on';
+            }if(index==menuList.indexOf('보도자료')) {
+              onClass.className = '';
+              content[index].className = 'on';
+            }
+          };
+        });
+
+        
+
+
+
+
+        // // 보였다가 안보였다가 할 페이지
+        // const notice = document.getElementsByTagName('h1')[0];
+        // const news = document.getElementsByTagName('h1')[1];
+        // // console.log(notice) //클릭 할 공지사항
+        // // console.log(news) //클릭 할 보도자료
+
+        // const noticeDiv = document.getElementsByClassName('notice')[0];
+        // const newsDiv = document.getElementsByClassName('news')[0];
+        // console.log(noticeDiv)
+        // console.log(newsDiv)
+        // 인덱스도 구해야만...
+        // notice.addEventListener('click', ()=>{
+        //   //.notice에 클래스 on | 나머지 클래스 ''
+        //   // console.log('공지사항')
+        //   noticeDiv.className = 'on'
+        //   newsDiv.className = ''
+        // });
+        // news.addEventListener('click', ()=>{
+        //   //.news에 클래스 on | 나머지 클래스 ''
+        //   // console.log('보도자료')
+        //   noticeDiv.className = ''
+        //   newsDiv.className = 'on'
+
+        // });
+        
+        // z-index 사용해야 할 듯 (사용함)
+        // 변수[n] == n 일때 'on' 이 되고, 나머지 변수[m]은 전부 ''가 되도록
+        // notice 공지사항 0, news 보도쟈료 1
+        // 인덱스 값만으로 하는 방법?
+        // 위의 코드를 단순화 시켜보자.
+
+      </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="tab_area">
+    <h1>제목1</h1>
+    <p>리스트1</p>
+    <span>더보기1</span>
+    <h1>제목2</h1>
+    <p>리스트2</p>
+    <span>더보기2</span>
+    <h1>제목3</h1>
+    <p>리스트3</p>
+    <span>더보기3</span>
+  </div>
+
+  <script>
+    // h1을 클릭하면 p, span 디자인 변경
+    // query로 부르는게 더 편리하고 유연하다.
+    const hns1 = document.querySelectorAll('.tab_area h1')
+  </script>
+</body>
+</html>
