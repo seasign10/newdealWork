@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사용자 정의 함수</title>
+</head>
+<body>
+  <script>
+    // 함수 : 여러번 호출 
+    // 내장함수명(), 직접만드는 함수명()
+    
+    // 개발자가 직접 만드는 함수
+    function test(num1, txt1){ //  test(), test(매개변수, 매개변수2...) // 데이터 값 전달은 순서만 잘 지키면 된다.
+      
+      // alert('경고');
+      console.log(num1);
+      console.log(txt1);
+    };
+
+    test(1, 'text1'); // 인자값
+    test(2, 'text2'); // 인자값
+    
+    function addNum(num1, num2){ // 숫자 두개를 더해서 출력하는 함수
+      // console.log(num1+num2)
+      document.write(num1+num2)
+    };
+
+    addNum(13, 24)
+    
+  </script>
+</body>
+</html>

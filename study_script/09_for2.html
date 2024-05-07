@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>forEach</title>
+</head>
+<body>
+  <script>
+    let fruitArr = ['참외', '수박', '딸기', '바나나', '키위', '토마토']
+    for(let i=0;i<fruitArr.length;i++) {
+      console.log(`과일이름 : ${fruitArr[i]}`);
+    }
+
+    // forEach() 예제1
+    // 배열의 개수를 자동으로 파악하기 때문에 range 및 조건을 직접 지정해주지 않아도 된다.
+    // fruit로 인자 값을 받아보자.
+    fruitArr.forEach(function(fruit){ // item(배열에 속한 요소)를 출력하기 위한 매개변수
+      document.write(`<div>${fruit}</div>`);
+    });
+    
+    // forEach() 예제2
+    fruitArr.forEach(function(fruit,index){ // index 매개 변수 값을 가져올 수 있다.
+      document.write(`<div>${index+1}번째 과일 : ${fruit}</div>`);
+    });
+
+    // 숫자를 나열한 배열의 모든 값을 합산해서 출력해보자.
+    let gradeArr = [100, 80, 50, 46, 75, 91, 65];
+    let totalGrade = 0;
+    gradeArr.forEach(function(grade){
+      totalGrade += grade;
+      // console.log(totalGrade);
+    });
+    document.write(`<div>총합 : ${totalGrade}</div>`);
+    // 평균
+    // Math.round(숫자) > 반올림
+    let gradeAvg = Math.round(totalGrade/gradeArr.length)
+    document.write(`<div>평균 : ${gradeAvg}</div>`);
+
+    // 평균점수보다 높은 점수만 출력
+    gradeArr.forEach(function(grade){
+      if(grade > gradeAvg){
+        document.write(`<div>평균 이상 점수:${grade}</div>`)
+      };
+    });
+
+    // 네이버 메인 쇼핑영역 - 더보기 영역 만들기
+    let shopArea = [
+      {title:'쇼핑', totalPage:13},
+      {title:'맨즈', totalPage:6},
+      {title:'원쁠딜', totalPage:11},
+      {title:'쇼핑라이브', totalPage:7},
+    ];    
+  </script>
+
+  <!-- <button>이전</button>
+  <span>쇼핑아이템 더보기 1/13</span>
+  <button>다음</button> -->
+  <script>
+    // 반복적으로 4개의 더보기 출력(forEach)
+
+    shopArea.forEach(function(item){
+      document.write(
+        `
+        <div>
+          <button>이전</button>
+          <span>${item.title} 더보기 1/${item.totalPage}</span>
+          <button>다음</button>
+        </div>
+        `
+      )
+    });
+
+    //그렇다면 언제 for를 사용하고 forEach를 사용할까?
+    // for 은 부분, forEach는 전체를 불러오기 때문에, 수많은 데이터를 받아야 할 경우에는 for으로 제한을 걸어준다.
+
+    // 상품이 50개가 준비되어 있음. 10개만 먼저 가져오자.
+    for(let i=0;i<50;i++){
+      document.write(`<div>${i+1}번째 아이템</div>`);
+      if(i+1==10) break; // 종료
+    };
+
+    //
+    for(let i=0;i<50;i++){
+      if(i%2==0) continue // 건너뛰기
+      document.write(`<div>${i+1}번째 아이템</div>`);
+    };
+    </script>
+</body>
+</html>

@@ -40,6 +40,11 @@
     const lists = document.querySelectorAll('li');
     const nextBtn = document.querySelector('.btn_next');
     const prevBtn = document.querySelector('.btn_prev')
+
+    // 현재페이지번호, 총페이지수 생성
+    let cntNum = 1;
+    let totalNum = 3;
+
     nextBtn.addEventListener('click', ()=>{
       if(cntNum==totalNum){
         cntNum = 1
@@ -57,28 +62,21 @@
           cntBox.innerText = cntNum;
         }
       }
-    });
-    
+    })
     prevBtn.addEventListener('click', ()=> {
       if(cntNum>1) {
         cntNum--;
         lists[cntNum].style.display = 'none'
         lists[cntNum-1].style.display = 'block'
         cntBox.innerText = cntNum;
-      }
-      if(cntNum<=1) {
-        cntNum = totalNum; //3
-        // console.log()
+      } else if(cntNum<=1) {
+        cntNum = totalNum;
         lists[cntNum-1].style.display = 'block' // 인덱스2(3번째 사진 보여주기)
         lists[0].style.display = 'none' // 첫 이미지 감추기
         cntBox.innerText = cntNum; //3
-        console.log(cntNum)
       }
     });
 
-    // 현재페이지번호, 총페이지수 생성
-    let cntNum = 1;
-    let totalNum = 3;
 
     // const btnNext = document.querySelector('.paging .btn_next');
     // btnNext.addEventListener('click', ()=>{
