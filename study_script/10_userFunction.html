@@ -27,7 +27,22 @@
     };
 
     addNum(13, 24)
+
+    // 한 화면에 리스트요소(ul)를 생성할 때 A박스=5, B박스=3, C박스=10개를 만들자.
+    // document.write()로 출력해볼 것
+    function listBox(listNum){
+      let lists = `<ul>`;
+        for(let i=1;i<=listNum;i++){
+          lists += `<li>${i}번째 리스트</li>`;
+        }
+      lists += `</ul>`;
+      document.write(lists);
+    };
     
+    listBox(5);
+    listBox(3);
+    listBox(10);
+
   </script>
 </body>
 </html>
