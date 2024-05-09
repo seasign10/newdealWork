@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>합격률 판단</title>
+</head>
+<body>
+  <!-- 각 과목이 과락기준이 40점이상이어야하고, 세과목의 평균이 60점 이상 -->
+  <!-- 합격여부 판단 -->
+  <div class="pass">
+    <div>
+      국어점수
+      <!-- text로 값을 받기 때문에 number로 전환해주는 작업이 필요하다. -->
+      <!-- value값으로 미리 값을 받아서 로그를 찍어볼 수도 있다. -->
+      <input type="text" id="korNum" name="서버통신이므로 필수x" />
+    </div>
+    <div>
+      수학점수
+      <input type="text" id="mathNum" name="서버통신이므로 필수x" />
+    </div>
+    <div>
+      영어점수
+      <input type="text" id="engNum" name="서버통신이므로 필수x" />
+    </div>
+    <button type="submit">결과확인</button>
+    <p></p>
+  </div>
+  <script>
+    // 국어>=40 && 수학>=40 && 영어>=40
+    // (국어+수학+영어)/과목수.length >= 60
+    let passBtn = document.querySelector('.pass button')
+    
+    passBtn.addEventListener('click', ()=>{
+      // 각 input에 입력한 값 얻어오기
+      let korNum = document.querySelector('#korNum').value; // .value 값 가져오기
+      let mathNum = document.querySelector('#mathNum').value; 
+      let engNum = document.querySelector('#engNum').value; 
+      ko = Number(korNum)
+      math = Number(mathNum)
+      en = Number(engNum)
+      // console.log(koN+maN+enN)
+
+      msg = document.querySelector('.pass p')
+      if(ko>=40&&math>=40&&en>=40&&(ko+math+en)/3>=60){
+        msg.innerText = '합격입니다.'
+      }else{msg.innerText = '불합격입니다.'}
+    });
+
+
+  </script>
+</body>
+</html>

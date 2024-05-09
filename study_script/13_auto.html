@@ -4,11 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+  .box>div{color: pink; font-size: 200px;}
+  .box>div.on{color: red;}
+  </style>
 </head>
 <body>
   <script>
-    // setInterval(호출할함수명, 1000) : 일정한 시간마다 반복실행 *1000 > 초단위
+    // setInterval(호출할함수명, 1000) : 일정한 시간마다 반복실행 *1000 > 1초
     // setInterval(()=>{익명함수로 작성},시간) *재사용할 일이 없으면 익명함수로 작성
+
+    function test(intervalNum, id){
+      console.log(`3초마다 반복 실행 : ${id} : ${intervalNum}`);
+    }
+    let num = 0;
+    // test() 를 인자로 받으면 그대로 실행되기 때문에, 바로 실행되지 않도록 인자를 익명함수로 감싼다. ()=>
+    // 감싸지 않으면 console에 찍히는것보다 함수가 실행되는 것이 빠른것을 확인 가능하다.
+    let auto = setInterval(()=>test(num++, 'ID'), 3000);
+    // ++ 사용 시 다음 줄에서 실행될 확률이 높기 때문에 0부터 나올 수 있다.
+    
+    // let auto2 = setInterval(()=>test(num, 'ID'), 3000); 
+    
+    // 같은 함수지만 각각 호출시 함수가 가지고 있는 아이디 넘버를 출력한다.
+    console.log(auto);
+    // console.log(auto2);
+
+    // 계속 반복실행되면 접근성이 낮아지고 사용자 불편이 늘어나기 때문에 멈추는게 필요
+    clearInterval(auto);
+  </script>
+
+  <div class="box">
+    <button>자동실행</button>
+    <div>텍스트 박스</div>
+  </div>
+  <script>
+    const textBox = document.querySelector('.box div')
+    const btn = document.querySelector('button')
+    // console.log(textBox.style)
+    // console.log(btn.innerText)
+
+    function colorChange(){
+      // 글자색 분홍 > 빨강 > 분홍 ... >> on을 반복하는 함수
+
+      // if(textBox.className=='on'){
+        //   textBox.className = ''
+        // }else{
+        //   textBox.className = 'on'
+        // }
+        // toggle을 사용하여 class="on"을 사용할 수 있다.
+          textBox.classList.toggle('on')
+        };
+        
+        //setIntercal(colorChange, 500);
+        
+        // let autoColor = 0 // autoColor = null
+        let bool = true; // true, false
+        btn.addEventListener('click', ()=>{
+          // btn.innerText = '자동실행'
+          // btn.innerText = '자동실행 제거'
+          if(btn.innerText == '자동실행'){ // autoColor == 0
+            // bool = false;
+            btn.innerText = '자동실행 제거';
+            autoColor = setInterval(colorChange, 500);
+            return autoColor
+            // 또는 전역변수로 외부에 let autoColor = null 로 변수를 그대로 가져와도 된다.
+          }else{
+            btn.innerText = '자동실행'
+            // bool = true;
+            clearInterval(autoColor);
+          };
+        });
   </script>
 </body>
 </html>

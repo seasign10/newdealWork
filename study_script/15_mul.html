@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // A조건 그리고 B조건 모두 만족 : 논리곱(A&&B)
+    // A조건 또는 B조건 c조건 중 하나라도 만족 : 논리합(A||B)
+    // true 또는 false
+    let numA = 2, numB = 2, numC= 3;
+    let result1 = numA==numB;
+    let result2 = numA<numC;
+    let result3 = numB==numC;
+
+    console.log(`result1 : ${result1}`) // true
+    console.log(`result2 : ${result2}`) // true
+    console.log(`result3 : ${result3}`) // false
+
+    console.log(`${result1&&result2}`); // true
+    console.log(`${result2&&result3}`); // false   
+    console.log(`${result1||result2||result3}`); // true   
+</script>
+
+<div class="login_area">
+  <!-- 디자인을 하려면 class를 줘서 사용하는 것이 좋다. -->
+  <div>ID<input type="text" id="userId" name="" /></div>
+  <div>PASSWORD<input type="password" id="userPwd" name="" /></div>
+  <p class="msg_box"></p>
+  <button type="submit">LOGIN</button>
+</div>
+<script>
+  // 1) 아이디값, 비밀번호값
+  const userId = document.querySelector('#userId');
+  const userPwd = document.querySelector('#userPwd');
+  const loginBtn = document.querySelector('.login_area button')
+  const msgBox = document.querySelector('.msg_box')
+
+  // 2) 로그인 버튼을 클릭했을 때, 아이디값 + 비밀번호값 유효성 검사
+  loginBtn.addEventListener('click', ()=>{
+    // console.log(userId.value)
+    let emptyId = userId.value.length == 0; //  true 또는 false
+    let emptyPwd = userPwd.value.length == 0; // true 또는 false
+
+    // 아이디값이나 비밀번호값이 true이면 유효성 검사
+    if(emptyId || emptyPwd){ // 참거짓을 이용하여 조건을 걸 수 있다.
+      // console.log('아이디나 비밀번호를 입력하세요.')
+      if(emptyId){
+        msgBox.innerText = '아이디를 입력해주세요';
+        userId.focus();
+      }else{
+        msgBox.innerText = '비밀번호를 입력해주세요';
+        userId.focus();
+      }
+    }
+  });
+
+  // 20~30대 여성, 남성으로 구성된 우리반
+  let students = [
+    {gender: 'man', age:'35'},
+    {gender: 'man', age:'30'},
+    {gender: 'woman', age:'29'},
+    {gender: 'man', age:'24'},
+    {gender: 'woman', age:'24'},
+    {gender: 'woman', age:'32'},
+  ];
+
+  // students에 저장된 데이터중에 20대 여성만 콘솔에 출력
+  for(i=0;i<students.length;i++){
+    let genders = students[i].gender
+    let ages = students[i].age
+    if(genders=='woman'&&(ages<30&&ages>=20)){
+      console.log(students[i])
+    }
+  };
+  // students에 저장된 데이터중에 30대 남성만 콘솔에 출력
+  for(i=0;i<students.length;i++){
+    let genders = students[i].gender
+    let ages = students[i].age
+    if(genders=='man'&&(30<=ages&&ages<40)){
+      console.log(students[i])
+    }
+  };
+
+  //fotEach
+  students.forEach((item)=>{
+    if((item.age>=20 && item.age<30)&&item.gender=='woman'){
+      console.log(`${item.gender} : ${item.age}세`)
+    }
+  });
+</script>
+
+  <div class="avg_area">
+    <input type="text" id="ko_grade" name="">
+    <input type="text" id="mat_grade" name="">
+    <input type="text" id="en_grade" name="">
+    <button type="submit">확인</button>
+  </div>
+
+  <script>
+    const koG = document.querySelector('.ko_grade')
+    const matG = document.querySelector('.mat_grade')
+    const enG = document.querySelector('.en_grade')
+    const btnMul = document.querySelector('.avg_area button')
+
+    
+  </script>
+
+</body>
+</html>
