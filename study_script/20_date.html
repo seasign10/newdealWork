@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // date 함수를 생성
+    let today = new Date();
+    // document.write(today);
+
+    // 년도
+    document.write(`<div>${today.getFullYear()}년도</div>`);
+    // 월 : 0월 = 1월
+    document.write(`<div>${today.getMonth()+1}월</div>`);
+    // 일
+    document.write(`<div>${today.getDate()}일</div>`);
+    // 요일 0 = 일요일 | 6 = 토요일
+    let days = ['일', '월', '화', '수', '목', '금', '토'];
+    document.write(`<div>${today.getDay()}요일</div>`); // n요일
+    document.write(`<div>${days[today.getDay()]}요일</div>`);
+
+    // 시간-----------------------------------------오전/오후시간 표현
+    let hour = today.getHours()
+    if(hour>12){document.write(`오후 ${hour-12}시`)}
+    document.write(`<div>${today.getHours()}시</div>`); // 16시 > 오후4시
+    
+    // 분
+    document.write(`<div>${today.getMinutes()}분</div>`);
+
+    // 초
+    document.write(`<div>${today.getSeconds()}초</div>`);
+
+    // 밀리초
+    document.write(`<div>${today.getMilliseconds()}밀리초</div>`);
+
+    // 기준일 = 컴퓨터가 계산 수행을 하기 위한 조건
+    document.write(`<div>${today.getTime()}기준일</div>`);
+
+
+
+
+
+
+    // 오후 4:34
+    let times = '';
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    if(hour>12){times = `오후 ${hours-12}:`}else{times = `오전 ${hours}:`};
+    times += minutes;
+    document.write(times);
+    
+    // 2024-05-09
+    let dates = ''
+    let years = today.getFullYear();
+    let month = today.getMonth()+1;
+    let day = today.getDate();
+    // console.log(String(month).length)
+    // console.log(month.length)
+
+    //두자리 미만 상태는 이렇게 사용할 수도 있다.
+    if(month<10){
+      // String으로 감싸주지 않아도 문자열이면 합쳐질 수 있다.
+      month = '0'+month
+      // console.log(month)
+    }
+    if(String(day).length==1){
+      day = '0'+day
+      // console.log(day)
+    }
+    dates = `${years}-${month}-${day}`
+    document.write(`<div>${dates}</div>`)
+  </script>
+</body>
+</html>

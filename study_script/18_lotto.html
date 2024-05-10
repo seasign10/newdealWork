@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>당첨번호</title>
+  <style>
+    .lotto span {display: inline-block; width: 30px; height: 30px; border-radius: 15px;text-align: center;line-height: 30px;color: #fff;}
+    
+    .lotto_box span{display: inline-block; margin: 4px; width: 30px; height: 30px; border-radius: 15px;text-align: center;line-height: 30px;color: #fff;}
+    .type1 {background-color: orange;}
+    .type2 {background-color: blue;}
+    .type3 {background-color: red;}
+    .type4 {background-color: gray;}
+    .type5 {background-color: green;}
+  </style>
+</head>
+<body>
+  <div class="lotto">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <script>
+    // 1~10 노랑
+    //11~20 파랑
+    //21~30 빨강
+    //31~40 회색
+    //41~45 녹색
+
+    // 외부에서 변수로 넣으면 하나의 숫자가 담겨넘겨지기 때문에 똑같은 숫자가 출력이 된다.
+    // let lottoNum = Math.floor(Math.random()*45)+1
+    // console.log(lottoNum)
+    
+    let lottoBox = document.querySelectorAll('.lotto span')
+    for(i=0;i<lottoBox.length;i++){
+      lottoNum = Math.floor(Math.random()*45)+1
+      lottoBox[i].innerText = lottoNum
+      if(lottoNum<=10){
+        lottoBox[i].style.backgroundColor = 'orange'
+      }else if(lottoNum<=20){
+        lottoBox[i].style.backgroundColor = 'blue'
+      }else if(lottoNum<=30){
+        lottoBox[i].style.backgroundColor = 'red'
+      }else if(lottoNum<=40){
+        lottoBox[i].style.backgroundColor = 'grey'
+      }else{lottoBox[i].style.backgroundColor = 'green'}
+    }
+  </script>
+
+  <script>
+    let lottoArr = []; // 배열에 저장
+    for(let i=0;i<6;i++){
+      lottoArr[i] = Math.floor(Math.random()*45)+1
+    }
+    console.log(lottoArr)
+    let lotto = '<div class="lotto_box">';
+    lottoArr.forEach((item)=>{
+      if(item<=10){
+        lotto += `<span class="type1">${item}</span>`
+      }else if(item<=20){
+        lotto += `<span class="type2">${item}</span>`
+      }else if(item<=30){
+        lotto += `<span class="type3">${item}</span>`
+      }else if(item<=40){
+        lotto += `<span class="type4">${item}</span>`
+      }else{
+        lotto += `<span class="type5">${item}</span>`
+      }
+    });
+    lotto += '</div>';
+
+    document.write(lotto);
+    // 대상 .innerHTML
+  </script>
+</body>
+</html>

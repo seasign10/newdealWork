@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math : 계산 수행에 도움을 주는 메서드 집합</title>
+</head>
+<body>
+  <!-- method == 함수 -->
+  <script>
+    let num1 = -30.73;
+    let num2 = 30.73;
+    let num3 = 30.25;
+
+    // Math.abs() : 절대값으로 반환
+    console.log(`num1 절대값 : ${Math.abs(num1)}`);
+    console.log(`num2 절대값 : ${Math.abs(num2)}`);
+    
+    // Math.round() : 소수점자리 반올림(.5이상)
+    console.log(`num2 반올림 : ${Math.round(num2)}`);
+    console.log(`num3 반올림 : ${Math.round(num3)}`);
+
+    // Math.ceil() : 소수점자리 올림
+    console.log(`num2 올림 : ${Math.ceil(num2)}`);
+    console.log(`num3 올림 : ${Math.ceil(num3)}`);
+    
+    // Math.floor() : 소수점자리 내림
+    console.log(`num2 내림 : ${Math.floor(num2)}`);
+    console.log(`num3 내림 : ${Math.floor(num3)}`);
+
+    // Math.random() : 0~1사이의 무작위 난수 반환
+    console.log(`숫자 무작위 반환 : ${Math.ceil(Math.random()*100)}`) // 100까지의 자연수
+    // 나중에 sns무작위 닉네임처럼 수식어 배열에서 뽑아쓰는 방식도 재미있을 듯
+    console.log(`숫자 무작위 반환 : ${Math.random()}`)
+    console.log(`숫자 무작위 반환 : ${Math.random()}`)
+  </script>
+
+  <ul class="tab">
+    <li>탭메뉴1</li>
+    <li>탭메뉴2</li>
+    <li>탭메뉴3</li>
+    <li>탭메뉴4</li>
+    <li>탭메뉴5</li>
+  </ul>
+  <script>
+    // 새로고침할 때 마다 무작위로 탭메뉴 활성화
+    // li[0], li[1], ... li[3] | 총 4개의 list
+    let listNum = document.querySelectorAll('.tab li').length;
+    let randomNum = Math.floor(Math.random()*listNum);
+    // console.log(listNum)
+    // console.log(Math.floor(Math.random()*4));
+
+    document.querySelectorAll('.tab li')[randomNum].style.backgroundColor = 'pink'
+  </script>
+
+</body>
+</html>

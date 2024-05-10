@@ -7,7 +7,7 @@
 </head>
 <body>
   <!-- 각 과목이 과락기준이 40점이상이어야하고, 세과목의 평균이 60점 이상 -->
-  <!-- 합격여부 판단 -->
+  <!-- 합격여부 판단 : 합격|불합격-->
   <div class="pass">
     <div>
       국어점수
@@ -40,13 +40,35 @@
       math = Number(mathNum)
       en = Number(engNum)
       // console.log(koN+maN+enN)
-
       msg = document.querySelector('.pass p')
+  
+      // 유효성 검사 : 0~100 
+      // 예외의 경우 : 0보다 작은 경우, 100보다 큰 경우 | 값이 입력안된 경우
+  
+      
+      // 값이 없을 때 korNum, mathNum, engNum.lengh == 0 || korNum, mathNum, engNum == ''
+      if(korNum=='' || mathNum=='' || engNum==''){
+        console.log('값을 입력하세요')
+      }else if(ko<0||math<0||en<0||ko>100||math>100||en>100){
+        console.log('0~100까지의 숫자만 입력하세요')
+      }
+
+      // 타입도 걸러서 숫자만 받을 수 있을까?
+      // console.log(typeof ko);
+      // console.log(typeof korNum);
+      // else if(typeof ko == string || typeof math == string || typeof en == string){
+      //   console.log('숫자를 입력하세요')
+      // }
+
+
+      // let passA = (ko>=40 && math>=40 && en >=40);
+      // let passB = (ko+math+en)/3 >= 60;
+      // if(passA && passB)
       if(ko>=40&&math>=40&&en>=40&&(ko+math+en)/3>=60){
         msg.innerText = '합격입니다.'
-      }else{msg.innerText = '불합격입니다.'}
+        msg.style.color = 'blue'
+      }else{msg.innerText = '불합격입니다.'; msg.style.color = 'red'}
     });
-
 
   </script>
 </body>

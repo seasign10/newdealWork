@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- <script>
+    let lists = ['가위', '바위', '보']
+    let btn = '<div class="rsp">'
+    for(i=0;i<lists.length;i++){
+      btn += `<button>${lists[i]}</button>`
+    };
+    // 버튼이 우선 생겨야 이후에 document 작업을 할 수 있으므로 순서 주의
+    btn += '</div>'
+    document.write(btn)
+
+    // console.log(lists[Math.floor(Math.random()*lists.length)]);
+    let rsp = lists[Math.floor(Math.random()*lists.length)]
+    let msg = ''
+
+    let rspBtn = document.querySelectorAll('button');
+    // console.log(rspBtn)
+    rspBtn.forEach((item)=>{
+      // console.log(item)
+      item.addEventListener('click', ()=>{
+        let vic = item.innerText
+        let wins = (vic == '가위' && rsp == '바위')||(vic == '바위' && rsp == '보')||(vic == '보' && rsp == '가위')
+        let loses = (vic == '가위' && rsp == '보')||(vic == '바위' && rsp == '가위')||(vic == '보' && rsp == '바위')
+        if(vic == rsp){msg+='<p>비겼습니다</p>'}
+        else{
+          if(wins){msg += '<p>졌습니다</p>'}
+          else{msg += '<p>이겼습니다</p>'}
+        };
+        msg += btn+msg+`<p>나 : ${vic} | 컴퓨터 : ${rsp}</p>`
+        msg = ''
+      });
+    });
+  </script> -->
+
+
+  <button type="button">바위</button>
+  <button type="button">가위</button>
+  <button type="button">보</button>
+  <script>
+    let user = document.querySelectorAll('button');
+    // 컴퓨터(random) | 나(button)
+    let comTxt = ['바위', '가위', '보'];
+    
+    user.forEach((item)=>{
+      let comNum = Math.floor(Math.random()*3);
+      // console.log(comTxt[comNum])
+  
+      let userChoice = item.innerText;
+      let computer = comTxt[comNum];
+      // 내가 이길 때, 질 때, 비길 때
+      let win = (userChoice=='가위'&&computer=='보')||(userChoice=='바위'&&computer=='가위')||(userChoice=='보'&&computer=='바위');
+      let lose = (userChoice=='가위'&&computer=='바위')||(userChoice=='바위'&&computer=='보')||(userChoice=='보'&&computer=='가위');
+      
+      item.addEventListener('click', ()=>{
+        console.log(`user : ${userChoice} | com:${computer}`)
+        if(win){
+          console.log('이겼습니다')
+        }else if(lose){
+          console.log('졌습니다')
+        }else if(userChoice == computer){console.log('비겼습니다.')}
+      });
+    });
+  </script>
+</body>
+</html>

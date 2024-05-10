@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 태어난 날부터 오늘까지 경과된 일자
+    // 태어날 날(1995.10.27)
+    let birth = new Date(1995,12,27);
+    // 오늘(2024.05.10)
+    let today = new Date(); // 1월 = 0월
+    // console.log(today)
+    // getTime() : 1970년도부터 경과한 시간
+
+    // console.log(today.getTime());
+    // console.log(birth.getTime());
+    let diff = today.getTime()-birth.getTime();
+    console.log(Math.floor(diff/1000/60/60/24/365)); // 밀리초단위(1000)>초(60)>분(60>시간(24)
+  
+    // 개강일 2024 04 22 >> 개강일이 지났습니다.
+    // 다음주 15일(석가탄신일) : '태어나주셔서 감사합니다. 잘쉬겠습니다.'
+    let opens = new Date(2024,4,22);
+    let openDate = Math.ceil((today.getTime()-opens.getTime())/1000/60/60/24);
+    // console.log(openDate)
+    if(openDate>1){
+      console.log('개강일이 지났습니다.')
+    }else if(openDate == 0){
+      console.log('개강일 입니다.')}else{console.log(`개강일이 ${Math.abs(openDate)}일 남았습니다.`)}
+
+  </script>
+</body>
+</html>
