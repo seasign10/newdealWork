@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {margin: 0;padding: 0;list-style: none;}
+    ul {display: flex;}
+    li {text-align: center; margin: 1rem;}
+    .img {width: 141px;height: 200px;background-color: #fff;}
+    div {display: flex;}
+    span {margin: 1rem; width: 130px;}
+    /* li:first-child .img{background: url('../src/cafe1.png'); background-size: cover;}
+    li:nth-child(2) .img{background: url('../src/cafe2.png'); background-size: cover;}
+    li:nth-child(3) .img{background: url('../src/cafe3.png'); background-size: cover;}
+    li:nth-child(4) .img{background: url('../src/cafe4.png'); background-size: cover;} */
+  </style>
+</head>
+<body>
+  <!-- <ul>
+    <li>
+      <img class="img" src="" alt="아메리카노 2000원">
+      <dl>아메리카노</dl>
+      <dt>2000</dt>
+    </li>
+    <li>
+      <img class="img" src="" alt="카푸치노 3000원">
+      <dl>카푸치노</dl>
+      <dt>3000</dt>
+    </li>
+    <li>
+      <img class="img" src="" alt="카페라떼 3500원">
+      <dl>카페라떼</dl>
+      <dt>3500</dt>
+    </li>
+    <li>
+      <img class="img" src="" alt="밀크티 4000원">
+      <dl>밀크티</dl>
+      <dt>4000</dt>
+    </li>
+  </ul> -->
+  <script>
+    // 아이스 '음료명'를 주문하시겠습니까?
+    // confirm() : true, false 값만 얻을 수 있음
+    // 확인: '음료명'을 몇잔 드릴까요?
+    // prompt() : input에 입력 가능
+    // 확인: 결제금액은 '얼마'입니다.
+    // 확인: 결제금액 입력 > prompt(): input에 입력가능
+    // -------- 음료 받는 곳 > '음료명'이 준비되었습니다.
+
+    // body 생성
+    const menuName = ['아메리카노', '카푸치노', '카페라떼', '밀크티'];
+    const menuPrice = [2000, 2500, 3000, 3500];
+    
+    let menuList = '<ul>'
+    for(i=0;i<menuName.length;i++){
+      menuList += `
+      <li>
+        <div class="img" src="../src/cafe${i}.png" alt="${menuName[i]} ${menuPrice[i]}원" ></div>
+        <dt>${menuName[i]}<dt>
+        <dd>${menuPrice[i]}<dd>
+      </li>
+      `
+    };
+    menuList += `
+    </ul>
+    <p>------주문 대기------</p>
+    <div class="menu_list"></div>
+    `;
+    document.innerHTML(menuList);
+
+    const menu = document.querySelectorAll('li');
+    const takeOff = document.querySelector('div .menu_list');
+    menu.forEach(function(item, i){
+      
+      // 왜 dt과 dl이 따로 구분되어있지 않을까? > dl이 아닌 dd였다...
+      // console.log(item)
+      // console.log(item.querySelector('dt').innerText)
+      
+      const imgCover = item.querySelector('.img');
+      
+      // style 적용도 순서를 지키지 않으면 적용이 안될 수 있다.
+      imgCover.style.background = `url('../src/cafe${i+1}.png')`;
+      imgCover.style.backgroundSize = 'cover';
+      const imgSrc = `../src/cafe${i+1}.png`;
+
+      // console.log(`src : ${imgSrc} | alt : ${imgAlt}`)
+      const drinkPrice = item.querySelector('dd').innerText
+      const drink = item.querySelector('dt').innerText
+      item.addEventListener('click',()=>{
+        let bool = confirm(`아이스 ${drink}을 주문하시겠습니까?`);
+        // console.log(bool)
+        if(bool == true){
+          let cnt = prompt(`${drink} 몇 잔 드릴까요?`);
+          if(cnt>=1){
+            let price = cnt * Number(drinkPrice);
+            let priceCheck = prompt(`결제금액은 ${price}원 입니다.`);
+            // console.log(priceCheck)
+            if(priceCheck == price){
+              alert('결제되었습니다.');
+              // 메뉴 추가
+              takeOff.innerHTML += `
+              <span>
+                <p><img class="img" src="${imgSrc}" alt="${drink} ${drinkPrice}" /></p>
+                주문하신 ${drink} ${cnt}잔 준비되었습니다.</span>
+              `
+            }else if(priceCheck==null){
+              alert('취소되었습니다.')
+            }else{
+              alert('금액을 다시 확인해주세요.')
+            };
+          }else{alert('취소되었습니다.')};
+        }else{alert('취소되었습니다.')};
+      });
+    });
+
+  </script>
+</body>
+</html>

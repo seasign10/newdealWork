@@ -6,7 +6,7 @@
   <title>Document</title>
 </head>
 <body>
-  <!-- <script>
+  <script>
     let lists = ['가위', '바위', '보']
     let btn = '<div class="rsp">'
     for(i=0;i<lists.length;i++){
@@ -35,14 +35,17 @@
         };
         msg += btn+msg+`<p>나 : ${vic} | 컴퓨터 : ${rsp}</p>`
         msg = ''
+        document.querySelector('div#aaa').append(btn+msg)
       });
     });
-  </script> -->
+  </script>
 
 
+  <div id="aaa">
   <button type="button">바위</button>
   <button type="button">가위</button>
   <button type="button">보</button>
+</div>
   <script>
     let user = document.querySelectorAll('button');
     // 컴퓨터(random) | 나(button)

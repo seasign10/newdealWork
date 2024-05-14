@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // 메서드(함수())
+    // 조건문, 반복문, +대상선택만 정확히 
+    // 함수화() >> 함수를 재사용()
+    // 문자열(원소)의 개수 : length
+
+    // // 사용자에게 아이디 값을 받아서 조건이 5자 이상 10자 이하
+    // let userId = prompt('아이디를 만들어주세요.');
+    // console.log(userId.length);
+    // if (userId.length==0){alert('아이디를 입력해주세요.')}
+    // else if(userId.length<5 || userId.length>10){
+    //   // 5~10자 이외의 결과값이 잘못됐다고 알려줘야 함.
+    //   alert('5~10자 이내의 아이디를 입력해주세요.');
+    // }else{alert('확인되었습니다.');}
+
+    // 문자열 탐색 메서드
+    // indexOf() : 앞에서부터 일치하는 문자열 인덱스번호
+    // lastIndexOf() : 뒤에서 가까운
+    // 문자열을 탐색했을 때 결과가 포함되어있지 않으면 -1을 출력
+    const str = 'Javascript';
+    console.log(str.indexOf('a')); //1
+    console.log(str.lastIndexOf('a')); //3
+    console.log(str.lastIndexOf('A')); //-1
+
+    // 유효성 검증
+    // 이메일 주소를 받는다. user@naver.com
+    // 이메일 주소에 @문자와 .문자를 포함하는지의 여부를 확인
+
+    // let email = prompt('이메일 주소를 입력하세요.');
+    let email = 'user@naver.com';
+    if(email==0){alert('이메일을 입력하세요.')}
+    else if(email.indexOf('@')==-1 || email.indexOf('.com'||'.net'||'.kr')==-1){ // '.'만 넣어도 될듯
+      // console.log(`@ : ${email.indexOf('@')} | .com...  : ${email.indexOf('.com'||'.net'||'.kr')}`)
+      alert('유효한 이메일 값이 아닙니다.');
+    }
+  </script>
+</body>
+</html>

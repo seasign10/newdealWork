@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>가위 바위 보 게임</title>
+</head>
+<body>
+  <div id="rsp">
+    <button type="button">바위</button>
+    <button type="button">가위</button>
+    <button type="button">보</button>
+  </div>
+  <div id="result"></div> <!-- 결과를 표시할 div -->
+  <script>
+    let lists = ['가위', '바위', '보'];
+    let rspBtn = document.querySelectorAll('#rsp button');
+    rspBtn.forEach((item) => {
+      item.addEventListener('click', () => {
+        let userChoice = item.innerText;
+        let computerChoice = lists[Math.floor(Math.random() * lists.length)];
+        let result = determineResult(userChoice, computerChoice);
+        displayResult(userChoice, computerChoice, result);
+      });
+    });
+
+    function determineResult(user, computer) {
+      if (user === computer) return '비겼습니다';
+      if ((user === '가위' && computer === '보') || (user === '바위' && computer === '가위') || (user === '보' && computer === '바위')) return '이겼습니다';
+      return '졌습니다';
+    }
+
+    function displayResult(user, computer, result) {
+      let resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `<p>나: ${user} | 컴퓨터: ${computer} - ${result}</p>`;
+    }
+  </script>
+</body>
+</html>
