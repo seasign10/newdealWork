@@ -6,11 +6,35 @@
   <title>Document</title>
   <style>
     * {margin: 0;padding: 0;list-style: none;}
-    ul {display: flex;}
-    li {text-align: center; margin: 1rem;}
-    .img {width: 141px;height: 200px;background-color: #fff;}
-    div {display: flex;}
-    span {margin: 1rem; width: 130px;}
+    body {background-color: #d3bcea;}
+    h1.title {color:#fff; width: 100%; padding: 3rem 0; display: block;font-size: 52px;text-align: center;font-weight: 900;background-color: #ffd466;}
+    ul {display: flex; width: 100%; justify-content: center;background-color: #fff;}
+    li {text-align: center; margin: 1rem;cursor: pointer; border-radius: 10px;padding-bottom: 1rem;}
+    li:hover {background-color: #fff5d3;}
+    li:active {background-color: #ffe99f;}
+    .img {width: 141px;height: 200px;}
+    dt {font-weight: bold;margin-bottom: 0.2rem;}
+    .st {display: flex;background-color: #d3bcea;}
+    .wait_item {
+      margin: 1rem; 
+      width: 166px; 
+      border-radius: 5px; 
+      border: 1px dotted #9f6eb0;
+      background-color: #dacaea; 
+      display: flex;flex-direction: 
+      column;align-items: center;
+    }
+    .num {font-weight: bold;}
+    .order_on {
+      text-align: center; 
+      padding: 0.5rem;
+      width: 150px;
+      background-color: #f2ecf9; 
+      border-top: 1px solid #d0b0da;
+      color: #48374e;
+      overflow: hidden;
+    }
+    .wating {text-align: center; background-color: #b17be7;padding:0.5rem 0;color: #ffdf8d;font-weight: 700;}
     /* li:first-child .img{background: url('../src/cafe1.png'); background-size: cover;}
     li:nth-child(2) .img{background: url('../src/cafe2.png'); background-size: cover;}
     li:nth-child(3) .img{background: url('../src/cafe3.png'); background-size: cover;}
@@ -53,42 +77,48 @@
     const menuName = ['아메리카노', '카푸치노', '카페라떼', '밀크티'];
     const menuPrice = [2000, 2500, 3000, 3500];
     
-    let menuList = '<ul>'
+    let menuList = '<h1 class="title">MENU</h1><ul>'
     for(i=0;i<menuName.length;i++){
       menuList += `
       <li>
         <div class="img" src="../src/cafe${i}.png" alt="${menuName[i]} ${menuPrice[i]}원" ></div>
-        <dt>${menuName[i]}<dt>
-        <dd>${menuPrice[i]}<dd>
+        <dl>  
+          <dt>${menuName[i]}<dt>
+          <dd><span class="item_price">${menuPrice[i]}</span>원<dd>
+        <dl>
       </li>
       `
     };
     menuList += `
     </ul>
-    <p>------주문 대기------</p>
-    <div class="menu_list"></div>
+    <p class="wating">ORDER WAITING . . .</p>
+    <div class="st"></div>
     `;
-    document.innerHTML(menuList);
+    // write과 사용방법을 구분하자,
+    document.body.innerHTML = menuList;
 
     const menu = document.querySelectorAll('li');
-    const takeOff = document.querySelector('div .menu_list');
+    const takeOff = document.querySelector('.st');
+    // console.log(takeOff);
     menu.forEach(function(item, i){
       
-      // 왜 dt과 dl이 따로 구분되어있지 않을까? > dl이 아닌 dd였다...
+      // 왜 dt과 dl이 따로 구분되어있지 않을까? > dl이 아닌 dd였다... | dl은 dt와 dd를 감싸는 태그
       // console.log(item)
       // console.log(item.querySelector('dt').innerText)
       
       const imgCover = item.querySelector('.img');
       
       // style 적용도 순서를 지키지 않으면 적용이 안될 수 있다.
-      imgCover.style.background = `url('../src/cafe${i+1}.png')`;
-      imgCover.style.backgroundSize = 'cover';
+      imgCover.style.background = `url('../src/cafe${i+1}.png') 60% 0% / cover`;
+      // imgCover.style.backgroundSize = 'cover';
       const imgSrc = `../src/cafe${i+1}.png`;
 
       // console.log(`src : ${imgSrc} | alt : ${imgAlt}`)
-      const drinkPrice = item.querySelector('dd').innerText
       const drink = item.querySelector('dt').innerText
+      const drinkPrice = item.querySelector('dd .item_price').innerText
+      // console.log(typeof drinkPrice)
       item.addEventListener('click',()=>{
+        // console.log(`drinkPrice : ${drinkPrice} | drink ${drink}`);
         let bool = confirm(`아이스 ${drink}을 주문하시겠습니까?`);
         // console.log(bool)
         if(bool == true){
@@ -100,10 +130,11 @@
             if(priceCheck == price){
               alert('결제되었습니다.');
               // 메뉴 추가
+              // console.log(takeOff);
               takeOff.innerHTML += `
-              <span>
-                <p><img class="img" src="${imgSrc}" alt="${drink} ${drinkPrice}" /></p>
-                주문하신 ${drink} ${cnt}잔 준비되었습니다.</span>
+              <div class="wait_item">
+                <img class="img" src="${imgSrc}" alt="${drink} ${drinkPrice}" />
+                <p class="order_on">주문하신 ${drink}<br /><span class="num">${cnt}</span>잔 준비되었습니다.</p></div>
               `
             }else if(priceCheck==null){
               alert('취소되었습니다.')

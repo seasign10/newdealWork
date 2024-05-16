@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    ul, ol, li{list-style: none;}
+    .upload {margin: 1rem 0;}
+    .file_name {margin-left: 0.3rem;}
+    .file_false {margin-left: 0.3rem; color: red;}
+    .nav {display: flex;}
+    .nav li {width: 120px; height: 60px; margin: 0.3rem;text-align: center;line-height: 70px; padding:0 1rem;}
+  </style>
+</head>
+<body>
+  
+  <script>
+    // 메서드(함수())
+    // 조건문, 반복문, +대상선택만 정확히 
+    // 함수화() >> 함수를 재사용()
+    // 문자열(원소)의 개수 : length
+
+    // // 사용자에게 아이디 값을 받아서 조건이 5자 이상 10자 이하
+    // let userId = prompt('아이디를 만들어주세요.');
+    // console.log(userId.length);
+    // if (userId.length==0){alert('아이디를 입력해주세요.')}
+    // else if(userId.length<5 || userId.length>10){
+    //   // 5~10자 이외의 결과값이 잘못됐다고 알려줘야 함.
+    //   alert('5~10자 이내의 아이디를 입력해주세요.');
+    // }else{alert('확인되었습니다.');}
+
+    // 문자열 탐색 메서드
+    // indexOf() : 앞에서부터 일치하는 문자열 인덱스번호
+    // lastIndexOf() : 뒤에서 가까운
+    // 문자열을 탐색했을 때 결과가 포함되어있지 않으면 -1을 출력
+    const str = 'Javascript';
+    console.log(str.indexOf('a')); //1
+    console.log(str.lastIndexOf('a')); //3
+    console.log(str.lastIndexOf('A')); //-1
+
+    // 유효성 검증
+    // 이메일 주소를 받는다. user@naver.com
+    // 이메일 주소에 @문자와 .문자를 포함하는지의 여부를 확인
+
+    function checkEmail(){ // 이메일 주소 체크 여부 판단
+      // let userEmail = 'user@naver.com';
+      let userEmail = document.querySelector('#email').value;
+      let at = userEmail.indexOf('@');
+      let dot = userEmail.lastIndexOf('.');
+      if(at==-1 || dot==-1){
+        alert('확인')
+      }
+    }
+  </script>
+
+  <input type="text" id="email" name="" />
+  <button type="button">이메일 확인</button>
+
+  <script>
+    // 저장된 이미지 경로에서 커피면(순수한 파일명)만 console에 출력
+    let coffeeImg = '../scr/cafe1.png';
+    // 실행파일 등(이미지 이외의 파일)은 첨부를 할 수 없게 프로그래밍 하는 경우(예시 : .exe)
+    let slash = coffeeImg.lastIndexOf('/');
+    let dot = coffeeImg.lastIndexOf('.');
+    // substr(시작idx, n개), substring(시작idx, 종료idx-1) : 문자열 일부를 자르기
+    // 마지막의 slash와 dot 사이를 구분
+
+    // /(6번째 인덱스, cafe의 바로 앞자리 까지 탐색하려면 +1 해서 인덱스 1만큼 늘려줘야 한다.)
+    // .(12번째 인덱스 12-6 = 6글자(cafe1.)를 가져오므로, (cafe1)을 가져오기 위해서는 -1이 들어가야 한다.)
+    console.log(coffeeImg.substr(slash+1, (dot-slash)-1)); // 문자열 추출에 사용
+
+    // 실행파일 등은 첨부를 할 수 없게 프로그래밍 하는 경우(.png)
+    // 해당 파일은 업로드가 불가합니다.
+    let imgCheck = '';
+    let imgDot = imgCheck.lastIndexOf('.');
+    let imgVerific = imgCheck.substr(imgDot, 4);
+    let bool = imgVerific == '.jpg' || imgVerific == '.jpeg' || imgVerific == '.png' || imgVerific == '.gif' || imgVerific == '.svg'
+    // if(bool){
+    //   console.log('이미지가 검증되었습니다.')
+    // }else{console.log('해당 이미지는 업로드가 불가합니다.')};
+    console.log(bool ? '이미지가 검증되었습니다.':'해당 이미지는 업로드가 불가합니다.')
+  </script>
+
+
+  <div class="upload">
+    <button>파일 선택</button><span></span>
+  </div>
+
+  <script>
+    const fileUpload = document.querySelector('.upload button');
+    const fileTxt = document.querySelector('.upload span');
+    
+    // let file = '자바스크립트의_고수가되는법'
+    let file = '자바스크립트의_고수가되는법.pdf'
+    fileUpload.addEventListener('click', ()=>{
+      let dot = file.lastIndexOf('.');
+      let fileVerific = file.substr(dot, 4);
+      // fileList = [] 배열에 형식을 넣어서 찾아 매칭하는 방법도 사용할 수 있다.
+      let bool = fileVerific=='.hwp' || fileVerific=='.ppt' || fileVerific=='.pdf' || fileVerific=='.word' || fileVerific==".xlsx"
+      if(bool){
+        fileTxt.innerHTML = `
+        <span class="file_name">${file}</span>
+        `
+      }else{fileTxt.innerHTML = '<span class="file_false">지원하지않는 파일 형식</span>'}
+    });
+
+    // 버튼 클릭
+    function checkFile(){
+      let fileVal = document.querySelector('#file').value;
+      let fileDot = fileVal.lastIndexOf('.');
+      let exe = fileVal.substr(fileDot+1);
+      if(exe=='png' || exe=='jpg'){
+        console.log('이미지 파일은 업로드가 불가합니다.');
+      }
+    }
+
+    // replace(바꿀 대상이나 문자, 대안이 될 문자열) : 문자열 바꾸기
+    const str2 = 'abcdef bc';
+    console.log(`str2.replace('bc','비씨') : ${str2.replace(' bc','비씨')}`);//공백까지 계산이 된다.
+    // 클래스명 : 클래스x(classNmae=''), 클래스o(classNmae='on') // 여러 classList일 경우에는, 여러 클래스도 같이 계속 기재해줘야 바꿔치기가 안된다.
+  </script>
+  <ul class="nav">
+    <li><img src="https://www.hollys.co.kr/websrc/images/layout/gnb_01.png" alt="할리스 몰" /></li>
+    <li><img src="https://www.hollys.co.kr/websrc/images/layout/gnb_02.png" alt="할리스 몰" /></li>
+    <li><img src="https://www.hollys.co.kr/websrc/images/layout/gnb_03.png" alt="할리스 몰" /></li>
+  </ul>
+  <script>
+    // 1. 요소를 찾아와야함
+    const navList = document.querySelectorAll('.nav li');
+    console.log(navList);
+
+    // 반복에 대한 해결 map()
+    navList.forEach((item)=>{
+      item.addEventListener('mouseenter', ()=>{
+        let img = item.querySelector('img');
+        img.src = img.src.replace('.png', '_on.png');
+        item.style.backgroundColor = '#ba000c';
+      });
+      item.addEventListener('mouseleave', ()=>{
+        let img = item.querySelector('img');
+        img.src = img.src.replace('_on.png', '.png');
+        item.style.backgroundColor = 'white';
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const menuList = document.querySelectorAll('.menu li');
+    // 메뉴를 클릭하면 주문객체를 만드는 함수 호출
+    menuList.forEach((item, index)=>{
+      item.addEventListener('click', ()=>{
+        // 객체를 만드는 함수를 호출
+        
+      })
+      
+      let orderArr = [];
+      let orderCnt = 0;
+      function orderObj(index){
+        let obj = menu[index];
+        // 주문객체 생성
+        let orderMenu = {
+          nameKo : obj.nameKo,
+          price : obj.price,
+          cnt : 0,
+        }
+        orderArr[orderCnt] = orderMenu;
+        orderCnt++;
+      }
+      });
+  </script>
+</body>
+</html>

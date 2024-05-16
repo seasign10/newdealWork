@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* reset */
+    *{margin: 0;padding: 0;}
+    ul, ol, li{list-style: none;}
+    body{position: relative;display: flex;justify-content: center;}
+    .container {width:740px; display: flex; flex-direction: column;align-items: center;}
+    .hidden {font-size: 0;}
+    .container .header {
+      width: 600px;
+      padding: 1rem 0;
+      text-align: center;
+      font-size: 60px;
+      font-weight: 900;
+      font-style: italic;
+      background-color: #FFD448;
+      color: #AC291A;
+    }
+    .container .title {
+      margin: 5rem 0 1rem 0;
+      padding: 0.2rem 0.5rem;
+      font-weight: 900;
+      border-bottom: 8px solid #AC291A;
+    }
+    .container .tap {
+      display: flex;
+    }
+    .container .tap>li {
+      font-size: 24px;
+      width: 80px;
+      text-align: center;
+      margin: 0 1rem;
+      padding: 0.3rem 0;
+      cursor: pointer;
+    }
+    .container .tap>li:hover {
+      color: #AC291A;
+      /* background-color: ; */
+    }
+    .container .tap>li.on {
+      color: #fff;
+      background-color: blue;
+    }
+    .container .menu {
+      display: flex;
+      width: 600px;
+      flex-flow: wrap;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      /* 메뉴가 중앙정렬 되면서 수가 안맞는 row는 각에 맞춰 떨어지지 않음 */
+      /* justify-content: center; */
+    }
+    .container .menu li {
+      width: 182px;
+      height: 278.9px;
+      margin: 0.5rem;
+      border: 1px solid silver;
+      cursor: pointer;
+      /* background-color: pink; */
+    }
+    /* .container .menu ul {display: none;}
+    .container .menu ul.on {display: block;} */
+    .container .menu li:hover {
+      background-color: rgb(238, 238, 238);
+    }
+    .container .menu li>img {
+      width: 182px;
+      height: 200px;
+    }
+    .container .menu .menu_txt {
+      padding: 0.5rem 1rem;
+      background-color: rgb(240, 240, 240);
+    }
+    .container .menu .menu_txt>.menu_nameKo {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .container .menu .menu_txt>.menu_nameEn {
+      font-size: 14px;
+      color: rgb(155, 155, 155);
+    }
+    .container .menu .menu_txt>.menu_price {
+      font-weight: bold;
+      color: rgb(59, 59, 59);
+      /* font-style: italic; */
+    }
+    .bills_box {
+      position: relative;
+      width: 300px;
+    }
+    .bills_box .bills {
+      position: fixed;
+      top: 20%;
+      width: 300px;
+      /* height: 500px; */
+      padding: 2rem 1rem;
+      border: 1px solid silver;
+      background-color: rgba(242, 242, 242, 0.398);
+      text-align: center;
+    }
+    .bills_box .bills .bills_title {
+      font-size: 40px;
+      font-weight: 100;
+      font-style: italic;
+      color: rgba(0, 0, 0, 0.675);
+      text-decoration-line: underline;
+    }
+    .bills_box .bills .total {
+      color: #000000ac;
+      /* border-top: 1px solid #000000ac; */
+      text-align: left;
+      padding: 1rem 1rem 0 1rem;
+      margin-top: 2rem;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // 1. 메뉴 데이터
+    const menu = [{
+      nameKo : '아메리카노',
+      nameEn : 'Americano',
+      price : 2000,
+      type : 'coffee',
+      src : '../src/ameriano.png',
+    },
+    {
+      nameKo: '에스프레소',
+      nameEn: 'Espresso',
+      price: 2500,
+      type : 'coffee',
+      src : '../src/espresso.png',
+    },
+    {
+      nameKo: '카푸치노',
+      nameEn: 'Cappuccino',
+      price: 3500,
+      type : 'coffee',
+      src : '../src/cappuccino.png',
+    },
+    {
+      nameKo: '레몬티',
+      nameEn: 'Lemon tea',
+      price: 3800,
+      type : 'tea',
+      src : '../src/lemon_tea.png',
+    },
+    {
+      nameKo: '블랙티라떼',
+      nameEn: 'Black tea latte',
+      price: 4500,
+      type : 'latte',
+      src : '../src/black_tea.png',
+    },
+    {
+      nameKo: '녹차라떼',
+      nameEn: 'Green tea latte',
+      price: 4500,
+      type : 'latte',
+      src : '../src/green_tea.png',
+    },
+    {
+      nameKo: '초코라떼',
+      nameEn: 'Chocolate latte',
+      price: 5500,
+      type : 'latte',
+      src : '../src/chocolate_latte.png',
+    },
+    {
+      nameKo: '오렌지자몽블랙티',
+      nameEn: 'Orange grapefruit tea',
+      price: 5800,
+      type : 'tea',
+      src : '../src/orange_grapefruit_tea.png',
+    },
+    {
+      nameKo: '우롱티',
+      nameEn: 'Oolong tea',
+      price: 3500,
+      type : 'tea',
+      src : '../src/oolong_tea.png',
+    },
+    {
+      nameKo: '페퍼민트티',
+      nameEn: 'Peppermint tea',
+      price: 3500,
+      type : 'tea',
+      src : '../src/peppermint_tea.png',
+    },
+    // {
+    //   nameKo: '',
+    //   nameEn: '',
+    //   price: ,
+    //   type : '',
+    // },
+    ]
+
+
+    // 2. coffee, tez, juice ... 그룹으로 묶자,
+    let coffee = [];
+    let tea = [];
+    let latte = [];
+    // 몇 개의 타입이 있는지 분류
+    let typeArr = [];
+    menu.forEach((item, i)=>{
+      if(item.type=='coffee'){
+        // 배열에 객체를 넣을때는 pus
+        coffee.push(item);
+      }else if(item.type=='tea'){
+        tea.push(item);
+      }else if(item.type=='latte'){
+        latte.push(item);
+      }
+      // 여기서 중복된 값이면 무시, 중복되지 않는 값만 받는다.
+      let type = '';
+      if(typeArr.indexOf(item.type) == -1){
+        typeArr += (item.type+',');
+      }
+    });
+    typeArr = typeArr.split(',');// 콤마(,)를 기준으로 배열에 잘라 넣기
+    typeArr.pop(); // 끝에 붙은 ','(배열의 마지막 idx) 지우기
+
+
+    // 3. 데이터를 화면에서 보여줄 방법 > 특정 태그를 사용해서 화면에 전체 음료를 불러오기
+    let cafeMenu = `
+    <div class="container">
+      <header id="header" class="header"></header>
+      <h1 class="title">MENU</h1>
+      <h2 class="hidden">menu tap</h2>
+      <ul class="tap"></ul>
+      <h2 class="hidden">menu list</h2>
+      <ul class="menu"></ul>
+    </div>
+    `
+    document.body.innerHTML = cafeMenu;
+    // 영수증 frame // 왜 아래에다가 구조를 추가하면 이벤트리스터가 발동하지 않을까?
+    document.body.innerHTML += `
+    <div class="bills_box">
+      <div class="bills">
+        <h3 class="bills_title">BILLS<h3>
+        <ul class="bills_cont"></ul>
+        <p class="total">TOTAL PRICE </p>
+      </div>
+    </div>
+    `
+
+    // 카페 제목
+    document.querySelector('header#header').innerHTML = 'HOMEWORK CAFE';
+    // tap 추가
+    // console.log(typeArr);
+    let menuTap = document.querySelector('.container .tap');
+    for(i=-1;i<typeArr.length;i++){
+      // let menuTap = document.querySelector('.tap').innerText;
+      if(i==-1){
+        //innerText로 넣으면 그대로 출력 됨
+        menuTap.innerHTML += `<li class="on">all</li>`;
+      }else{
+        menuTap.innerHTML += `<li>${typeArr[i]}</li>`;
+      }
+    };
+
+    // 메뉴 리스트 넣기 | 전체, 커피, 티, 라떼 (tapOn 구분해서 반목문을 넣어주자.)
+    let menuList = document.querySelector('.container .menu');
+    // 전체 | 만약 너무 많은 데이터가 있어서 끊어 보여줄 필요가 있다면, for(i)문으로 반복문을 돌리고,
+    // menu[i]로 접근하는게 좋다.
+    // 반복되는 구문을 변수에 담거나, 함수로 묶어서 축약할 수는 없을까?
+    function menuAll(){
+      menu.forEach((item)=>{
+            menuList.innerHTML += `
+            <li>
+              <img src="${item.src}" alt="${item.nameKo} ${item.price}" />
+              <dl class="menu_txt">
+                <dt class="menu_nameKo">${item.nameKo}</dt>
+                <dd class="menu_nameEn">${item.nameEn}</dd>
+                <dd class="menu_price">${item.price}<span>원</span></dd>
+              </dl>
+            </li>  
+            `
+          });
+    };
+    menuAll()
+    
+    // tap메뉴를 클릭할때마다 새로 읽어올 querysellectAll이 필요하다. 클릭이벤트 마지막에 새값받기.
+    let menuChoice = document.querySelectorAll('.menu li');
+    menuChoices(menuChoice);
+
+    let tapList = menuTap.querySelectorAll('li');
+    tapList.forEach((tap, index)=>{
+      tap.addEventListener('click',()=>{
+        // all까지 추가되므로 +1
+        for(num=0; num<typeArr.length+1;num++){
+          // console.log(tapList[num]);
+          tapList[num].className = '';
+        }
+        tapList[index].className = 'on';
+        let tapOn = menuTap.querySelector('.on');
+        
+        // 새로 값을 받아와야 하니, reset
+        menuList.innerHTML = ''
+        if(tapOn.innerText=='all'){//all
+          menuAll()
+        }else if(tapOn.innerText=='coffee'){//coffee
+          menuClick(index); // index값을 전달해야하므로 index를 담아주자,
+        }else if(tapOn.innerText=='tea'){//tea
+          menuClick(index);
+        }else if(tapOn.innerText=='latte'){//latte
+          menuClick(index);
+        }
+        // 클릭할때마다 값이 바뀌므로 
+        menuChoice = document.querySelectorAll('.menu li');
+        menuChoices(menuChoice)
+        // console.log(menuChoice);
+      });
+  });
+
+  function menuClick(index){
+    menu.forEach((item)=>{//i는 메뉴를 검색하고 있으므로 index를 가져오는 것이 적당하다.
+      // coffee) all 0 coffee 1 tea 2 latte 3 으로 index가 들어오므로, | typqArr에서의 coffee 0 | 즉 -1
+      // 데이터에서 type이 coffee보다 다른 type을 가진 값이 먼저 들어오면 순서가 바뀌므로 주의!
+      if(item.type==typeArr[index-1]){
+        menuList.innerHTML += `
+        <li>
+          <img src="${item.src}" alt="${item.nameKo} ${item.price}" />
+          <dl class="menu_txt">
+            <dt class="menu_nameKo">${item.nameKo}</dt>
+            <dd class="menu_nameEn">${item.nameEn}</dd>
+            <dd class="menu_price">${item.price}<span>원</span></dd>
+          </dl>
+        </li>  
+        `
+      }}
+    )
+  }
+
+
+    // 4. 주문 데이터 생성 (+영수증) > {키:값}{음료명:'음료명', 가격:nnnn, 주문수량:n}
+    // 주문자료 = 배열객체, 메뉴를 클릭 했을때 {:},{:}...
+    // 영수증 가져오기
+    let bills = document.querySelector('.bills_cont');
+    // 영수증에 가져올 값
+    let itemNameKo = '';
+    let itemNmaeEn = '';
+    let itemPrice = 0;
+    let itemSrc = '';
+    // 값을 담을 변수
+    let billsList = '';
+    function menuChoices(menuChoice){
+      menuChoice.forEach((item, index)=>{
+        item.addEventListener('click', ()=>{
+          // 메뉴 이름
+          console.log(item.childNodes[3].childNodes[1].innerText);
+          // 가격
+          console.log(item.childNodes[3].childNodes[5].innerText);
+          billsList.innerHTML += `
+            <li>
+              <div>
+                <span>${item.nameKo}</span>
+                <button>-</button><span class="item_cnt"></span><button>+</button>
+                <span>${item.price}</span>
+              </div>
+            </li>
+            `;
+        });
+      });
+      // console.log(billsList);
+    }
+    // console.log(bills);
+
+
+  </script>
+</body>
+</html>
