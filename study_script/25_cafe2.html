@@ -97,7 +97,8 @@
       position: fixed;
       top: 20%;
       width: 300px;
-      /* height: 500px; */
+      height: 500px;
+      overflow-y: auto;
       padding: 2rem 1rem;
       border: 1px solid silver;
       background-color: rgba(242, 242, 242, 0.398);
@@ -118,6 +119,35 @@
       margin-top: 2rem;
       font-size: 20px;
     }
+    .bills_cont{
+      margin-top: 1rem;
+      
+      text-align: left;
+    }
+    .bills_cont li{
+      margin-top: 1rem;
+      border-bottom: 1px solid #919191ac;
+      color: #000000ac;
+    }
+    .bills_cont dt{
+      font-style: italic;
+    }
+    .bills_cont dd{
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+    }
+    .btn_box {
+      display: flex;
+      justify-content: space-between;
+      width: 100px;
+    }
+    button.btn_style{
+      width: 28px;
+      height: 28px;
+      /* background-color: red; */
+    }
+    .all_price{font-weight: 100;margin-left: 3rem;}
   </style>
 </head>
 <body>
@@ -228,28 +258,31 @@
 
 
     // 3. 데이터를 화면에서 보여줄 방법 > 특정 태그를 사용해서 화면에 전체 음료를 불러오기
+    // menu_area
     let cafeMenu = `
-    <div class="container">
+    <section class="container">
       <header id="header" class="header"></header>
       <h1 class="title">MENU</h1>
       <h2 class="hidden">menu tap</h2>
       <ul class="tap"></ul>
       <h2 class="hidden">menu list</h2>
       <ul class="menu"></ul>
-    </div>
+    </section>
     `
     document.body.innerHTML = cafeMenu;
     // 영수증 frame // 왜 아래에다가 구조를 추가하면 이벤트리스터가 발동하지 않을까?
+    // order_area
     document.body.innerHTML += `
-    <div class="bills_box">
+    <section class="bills_box">
       <div class="bills">
         <h3 class="bills_title">BILLS<h3>
         <ul class="bills_cont"></ul>
-        <p class="total">TOTAL PRICE </p>
+        <p class="total">TOTAL PRICE <span class="all_price"></span></p>
       </div>
-    </div>
+    </section>
     `
-
+    // 영수증 가져오기
+    let bills = document.querySelector('.bills_cont');
     // 카페 제목
     document.querySelector('header#header').innerHTML = 'HOMEWORK CAFE';
     // tap 추가
@@ -330,7 +363,7 @@
           <dl class="menu_txt">
             <dt class="menu_nameKo">${item.nameKo}</dt>
             <dd class="menu_nameEn">${item.nameEn}</dd>
-            <dd class="menu_price">${item.price}<span>원</span></dd>
+            <dd class="menu_price"><span claa="total_price">${item.price}</span><span>원</span></dd>
           </dl>
         </li>  
         `
@@ -341,36 +374,169 @@
 
     // 4. 주문 데이터 생성 (+영수증) > {키:값}{음료명:'음료명', 가격:nnnn, 주문수량:n}
     // 주문자료 = 배열객체, 메뉴를 클릭 했을때 {:},{:}...
-    // 영수증 가져오기
-    let bills = document.querySelector('.bills_cont');
-    // 영수증에 가져올 값
-    let itemNameKo = '';
-    let itemNmaeEn = '';
-    let itemPrice = 0;
-    let itemSrc = '';
-    // 값을 담을 변수
-    let billsList = '';
+    let orderArr = [];
+    let totalPrice = document.querySelector('.total .all_price');
+    let totalNum = 0;
+    // function totalHidden(){
+    //   if(totalNum==0){
+    //     console.log(document.querySelector('.total').innerHTML)
+    //     document.querySelector('.total').innerText = '';
+    //   }else{
+    //     document.querySelector('.total').innerHTML = `
+    //     TOTAL PRICE <span class="total_price"></span> 원
+    //     `
+    //   }
+    // }
+    // totalHidden()
+    // let isDuplicate = false;
+    let onePriece = 0;
     function menuChoices(menuChoice){
       menuChoice.forEach((item, index)=>{
         item.addEventListener('click', ()=>{
-          // 메뉴 이름
-          console.log(item.childNodes[3].childNodes[1].innerText);
-          // 가격
-          console.log(item.childNodes[3].childNodes[5].innerText);
-          billsList.innerHTML += `
-            <li>
-              <div>
-                <span>${item.nameKo}</span>
-                <button>-</button><span class="item_cnt"></span><button>+</button>
-                <span>${item.price}</span>
-              </div>
-            </li>
-            `;
-        });
+          // // 메뉴 이름
+          // console.log(item.childNodes[3].childNodes[1].innerText);
+          // // 가격
+          // console.log(item.childNodes[3].childNodes[5].innerText);
+          // 번거롭게 childNodes를 찾지말고 배열을 따로 만들어 주자.===============================
+          
+          // 객체(object)를 만드는 함수를 호출
+          orderMenu(index);
+          // console.log('billsName : '+billsName,'nameKo'+orderArr[0].nameKo);
+          if(!isDuplicate){
+            // console.log(orderArr);
+            // 여기서의 i는 orderMenu(index)함수에서의 i
+            bills.innerHTML += `
+              <li class="item_list">
+                <dl>
+                  <dt>${orderArr[i].nameKo}</dt>
+                  <dd>
+                    <div class="btn_box">
+                      <button class="prev_btn btn_style">-</button>
+                      <span class="item_cnt">${orderArr[i].cnt}</span>
+                      <button class="next_btn btn_style">+</button>
+                    </div>
+                    <span class="item_price">${orderArr[i].price}</span>
+                  <dd>
+                </dl>
+              </li>
+              `;
+              totalNum += orderArr[i].price
+              // totalPrice.innerHTML = `${totalNum}<span>원</span>`;
+              totalPrice.innerHTML = `${totalNum}`;
+            }
+          // 함수보다 전역을 먼저 탐색하기 때문에 전역에서 찾으면 null값이 뜸
+          let prevBtn = document.querySelectorAll('button.prev_btn');
+          let nextBtn = document.querySelectorAll('button.next_btn');
+          // function btnClick(orderArr){
+            prevBtn.forEach((item,k)=>{
+              console.log('orderArr : '+orderArr[k].nameKo);
+              item.addEventListener('click',()=>{
+                onePriece = orderArr[k].price;
+                if((orderArr[k].cnt)<2){
+                  // 음료를 클릭할 때 마다, false로 초기화
+                  isDuplicate = false;
+                  let del = confirm('해당 음료를 장바구니에서 삭제하시겠습니까?');
+                  // 삭제는 되는데 실질적 화면에 보이는 추가된 메뉴는 어떻게 지워야 할까.
+                  let parentNode = document.querySelector('.bills_cont');
+                  let removeChilds = document.querySelectorAll('.item_list')[k];
+                  if(del){ // 지우는게 참이라면 배열과, dom 지워주기.
+                    orderArr.splice(k, 1);
+                    parentNode.removeChild(removeChilds);
+                    
+                    console.log('삭제된 li'+removeChilds.innerText);
+
+                    // 어떤 목차가 남아있는지 확인
+                    orderArr.forEach((item)=>{
+                      console.log(item.nameKo);
+                    });
+                    console.log('삭제 물품명 : '+orderArr.length);
+
+                    totalNum -= onePriece;
+                    document.querySelector('.all_price').innerText = totalNum;
+                  }else{
+                    return; // 아니라면 빠져나가기
+                  }
+                }else{
+                  orderArr[k].cnt--;
+                  // 원가를 기준으로 1. 원가 값을 빼기 | 원가 * 개수
+                  // onePriece -= orderArr[k].price;
+                  onePriece = (orderArr[k].price)*(orderArr[k].cnt);
+                  
+                  totalNum -= orderArr[k].price;
+                  // console.log('원가 : '+orderArr[k].price);
+                  // console.log('개수에따른 값 : '+onePriece);
+                  // console.log('총합 : '+totalNum);
+                  
+                  document.querySelectorAll('.item_cnt')[k].innerText = orderArr[k].cnt;
+                  document.querySelectorAll('.item_price')[k].innerText = onePriece;
+                  document.querySelector('.all_price').innerText = totalNum;
+                }
+              });
+            });
+            nextBtn.forEach((item,k)=>{
+              onePriece = orderArr[k].price;
+              item.addEventListener('click',()=>{
+                orderArr[k].cnt++;
+                // onePriece += orderArr[k].price;
+                onePriece = (orderArr[k].price)*(orderArr[k].cnt);
+                totalNum += orderArr[k].price;
+                document.querySelectorAll('.item_cnt')[k].innerText = orderArr[k].cnt;
+                document.querySelectorAll('.item_price')[k].innerText = onePriece;
+                document.querySelector('.all_price').innerText = totalNum;
+              });
+            });
+            // totalHidden();
+            }
+          // }
+        );
+        // let orderCnt = 0;
+        // 객체를 만드는 함수 | for문 안 / 이벤트 함수 밖
+        function orderMenu(index){ // 클릭한 메뉴의 index를 가져와야함.
+          // 클릭되는 값을 받아서
+          // 전체메뉴 / 탭메뉴 구분해서 obj를 받으면 좋을 듯
+          let obj = menu[index];
+          
+          // let obj = [];
+          let tapOn = menuTap.querySelector('.on');
+          console.log(tapOn.innerText);
+          // if(tapOn.innerText=='all'){
+          //   console.log('all')
+          //   obj = menu[index];
+          //   order();
+          // }else if(tapOn.innerText=='coffee'){
+          //   // let obj = []
+          // }else if(tapOn.innerText=='tea'){
+
+          // }else if(tapOn.innerText=='late'){
+
+          // }
+          order()
+          function order(){ // if문을 사용하기 위해 함수로 묶기
+            // 주문객체 생성
+            let orderMenu = {
+            nameKo : obj.nameKo,
+            price : obj.price,
+            cnt : 1, // 당장 메뉴를 담았을 때의 개수
+          }
+          // orderArr[orderCnt] = orderMenu;
+          // orderCnt++;
+          
+          // 중복된 값이 있으면 추가되지 않도록 하자. some()함수를 사용해도 ok
+          isDuplicate = false; // 중복여부를 확인할 변수, 클릭할때마다 중복을 확인하기 위해 false로 초기화
+          for(i=0;i<orderArr.length;i++){
+            if(orderArr[i].nameKo == orderMenu.nameKo){
+              isDuplicate = true;
+              break; // 중복이 발견되면 루프 탈출
+            }  
+          }
+          if(!isDuplicate){
+            orderArr.push(orderMenu); // 클릭된 값 배열에 추가
+          }else{alert('이미 담겨있는 상품입니다.')}
+          // return orderArr;
+          }
+        };
       });
-      // console.log(billsList);
     }
-    // console.log(bills);
 
 
   </script>

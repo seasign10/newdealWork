@@ -16,19 +16,41 @@
       })
       
       let orderArr = [];
-      let orderCnt = 0;
+      // let orderCnt = 0;
       function orderObj(index){
         let obj = menu[index];
+        // 비교검사(true, false);
+        let bool = orderArr.some((item)=>{item.nameKo == obj.nameKo});
+        console.log(bool) // 참거짓 판별
+
         // 주문객체 생성
         let orderMenu = {
           nameKo : obj.nameKo,
           price : obj.price,
-          cnt : 0,
+          cnt : 1,
         }
-        orderArr[orderCnt] = orderMenu;
-        orderCnt++;
+        // orderArr[orderCnt] = orderMenu;
+        // orderCnt++;
+        orderArr.push(orderMenu);
+        // orderDrawUI();
+        orderListBox.innerHTML = orderDrawUI()
       }
       });
+
+      // 함수화(화면에 그리는 작업)
+      const orderListBox = document.querySelector('.order_list')
+      function orderDrawUI(){
+        let lists = '<div class="list">';
+          for(let i=o;i<orderArr;i++){
+          lists += `버튼빼기, cnt, 버튼 더하기, total`
+          }
+          lists += '</div>'
+          return lists;
+      }
+      
+      function plus(){
+        // 플러스 버튼
+      }
   </script>
 </body>
 </html>
