@@ -40,6 +40,13 @@
       // 함수화(화면에 그리는 작업)
       const orderListBox = document.querySelector('.order_list')
       function orderDrawUI(){
+        // 총 결제 금액
+        let totalPay = 0;
+        orderArr.forEach((item)=>{
+          totalPay += item. totalPrice;
+        });
+        // 어느 영역에 보이게 처리할건지
+
         let lists = '<div class="list">';
           for(let i=o;i<orderArr;i++){
           lists += `버튼빼기, cnt, 버튼 더하기, total`

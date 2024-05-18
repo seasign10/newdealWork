@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 임시 데이터 자료
+    const menu = [{
+      nameKo : '아메리카노',
+      nameEn : 'Americano',
+      price : 2000,
+      type : 'coffee',
+      src : '../src/ameriano.png',
+    },
+    {
+      nameKo: '에스프레소',
+      nameEn: 'Espresso',
+      price: 2500,
+      type : 'coffee',
+      src : '../src/espresso.png',
+    },
+    {
+      nameKo: '카푸치노',
+      nameEn: 'Cappuccino',
+      price: 3500,
+      type : 'coffee',
+      src : '../src/cappuccino.png',
+    },
+    {
+      nameKo: '레몬티',
+      nameEn: 'Lemon tea',
+      price: 3800,
+      type : 'tea',
+      src : '../src/lemon_tea.png',
+    },
+    {
+      nameKo: '블랙티라떼',
+      nameEn: 'Black tea latte',
+      price: 4500,
+      type : 'latte',
+      src : '../src/black_tea.png',
+    },
+    {
+      nameKo: '녹차라떼',
+      nameEn: 'Green tea latte',
+      price: 4500,
+      type : 'latte',
+      src : '../src/green_tea.png',
+    },
+    {
+      nameKo: '초코라떼',
+      nameEn: 'Chocolate latte',
+      price: 5500,
+      type : 'latte',
+      src : '../src/chocolate_latte.png',
+    },
+    {
+      nameKo: '오렌지자몽블랙티',
+      nameEn: 'Orange grapefruit tea',
+      price: 5800,
+      type : 'tea',
+      src : '../src/orange_grapefruit_tea.png',
+    },
+    {
+      nameKo: '우롱티',
+      nameEn: 'Oolong tea',
+      price: 3500,
+      type : 'tea',
+      src : '../src/oolong_tea.png',
+    },
+    {
+      nameKo: '페퍼민트티',
+      nameEn: 'Peppermint tea',
+      price: 3500,
+      type : 'tea',
+      src : '../src/peppermint_tea.png',
+    },
+    ]
+
+    // 배열 관련 메서드
+    // push() : 배열의 마지막 inde에 데이터 저장
+    const bgColor = ['red', 'green', 'orange'];
+    bgColor.push('black', 'aqua');
+    console.log(bgColor);
+    
+    // pop() : 마지막 index에 있는 데이터 삭제
+    bgColor.pop();
+    console.log(bgColor);
+    
+    // reverse() : 역순 정렬
+    bgColor.reverse();
+    console.log(bgColor);
+    
+    // sort() : 배열 요소를 원하는 정렬 순서로 변경
+    // ** 원본 배열을 직접 수정함
+    const data1 = ['a','b','c','d','e'];
+    console.log(data1.sort());
+    const data2= [20,30,50,10,70];
+    data2.sort((numA,numB)=>{
+      return numB-numA;       
+    })
+    console.log('data : '+data2);
+
+    // indexOf() : 배열에서 인수로 전달된 요소를 찾아 첫번째 검색된 요소의 index 반화
+    console.log(bgColor.indexOf('red')); // 데이터가 없으면 -1
+    console.log(bgColor.indexOf('pink'));
+
+    const numArr = [1, 2, 3, 4, 5, 6, 7, 7, 7];
+    // 새로운 배열로 만들고 싶은데 numArr에 중복된 데이터는 빼고
+    // 배열 = [1, 2, 3, 4, 5, 6, 7] : 배열에 순차적으로 데이터 저장 push()
+    const newNumArr = [];
+    numArr.forEach((num)=>{
+      if(newNumArr.indexOf(num)==-1){
+        newNumArr.push(num);
+      }
+    });
+    console.log(newNumArr);
+
+    // concat() : 두개 이상의 배열을 하나로 연결
+    console.log(data1.concat(data2, numArr));
+
+
+    // splice(시작,개수) : 특정 요소 제거
+    console.log(menu.splice(3, 1)); // 레몬티 객체 사라짐
+    console.log(menu);
+
+    // find() : 하나의 true값을 반환, 탐색 결과가 없을 때 undefined
+    let findCnt = 0;
+    const arrFind = menu.find((drink, index)=>{
+      // 4000원 이상은 여러개지만 여러개 중 두번째 요소만 반환
+      // 데이터 값이 무작위로 들어와 있을 때는 sort로 먼저 정렬하고 사용해도 될 것 같다.
+      if(drink.price > 4000){
+        findCnt ++;
+      }
+      if(findCnt==2){
+        return drink.price > 4000
+      }
+    });
+    console.log(arrFind)
+    
+    // findIndex() : 하나만 찾음
+    const arrFindIndex = menu.findIndex((item, index)=>{
+      // 4000원 이상은 여러개지만 여러개 중 두번째 요소만 반환
+      return item.price > 4000
+    });
+    console.log('arrFindIndex : '+arrFindIndex)
+
+    // filter() : 여러개를 찾아야 할 때 사용
+    // map() : 특정 기능을 실행하고 새로운 배열로 반환
+    // sime() : 일치여부 판단
+
+  </script>
+</body>
+</html>

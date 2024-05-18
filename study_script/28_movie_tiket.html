@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* reset */
+    *{padding: 0; margin: 0;}
+    html{height: 100%;}
+    body{height: 100%;}
+    ol, ul, li {list-style: none;}
+    .container{
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: space-between;
+    }
+    .sit_area>h1 {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .sit_num{
+      white-space: nowrap;
+      width: 1040px;
+    }
+    .sit{
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      padding: 10px;
+      margin: 0.3rem;
+    }
+    .yellow_box{
+      border:2px solid rgb(255, 194, 81);
+    }
+    .green_box{
+      border:2px solid green;
+    }
+    .red_box{
+      border:2px solid red;
+    }
+    .tiketing_area{
+      width: 280px;
+      height: 100%;
+      border-left: 1px solid silver;
+      padding: 2rem;
+      white-space: nowrap;
+    }
+    .tiketing_area h1{
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .select_sit>li{
+      padding: 1rem 0 0.8rem 0.8rem;
+      font-size: 20px;         
+      border-bottom: 1px solid silver;
+    }
+    .select_sit{
+      position: relative;
+      width: 300px;
+    }
+    .btn {
+      margin-top: 1rem;
+      width: 72px;
+      height: 40px;
+      font-size: 16px;
+      position: absolute;
+      right: 10px;
+    }
+    .per{
+      position: absolute;
+      right: 10px;
+    }
+    .sit:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="sit_area">
+      <h1>상영관 좌석표</h1>
+      <div class="sit_num"></div>
+    </section>
+    <section class="tiketing_area">
+      <h1>인원선택</h1>
+      <ul class="select_sit"></ul>
+    </section>
+  </div>
+  <script>
+    const sit = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+    let sitLine = '';
+    for(i=0;i<sit.length;i++){
+      if(sit[i]=='A' || sit[i]=='B'){
+        for(k=1;k<16;k++){
+          sitLine += `<span class="yellow_box sit">${sit[i]}${k}</span>`
+        }sitLine += '<br/>'}
+      if(sit[i]=='C' || sit[i]=='D'){
+        for(k=1;k<16;k++){
+          sitLine += `<span class="green_box sit">${sit[i]}${k}</span>`
+        }sitLine += '<br/>'}
+      if(sit[i]=='E' || sit[i]=='F' || sit[i]=='G'){
+        for(k=1;k<16;k++){
+          sitLine += `<span class="red_box sit">${sit[i]}${k}</span>`
+        }sitLine += '<br/>'}
+    }
+    let sitLines = document.querySelector('.sit_num');
+    sitLines.innerHTML += sitLine;
+
+    // 예매할 사람
+    const person = ['일반', '청소년', '우대'];
+    let personList = document.querySelector('.select_sit');
+    for(i=0;i<person.length;i++){
+      personList.innerHTML += `
+          <li>${person[i]}<span class="per">0</span></li>
+        `
+    }
+    document.querySelector('.select_sit').innerHTML += `<button class="btn">다음</button>`
+
+    // html 구성 end
+    // 좌석을 클릭하면 값을 가져오도록 하자.
+  let sitSelect = document.querySelectorAll('.sit_num .sit');
+  let isChoice = false;
+  // console.log(sitSelect);
+  // forEach 대신 for를 사용하는 연습을 하자, let을 빠져먹지 않아야 함.
+  for(let i=0;i<sitSelect.length;i++){
+    sitSelect[i].addEventListener('click', () => {
+    // console.log(sitSelect[i].innerText);
+    if(!isChoice){
+      sitSelect[i].style.backgroundColor = 'gray';
+      isChoice = true;
+    }else if(isChoice){
+      isChoice = false;
+      console.log('선택된 좌석')
+      sitSelect[i].style.backgroundColor = '';
+    }
+    });
+  }
+
+  </script>
+</body>
+</html>

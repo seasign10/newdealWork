@@ -40,7 +40,6 @@
     }
     .container .tap>li:hover {
       color: #AC291A;
-      /* background-color: ; */
     }
     .container .tap>li.on {
       color: #fff;
@@ -52,8 +51,6 @@
       flex-flow: wrap;
       padding: 1rem;
       margin-bottom: 2rem;
-      /* 메뉴가 중앙정렬 되면서 수가 안맞는 row는 각에 맞춰 떨어지지 않음 */
-      /* justify-content: center; */
     }
     .container .menu li {
       width: 182px;
@@ -61,10 +58,7 @@
       margin: 0.5rem;
       border: 1px solid silver;
       cursor: pointer;
-      /* background-color: pink; */
     }
-    /* .container .menu ul {display: none;}
-    .container .menu ul.on {display: block;} */
     .container .menu li:hover {
       background-color: rgb(238, 238, 238);
     }
@@ -113,7 +107,6 @@
     }
     .bills_box .bills .total {
       color: #000000ac;
-      /* border-top: 1px solid #000000ac; */
       text-align: left;
       padding: 1rem 1rem 0 1rem;
       margin-top: 2rem;
@@ -145,7 +138,6 @@
     button.btn_style{
       width: 28px;
       height: 28px;
-      /* background-color: red; */
     }
     .all_price{font-weight: 100;margin-left: 3rem;}
   </style>
@@ -223,16 +215,7 @@
       type : 'tea',
       src : '../src/peppermint_tea.png',
     },
-    // {
-    //   nameKo: '',
-    //   nameEn: '',
-    //   price: ,
-    //   type : '',
-    // },
     ]
-    // 중간에 다른 데이터가 들어와도, 종류별로 묶일 수 있도록, sort 해주자.
-    // coffee가 제일 앞으로 왔으면 좋겠으므로, 오름차순으로 하자.
-    // 숫자가아닌 문자는 -로 정렬하기 힘들다. 대신, 특정한 정렬의 기준을 만들어서(예.계급)정렬을 시켜줄 수도 있다.
     menu.sort((itemA, itemB)=>{
       const typePriority = {
         coffee: 1,
@@ -250,12 +233,13 @@
       if(priorityA>priorityB){
         return 1 // true
       }
-      return 0; // 이 외에는 정렬 유지(필수는 아니지만 넣는 것이 안정적)
-      // 동일한 type 내에서 추가적인 정렬 기준이 필요하다면, 여기서 추가적인 비교 로직을 구현할 수 있음.
+      return 0; 
     });
-    // console.log(menu);
-
-    // 2. coffee, tez, juice ... 그룹으로 묶자,
+    // 데이터에 id값 부여
+    menu.forEach((item, index) => {
+      item.id = index + 1; // id 값을 1부터 시작하도록 설정
+    });
+    
     let coffee = [];
     let tea = [];
     let latte = [];
@@ -263,21 +247,20 @@
     let typeArr = [];
     menu.forEach((item, i)=>{
       if(item.type=='coffee'){
-        // 배열에 객체를 넣을때는 push
         coffee.push(item);
       }else if(item.type=='tea'){
         tea.push(item);
       }else if(item.type=='latte'){
         latte.push(item);
       }
-      // 여기서 중복된 값이면 무시, 중복되지 않는 값만 받는다.
+
       let type = '';
       if(typeArr.indexOf(item.type) == -1){
         typeArr += (item.type+',');
       }
     });
-    typeArr = typeArr.split(',');// 콤마(,)를 기준으로 배열에 잘라 넣기
-    typeArr.pop(); // 끝에 붙은 ','(배열의 마지막 idx) 지우기
+    typeArr = typeArr.split(',');
+    typeArr.pop();
 
 
     // 3. 데이터를 화면에서 보여줄 방법 > 특정 태그를 사용해서 화면에 전체 음료를 불러오기
@@ -294,7 +277,6 @@
     `
     document.body.innerHTML = cafeMenu;
     
-    // 영수증 frame // 왜 아래에다가 구조를 추가하면 이벤트리스터가 발동하지 않을까?
     // order_area
     document.body.innerHTML += `
     <section class="bills_box">
@@ -308,7 +290,7 @@
     
     // 카페 제목
     document.querySelector('header#header').innerHTML = 'HOMEWORK CAFE';
-    
+
     // 영수증 가져오기 | bills 에서 사용
     let bills = document.querySelector('.bills_cont');
 
@@ -316,18 +298,14 @@
     let menuTap = document.querySelector('.container .tap');
     for(i=-1;i<typeArr.length;i++){
       if(i==-1){
-        //innerText로 넣으면 태그 자체로 그대로 출력 됨
         menuTap.innerHTML += `<li class="on">all</li>`;
       }else{
         menuTap.innerHTML += `<li>${typeArr[i]}</li>`;
       }
     };
 
-    // 메뉴 리스트 넣기 | 전체, 커피, 티, 라떼 (tapOn 구분해서 반목문을 넣어주자.)
+    // 메뉴 리스트 넣기
     let menuList = document.querySelector('.container .menu');
-    // 전체 | 만약 너무 많은 데이터가 있어서 끊어 보여줄 필요가 있다면, for(i)문으로 반복문을 돌리고,
-    // menu[i]로 접근하는게 좋다.
-    // 반복되는 구문을 변수에 담거나, 함수로 묶어서 축약할 수는 없을까?
     function menuAll(){
       menu.forEach((item)=>{
             menuList.innerHTML += `
@@ -344,22 +322,16 @@
     };
     menuAll()// 페이지 로드시 처음으로 로드되어 들어올 값을 미리 전역에 배치
     
-    // tap메뉴를 클릭할때마다 새로 읽어올 querysellectAll이 필요하다. 클릭이벤트 마지막에 새값받기.
     let menuChoice = document.querySelectorAll('.menu li');
+    let objMenu = '';
+    let objMenuPrice = '';
     menuChoices(menuChoice);
-
-    // 탭을 누를 때 마다, 따로 객체를 만들어 줄 변수 | 모든 탭에 obj = menu[index](모든 값)을 사용할 수 없으므로...
-    // let coffeeMenu = [];
-    // let teaMenu = [];
-    // let latteMenu = [];
 
     // 탭을 클릭하면 클릭된 탭의 클래스에 on부여
     let tapList = menuTap.querySelectorAll('li');
     tapList.forEach((tap, index)=>{
       tap.addEventListener('click',()=>{
-        // all까지 추가되므로 +1
         for(num=0; num<typeArr.length+1;num++){
-          // console.log(tapList[num]);
           tapList[num].className = '';
         }
         tapList[index].className = 'on';
@@ -370,31 +342,49 @@
         if(tapOn.innerText=='all'){//all
           menuAll()
         }else if(tapOn.innerText=='coffee'){//coffee
-          menuClick(index); // index값을 전달해야하므로 index를 담아주자, | 함수사용 위치가 헷갈렸는데, 아래에 작성하고, 불러오는 건 윗줄이어도 함수를 부를 수 있는 것 같다.
-            // coffeeMenu = document.querySelectorAll('.menu li');
-          }else if(tapOn.innerText=='tea'){//tea
-            menuClick(index);
-
-
-            teaMenu = document.querySelectorAll('.menu li .menu_nameKo');
-            teaMenuPrice = document.querySelectorAll('.menu span');
-            console.log(teaMenu[0].innerText); // 이름
-            console.log(teaMenuPrice[0].innerText); // 가격
-          }else if(tapOn.innerText=='latte'){//latte
-            menuClick(index);
-            latteMenu = document.querySelectorAll('.menu li');
+          menuClick(index); 
+        }else if(tapOn.innerText=='tea'){//tea
+          menuClick(index);
+          
+          objMenu = document.querySelectorAll('.menu li .menu_nameKo');// 이름
+          objMenuPrice = document.querySelectorAll('.menu span');// 가격
+          objMaker(objMenu, objMenuPrice);          
+        }else if(tapOn.innerText=='latte'){//latte
+          menuClick(index);
+          
+          objMenu = document.querySelectorAll('.menu li .menu_nameKo');// 이름
+          objMenuPrice = document.querySelectorAll('.menu span');// 가격
+          // console.log(objMenu[0].innerText); // 이름
+          // console.log(objMenuPrice[0].innerText); // 가격
         }
-        // 클릭할때마다 값이 바뀌므로 
+        // 클릭할때마다 값이 바뀌므로
         menuChoice = document.querySelectorAll('.menu li');
         menuChoices(menuChoice);
       });
   });
 
+  let changeMenu = []; // 배열에 객체로 담을 것
+  function objMaker(name, price){
+    for(i=0;i<name.length;i++){
+      changeMenu.push({ // 객체를 배열에 추가할때는 += 가아닌 push() 
+        nameKo: name[i].innerText,
+        price: price[i].innerText,
+        cnt: 1,
+        // id: 
+      })
+    };
+    console.log(changeMenu[0]);
+
+    // menu에서 인덱스+1 순으로 id값을 넣어줬으므로
+    // let objIdx = menu.findIndex((item, index)=>{
+    //   return item.nameKo == changeMenu.nameKo;
+    // })
+    // changeMenu
+  }
+
   // 탭메뉴와 맞는 리스트를 뽑는 함수
   function menuClick(index){
     menu.forEach((item)=>{//i는 메뉴를 검색하고 있으므로 index를 가져오는 것이 적당하다.
-      // coffee) all 0 coffee 1 tea 2 latte 3 으로 index가 들어오므로, | typqArr에서의 coffee 0 | 즉 -1
-      // 데이터에서 type이 coffee보다 다른 type을 가진 값이 먼저 들어오면 순서가 바뀌므로 주의!
       if(item.type==typeArr[index-1]){
         menuList.innerHTML += `
         <li>
@@ -416,37 +406,15 @@
     let orderArr = []; // 함수안에 들어가있으면 계속 객체가 한개만 담길 배열이 나온다.
     let totalPrice = document.querySelector('.total .all_price');
     let totalNum = 0; // 영수증 합계를 담을 변수
-
-    // 가격 단위(원)를 영수증 첫 로드때 숨겨주는 함수===================== 
-    // function totalHidden(){
-    //   if(totalNum==0){
-    //     console.log(document.querySelector('.total').innerHTML)
-    //     document.querySelector('.total').innerText = '';
-    //   }else{
-    //     document.querySelector('.total').innerHTML = `
-    //     TOTAL PRICE <span class="total_price"></span> 원
-    //     `
-    //   }
-    // }
-    // totalHidden()
-    // let isDuplicate = false;
-    //==========================================================
-
-    let onePriece = 0;
+    let onePriece = 0; // 개당 가격
     function menuChoices(menuChoice){
       menuChoice.forEach((item, index)=>{
         item.addEventListener('click', ()=>{
-          // // 메뉴 이름
-          // console.log(item.childNodes[3].childNodes[1].innerText);
-          // // 가격
-          // console.log(item.childNodes[3].childNodes[5].innerText);
-          // 번거롭게 childNodes를 찾지말고 객체를 따로 만들어 주자.===============================
           
           // 객체(object)를 만드는 함수를 호출
           orderMenu(index);
 
           if(!isDuplicate){
-            // 여기서의 i는 order()에서 중복된 인자인지 확인할때 사용한 for문의 i | orderMenu() 내에 order()함수가 또 있음.
             bills.innerHTML += `
               <li class="item_list">
                 <dl>
@@ -466,13 +434,6 @@
               // totalPrice.innerHTML = `${totalNum}<span>원</span>`;
               totalPrice.innerHTML = `${totalNum}`;
             }
-
-          ////// 버튼 함수 | 대신 onlick으로 넣어주자.
-          // 늘 값을 먼저 이후에 UI를 그리는 순서를 기억하자.
-          // forEach가 가질수 있는 한계가 있기 때문에, 생성되지 않은 html을 다룰때는 onclick이 효과적이다.
-          // if(orderArr.length!=0){
-          //   billsBtn()
-          // }
         });
       });
     }
@@ -485,20 +446,12 @@
         nameKo : obj.nameKo,
         price : obj.price,
         cnt : 1, // 당장 메뉴를 담았을 때의 개수
-        id : index+1,
+        id : obj.id,
+        // id : index+1,
       }
       
       order(obj);
-      function order(obj){ // 위의(need fix) if문을 사용하기 위해 함수로 묶기
-        // 주문객체 생성
-        // let orderMenu = {
-        // nameKo : obj.nameKo,
-        // price : obj.price,
-        // cnt : 1, // 당장 메뉴를 담았을 때의 개수
-        // }
-      
-      
-      // 중복된 값이 있으면 추가되지 않도록 하자. some()함수를 사용해도 ok
+      function order(obj){
       isDuplicate = false; // 중복여부를 확인할 변수, 클릭할때마다 중복을 확인하기 위해 false로 초기화
       for(i=0;i<orderArr.length;i++){
         if(orderArr[i].nameKo == orderMenu.nameKo){
@@ -513,93 +466,42 @@
     };
 
     function minus(itemId){
-      // 함수보다 전역을 먼저 탐색하기 때문에 전역에서 찾으면 null값이 뜸 | 사용할 블록 안에 배치
-      // let prevBtn = document.querySelectorAll('button.prev_btn');
-      // prevBtn.forEach((drink,k)=>{
-      //   drink.addEventListener('click',()=>{
-        // addEventListner 를 사용하면, k(index)가 부여된 값이 고정이 되기 때문에 삭제 될 시 변동하는 인덱스를 참조하지 못한다고 함.
-        // 그러므로 id값을 부여하는 방법을 사용하여 삭제해야할수 있음.
-        // 현재 이벤트리스너 대신 onclick을 사용하므로, dom에서 그려지는 UI 적용은 제대로 되나,
-        // 보여지지 않는 arr의 값은 제대로 불러오지 못하고 있음
-
-        // find 함수를 이용하여, 클릭한 item의 id와, orderArr 내에 같은 id를 가진것을 찾기
-        const itemIdx = orderArr.findIndex((item)=>{
-          // console.log('item.id : '+item.id);
-          // console.log('itemId : '+itemId);
-          return item.id == itemId;
-        });
-        // console.log(itemIdx);
+        const itemIdx = orderArr.findIndex((item)=>{return item.id == itemId;});
         const item = orderArr[itemIdx];
-
-        // addEventListner대신 onclick을 사용
-        // 그러면 불안정한 k값 대신 확실한 값을 사용할 수 있음.
-          onePriece = item.price;
-          if(item.cnt<2 && item){
-            // 음료를 클릭할 때 마다, false로 초기화
-            isDuplicate = false;
-            let del = confirm('해당 음료를 장바구니에서 삭제하시겠습니까?');
-            let parentNode = document.querySelector('.bills_cont');
-            let removeChilds = document.querySelectorAll('.item_list')[itemIdx];
-            if(del){ // 지우는게 참이라면 배열과, dom의 li 선택된[k] 지워주기.
-
-              //k값이 잘못 되었는지 4~5개 이상의 음료를 추가했다가 지우면, index인 k가 밀리는 증상이 나타남
-              orderArr.splice(itemIdx, 1);
-              parentNode.removeChild(removeChilds);
-              
-              // console.log('삭제된 li'+removeChilds.innerText);
-              // 어떤 목차가 남아있는지 확인
-              // orderArr.forEach((left_drink)=>{
-              //   console.log(`남은 음료: [${left_drink.nameKo}]`);
-              // });
-              // console.log('남은 음료 개수 : '+orderArr.length);
-
-              totalNum -= onePriece;
-              document.querySelector('.all_price').innerText = totalNum;
-            }else{
-              return; // 아니라면 빠져나가기
-            }
-          }else if(item){
-            item.cnt--;
-            // 원가를 기준으로 1. 원가 값을 매번 빼기 | 2. 원가 * 개수 / 2번이 더 안정적일 것 같다.
-            // onePriece -= orderArr[k].price;
-            onePriece = (item.price)*(item.cnt);
-            
-            totalNum -= item.price;
-            // console.log('원가 : '+orderArr[k].price);
-            // console.log('개수에따른 값 : '+onePriece);
-            // console.log('총합 : '+totalNum);
-            
-            document.querySelectorAll('.item_cnt')[itemIdx].innerText = item.cnt;
-            document.querySelectorAll('.item_price')[itemIdx].innerText = onePriece;
+        onePriece = item.price;
+        if(item.cnt<2 && item){
+          isDuplicate = false;
+          let del = confirm('해당 음료를 장바구니에서 삭제하시겠습니까?');
+          let parentNode = document.querySelector('.bills_cont');
+          let removeChilds = document.querySelectorAll('.item_list')[itemIdx];
+          if(del){
+            orderArr.splice(itemIdx, 1);
+            parentNode.removeChild(removeChilds);
+            totalNum -= onePriece;
             document.querySelector('.all_price').innerText = totalNum;
+          }else{
+            return; // 아니라면 빠져나가기
           }
-      //   });
-      // });
-    }
-    function plus(itemId){
-      const itemIdx = orderArr.findIndex((item)=>{
-        return item.id == itemId;
-      });
-      const item = orderArr[itemIdx];
-      
-      // console.log()
-      onePriece = item.price;
-
-      // let nextBtn = document.querySelectorAll('button.next_btn');
-      // nextBtn.forEach((drink,k)=>{
-        // onePriece = orderArr[k].price;
-        // drink.addEventListener('click',()=>{
-
-          //minus함수와 통일 시키자.
-          item.cnt++;
-          // onePriece += orderArr[k].price;
+        }else if(item){
+          item.cnt--;
           onePriece = (item.price)*(item.cnt);
-          totalNum += item.price;
+          totalNum -= item.price;
+          
           document.querySelectorAll('.item_cnt')[itemIdx].innerText = item.cnt;
           document.querySelectorAll('.item_price')[itemIdx].innerText = onePriece;
           document.querySelector('.all_price').innerText = totalNum;
-      //   });
-      // });
+        }
+    }
+    function plus(itemId){
+      const itemIdx = orderArr.findIndex((item)=>{return item.id == itemId;});
+      const item = orderArr[itemIdx];
+      onePriece = item.price;
+      item.cnt++;
+      onePriece = (item.price)*(item.cnt);
+      totalNum += item.price;
+      document.querySelectorAll('.item_cnt')[itemIdx].innerText = item.cnt;
+      document.querySelectorAll('.item_price')[itemIdx].innerText = onePriece;
+      document.querySelector('.all_price').innerText = totalNum;
     }
   </script>
 </body>
