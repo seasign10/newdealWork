@@ -107,10 +107,11 @@
     }
     .bills_box .bills .total {
       color: #000000ac;
-      text-align: left;
       padding: 1rem 1rem 0 1rem;
       margin-top: 2rem;
       font-size: 20px;
+      display: flex;
+      justify-content: space-between;
     }
     .bills_cont{
       margin-top: 1rem;
@@ -139,7 +140,10 @@
       width: 28px;
       height: 28px;
     }
-    .all_price{font-weight: 100;margin-left: 3rem;}
+    .all_price{font-weight: 100;}
+    .item_price{font-weight: 100;}
+    .item_list .won{margin-right: 1rem;}
+    .won{margin-left: 0.5rem;}
   </style>
 </head>
 <body>
@@ -283,7 +287,7 @@
       <div class="bills">
         <h3 class="bills_title">BILLS<h3>
         <ul class="bills_cont"></ul>
-        <p class="total">TOTAL PRICE <span class="all_price"></span></p>
+        <p class="total">TOTAL PRICE <span><span class="all_price">0</span><span class="won">원</span></span></p>
       </div>
     </section>
     `
@@ -348,12 +352,13 @@
           
           objMenu = document.querySelectorAll('.menu li .menu_nameKo');// 이름
           objMenuPrice = document.querySelectorAll('.menu span');// 가격
-          objMaker(objMenu, objMenuPrice);          
+          objMaker(objMenu, objMenuPrice);
         }else if(tapOn.innerText=='latte'){//latte
           menuClick(index);
           
           objMenu = document.querySelectorAll('.menu li .menu_nameKo');// 이름
           objMenuPrice = document.querySelectorAll('.menu span');// 가격
+          objMaker(objMenu, objMenuPrice);
           // console.log(objMenu[0].innerText); // 이름
           // console.log(objMenuPrice[0].innerText); // 가격
         }
@@ -363,23 +368,20 @@
       });
   });
 
-  let changeMenu = []; // 배열에 객체로 담을 것
+  let changeMenu = []; // 배열에 객체로 담을 것 전역으로 사용할 것임.
   function objMaker(name, price){
+    changeMenu = []; // 함수가 호출될 때마다(즉, 탭이 바뀔때 마다) 배열을 초기화
     for(i=0;i<name.length;i++){
+      // find 메서드가 조건에 맞는 항목을 찾지 못했을 경우, undefined을 출력하지만 undefined에는 .id속성값이 없어서 에러가 일어난다. 이 때, ?(옵셔널체이닝)을 만나면 undefined를 만날 경우, 속성에 접근하지 않고 undefined를 반환한다.
+      let objId = menu.find((item)=>{return item.nameKo == name[i].innerText;})?.id
       changeMenu.push({ // 객체를 배열에 추가할때는 += 가아닌 push() 
         nameKo: name[i].innerText,
         price: price[i].innerText,
         cnt: 1,
-        // id: 
+        id: objId,
       })
     };
-    console.log(changeMenu[0]);
 
-    // menu에서 인덱스+1 순으로 id값을 넣어줬으므로
-    // let objIdx = menu.findIndex((item, index)=>{
-    //   return item.nameKo == changeMenu.nameKo;
-    // })
-    // changeMenu
   }
 
   // 탭메뉴와 맞는 리스트를 뽑는 함수
@@ -407,6 +409,7 @@
     let totalPrice = document.querySelector('.total .all_price');
     let totalNum = 0; // 영수증 합계를 담을 변수
     let onePriece = 0; // 개당 가격
+    let isDuplicate = false;
     function menuChoices(menuChoice){
       menuChoice.forEach((item, index)=>{
         item.addEventListener('click', ()=>{
@@ -425,44 +428,53 @@
                       <span class="item_cnt">${orderArr[i].cnt}</span>
                       <button class="next_btn btn_style" onclick="plus(${orderArr[i].id})">+</button>
                     </div>
-                    <span class="item_price">${orderArr[i].price}</span>
+                    <span>
+                      <span class="item_price">${orderArr[i].price}</span><span class="won">원</span>
+                    </span>
                   <dd>
                 </dl>
               </li>
               `;
               totalNum += orderArr[i].price
-              // totalPrice.innerHTML = `${totalNum}<span>원</span>`;
               totalPrice.innerHTML = `${totalNum}`;
             }
         });
       });
     }
 
-    function orderMenu(index){ // 클릭한 메뉴의 index를 가져와야함.
-      let obj = menu[index];
-      // changeObj();
-
-      let orderMenu = {
-        nameKo : obj.nameKo,
-        price : obj.price,
-        cnt : 1, // 당장 메뉴를 담았을 때의 개수
-        id : obj.id,
-        // id : index+1,
+    function order(index){// 조건에따라 객체를 만드는 함수
+      let tapOn = document.querySelector('.on');
+      let obj = [];
+      if(tapOn.innerText=='tea'||tapOn.innerText=='latte'){
+        console.log('티, 라떼')
+        obj = changeMenu[index];
+      }else{
+        console.log('전체, 커피')
+        obj = menu[index];
       }
-      
-      order(obj);
-      function order(obj){
+      let orderMenus = {
+      nameKo : obj.nameKo,
+      price : Number(obj.price),
+      cnt : 1, // 당장 메뉴를 담았을 때의 개수
+      id : obj.id,
+      // id : index+1,
+    }
+    return orderMenus
+  }
+  
+    function orderMenu(index){ // 클릭한 메뉴의 index를 가져와야함.
+      let orderMenus = order(index) // return값을 받아오기
       isDuplicate = false; // 중복여부를 확인할 변수, 클릭할때마다 중복을 확인하기 위해 false로 초기화
       for(i=0;i<orderArr.length;i++){
-        if(orderArr[i].nameKo == orderMenu.nameKo){
+        if(orderArr[i].nameKo == orderMenus.nameKo){
           isDuplicate = true;
           break; // 중복이 발견되면 루프 탈출
         }  
       }
       if(!isDuplicate){
-        orderArr.push(orderMenu); // 클릭된 값 배열에 추가
+        orderArr.push(orderMenus); // 클릭된 값 배열에 추가
       }else{alert('이미 담겨있는 상품입니다.')}
-      }
+
     };
 
     function minus(itemId){
