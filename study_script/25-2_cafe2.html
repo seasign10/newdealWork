@@ -318,7 +318,7 @@
               <dl class="menu_txt">
                 <dt class="menu_nameKo">${item.nameKo}</dt>
                 <dd class="menu_nameEn">${item.nameEn}</dd>
-                <dd class="menu_price"><span>${item.price}</span>원</dd>
+                <dd class="menu_price"><span>${item.price.toLocaleString('ko-KR')}</span>원</dd>
               </dl>
             </li>  
             `
@@ -394,7 +394,7 @@
           <dl class="menu_txt">
             <dt class="menu_nameKo">${item.nameKo}</dt>
             <dd class="menu_nameEn">${item.nameEn}</dd>
-            <dd class="menu_price"><span>${item.price}</span>원</dd>
+            <dd class="menu_price"><span>${item.price.toLocaleString('ko-KR')}</span>원</dd>
           </dl>
         </li>  
         `
@@ -408,7 +408,7 @@
     let orderArr = []; // 함수안에 들어가있으면 계속 객체가 한개만 담길 배열이 나온다.
     let totalPrice = document.querySelector('.total .all_price');
     let totalNum = 0; // 영수증 합계를 담을 변수
-    let onePriece = 0; // 개당 가격
+    let onePriece = 0; // 개당 가격을 합친 변수
     let isDuplicate = false;
     function menuChoices(menuChoice){
       menuChoice.forEach((item, index)=>{
@@ -429,14 +429,14 @@
                       <button class="next_btn btn_style" onclick="plus(${orderArr[i].id})">+</button>
                     </div>
                     <span>
-                      <span class="item_price">${orderArr[i].price}</span><span class="won">원</span>
+                      <span class="item_price">${orderArr[i].price.toLocaleString('ko-KR')}</span><span class="won">원</span>
                     </span>
                   <dd>
                 </dl>
               </li>
               `;
               totalNum += orderArr[i].price
-              totalPrice.innerHTML = `${totalNum}`;
+              totalPrice.innerHTML = `${totalNum.toLocaleString('ko-KR')}`;
             }
         });
       });
@@ -490,7 +490,7 @@
             orderArr.splice(itemIdx, 1);
             parentNode.removeChild(removeChilds);
             totalNum -= onePriece;
-            document.querySelector('.all_price').innerText = totalNum;
+            document.querySelector('.all_price').innerText = totalNum.toLocaleString('ko-KR');
           }else{
             return; // 아니라면 빠져나가기
           }
@@ -500,8 +500,8 @@
           totalNum -= item.price;
           
           document.querySelectorAll('.item_cnt')[itemIdx].innerText = item.cnt;
-          document.querySelectorAll('.item_price')[itemIdx].innerText = onePriece;
-          document.querySelector('.all_price').innerText = totalNum;
+          document.querySelectorAll('.item_price')[itemIdx].innerText = onePriece.toLocaleString('ko-KR');
+          document.querySelector('.all_price').innerText = totalNum.toLocaleString('ko-KR');
         }
     }
     function plus(itemId){
@@ -512,8 +512,8 @@
       onePriece = (item.price)*(item.cnt);
       totalNum += item.price;
       document.querySelectorAll('.item_cnt')[itemIdx].innerText = item.cnt;
-      document.querySelectorAll('.item_price')[itemIdx].innerText = onePriece;
-      document.querySelector('.all_price').innerText = totalNum;
+      document.querySelectorAll('.item_price')[itemIdx].innerText = onePriece.toLocaleString('ko-KR');
+      document.querySelector('.all_price').innerText = totalNum.toLocaleString('ko-KR');
     }
   </script>
 </body>
