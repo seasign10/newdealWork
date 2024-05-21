@@ -300,7 +300,7 @@
 
     // tap 추가
     let menuTap = document.querySelector('.container .tap');
-    for(i=-1;i<typeArr.length;i++){
+    for(let i=-1;i<typeArr.length;i++){
       if(i==-1){
         menuTap.innerHTML += `<li class="on">all</li>`;
       }else{
@@ -335,7 +335,7 @@
     let tapList = menuTap.querySelectorAll('li');
     tapList.forEach((tap, index)=>{
       tap.addEventListener('click',()=>{
-        for(num=0; num<typeArr.length+1;num++){
+        for(let num=0; num<typeArr.length+1;num++){
           tapList[num].className = '';
         }
         tapList[index].className = 'on';
@@ -371,7 +371,7 @@
   let changeMenu = []; // 배열에 객체로 담을 것 전역으로 사용할 것임.
   function objMaker(name, price){
     changeMenu = []; // 함수가 호출될 때마다(즉, 탭이 바뀔때 마다) 배열을 초기화
-    for(i=0;i<name.length;i++){
+    for(let i=0;i<name.length;i++){
       // find 메서드가 조건에 맞는 항목을 찾지 못했을 경우, undefined을 출력하지만 undefined에는 .id속성값이 없어서 에러가 일어난다. 이 때, ?(옵셔널체이닝)을 만나면 undefined를 만날 경우, 속성에 접근하지 않고 undefined를 반환한다.
       let objId = menu.find((item)=>{return item.nameKo == name[i].innerText;})?.id
       changeMenu.push({ // 객체를 배열에 추가할때는 += 가아닌 push() 
@@ -465,7 +465,7 @@
     function orderMenu(index){ // 클릭한 메뉴의 index를 가져와야함.
       let orderMenus = order(index) // return값을 받아오기
       isDuplicate = false; // 중복여부를 확인할 변수, 클릭할때마다 중복을 확인하기 위해 false로 초기화
-      for(i=0;i<orderArr.length;i++){
+      for(let i=0;i<orderArr.length;i++){
         if(orderArr[i].nameKo == orderMenus.nameKo){
           isDuplicate = true;
           break; // 중복이 발견되면 루프 탈출

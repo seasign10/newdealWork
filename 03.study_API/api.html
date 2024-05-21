@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{padding: 0; margin: 0;list-style: none;}
+    h1 {text-align: center;margin: 3rem 0;}
+    .test{justify-content: center; margin: 0 auto 5rem auto; display: flex;width: 900px;height: 100%;flex-wrap: wrap;}
+    dl{overflow: hidden; height: 400px;width: 200px; margin: 0.5rem;box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);border-radius: 10px;}
+    dt{font-weight: 700; padding: 0.5rem; font-size: 24px;overflow: hidden;text-overflow: ellipsis;word-break: break-all;white-space: nowrap;}
+    dd>a>img{width: 200px;height: 260px;}
+    dl>dd:nth-child(3){padding: 0.5rem; display: inline-block;}
+    dl>dd:nth-child(4){padding: 0 0.5rem;}
+  </style>
+  <!-- defer > html 먼저 읽히게 -->
+  <script src="script/api.js" defer></script>
+  <!-- <script src="script/action.js" defer></script> -->
+</head>
+<body>
+  <h1>이달의 축제</h1>
+  <div class="test"></div>
+</body>
+</html>
