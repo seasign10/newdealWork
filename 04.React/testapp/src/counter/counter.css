@@ -1,0 +1,48 @@
+.App{
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Viewer{
+  border: 1px solid silver;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+.count{
+  background-color: mediumseagreen;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 80px;
+  border-radius: 50%;
+  margin: 0 0 2rem 0;
+}
+.Controller{
+  display: flex;
+  width: 400px;
+  justify-content: space-around;
+}
+button{
+  width: 52px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid silver;
+  border-radius: 2px;
+}
+button:hover{
+  background-color: #0000009d;
+  color: #fff;
+  cursor: pointer;
+}
+button:active{
+  background-color: #000000d2;
+}

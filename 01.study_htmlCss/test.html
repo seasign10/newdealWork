@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{padding: 0; margin: 0;list-style: none;}
+
+    /* 부모 */
+    ul{
+      /* flex는 기본적으로 shirink 1의 값을 가지고 있음 */
+      display: flex;
+      width: 600px;
+      height: 300px;
+      overflow-x: scroll;
+
+      /* flex-wrap: nowrap; */
+    }
+
+    /* 자식 */
+    li{
+      width: 200px;
+      height: 200px;
+      background-color: palevioletred;
+      margin: 1rem;
+
+      /* 아무리 작아져도 200px까지만 */
+      min-width: 200px;
+
+      /* 부모에게 맞추려는 속성 */
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</body>
+</html>
