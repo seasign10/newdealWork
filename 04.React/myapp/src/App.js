@@ -12,6 +12,10 @@ import BoardList from './components/BoardList';
 import LifeCycle from './components/LifeCycle';
 import UseEffectHook from './components/UseEffectHook';
 import Clock from './components/Clock';
+import UseRefHook from './components/UseRefHook';
+import AppPropsDrill from './components/context_api/AppPropsDrill';
+import AppCxt from './components/context_api/AppCtx';
+import AppCxt2 from './components/context_api/AppCtx2';
 
 function App() {
   return (
@@ -31,7 +35,7 @@ function App() {
               <Side />
             </Col>
             {/* d-sm-block : sm 사이즈일때 부터 block */}
-            <Col xs={12} sm={9} md={8} className='d-none d-sm-block' style={{backgroundColor: 'beige'}}>
+            <Col xs={12} sm={9} md={8} className='d-none d-sm-block'>
               <Routes>
                 <Route path="/" element={<Home/>} />
                 <Route path="/comp1" element={<MyComp/>} />
@@ -40,6 +44,10 @@ function App() {
                 <Route path='/life' element={<LifeCycle />} />
                 <Route path='/hook1' element={<UseEffectHook />} />
                 <Route path='/clock' element={<Clock />} />
+                <Route path='/hook2' element={<UseRefHook />} />
+                <Route path='/app2' element={<AppPropsDrill />} />
+                <Route path='/hook3' element={<AppCxt />} />
+                <Route path='/hook4' element={<AppCxt2 />} />
 
                 {/* 위의 path 이외 나머지는 *가 전부 받는다. */}
                 <Route path="*" element={<PageNotFound/>} />

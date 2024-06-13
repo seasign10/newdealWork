@@ -35,6 +35,10 @@ export default function Side() {
         <ListGroup.Item as={Link} to={'/life'} >LifeCycle</ListGroup.Item> {/* li */}
         <ListGroup.Item as={Link} to={'/hook1'} >useEffect Hook</ListGroup.Item> {/* li */}
         <ListGroup.Item as={Link} to={'/clock'} >Clock</ListGroup.Item> {/* li */}
+        <ListGroup.Item as={Link} to={'/hook2'} >useRef</ListGroup.Item> {/* li */}
+        <ListGroup.Item as={Link} to={'/app2'} >Props Drill</ListGroup.Item> {/* li */}
+        <ListGroup.Item as={Link} to={'/hook3'} >Context Api</ListGroup.Item> {/* li */}
+        <ListGroup.Item as={Link} to={'/hook4'} >useContext Hook</ListGroup.Item> {/* li */}
       </ListGroup>
     </Stack>
   );
