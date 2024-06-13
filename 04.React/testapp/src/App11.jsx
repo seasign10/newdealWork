@@ -1,5 +1,6 @@
 // import MyImageGallery from "./example/JsxEx10";
-import YourGallery from "./example/JsxEx11";
+import {YourGallery} from "./example/JsxEx11";
+
 
 const App = ()=>{
     return (
