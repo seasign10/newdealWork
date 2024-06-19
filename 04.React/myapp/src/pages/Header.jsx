@@ -17,6 +17,18 @@ export default function Header() {
       <li>
         <Link to="/comp1">MyComp1</Link>
       </li>
+      <li>
+        <Link to="/naver">Naver Book</Link>
+      </li>
+      <li>
+        <Link to="/signup">SignUp</Link>
+      </li>
+      <li>
+        <Link to="/signin">SignIn</Link>
+      </li>
+      <li>
+        <Link to="/members">Members</Link>
+      </li>
     </ul>
   </div>;
 }

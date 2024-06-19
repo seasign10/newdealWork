@@ -26,6 +26,7 @@ export default function Side() {
       <Button as={Link} to={'/'} variant="primary">Home</Button>
       <Button as={Link} to={'/comp1'} variant="secondary">MyComp1</Button>
       <Button onClick={moveLoc} variant='danger'>Confirm</Button>
+      <Button as={Link} to={'/todo'} variant='danger'>TodoList</Button>
       <hr />
       {/* ul */}
       <ListGroup>
@@ -39,6 +40,9 @@ export default function Side() {
         <ListGroup.Item as={Link} to={'/app2'} >Props Drill</ListGroup.Item> {/* li */}
         <ListGroup.Item as={Link} to={'/hook3'} >Context Api</ListGroup.Item> {/* li */}
         <ListGroup.Item as={Link} to={'/hook4'} >useContext Hook</ListGroup.Item> {/* li */}
+        <ListGroup.Item as={Link} to={'/ajax1/5'} >Rest Api1(user)</ListGroup.Item>
+        <ListGroup.Item as={Link} to={'/ajax2?page=1&per_page=3'} >Rest Api1(userList)</ListGroup.Item>
+        <ListGroup.Item as={Link} to={'/ajax3'} >오늘의 날씨</ListGroup.Item>
       </ListGroup>
     </Stack>
   );

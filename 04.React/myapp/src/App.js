@@ -16,6 +16,13 @@ import UseRefHook from './components/UseRefHook';
 import AppPropsDrill from './components/context_api/AppPropsDrill';
 import AppCxt from './components/context_api/AppCtx';
 import AppCxt2 from './components/context_api/AppCtx2';
+import OpenWeather from './components/ajax/OpenWeather';
+import SingleUser from './components/ajax/SingleUser';
+import ListUser from './components/ajax/ListUser';
+import NaverBookApp from './components/naverBook/NaverBookApp';
+import SignUp from './components/member/SignUp';
+import TodoApp from './components/todo/TodoApp';
+import MemberList from './components/member/MemberList';
 
 function App() {
   return (
@@ -48,6 +55,14 @@ function App() {
                 <Route path='/app2' element={<AppPropsDrill />} />
                 <Route path='/hook3' element={<AppCxt />} />
                 <Route path='/hook4' element={<AppCxt2 />} />
+                <Route path='/todo' element={<TodoApp />} />
+                <Route path='/ajax3' element={<OpenWeather />} />
+                <Route path='/naver' element={<NaverBookApp />} />
+                <Route path='/signup' element={<SignUp />} />
+                <Route path='/ajax1/:id' element={<SingleUser />} />
+                <Route path='/ajax2' element={<ListUser />} />
+                <Route path='/signup' element={<SignUp />} />
+                <Route path='/members' element={<MemberList />} />
 
                 {/* 위의 path 이외 나머지는 *가 전부 받는다. */}
                 <Route path="*" element={<PageNotFound/>} />

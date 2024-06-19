@@ -1,0 +1,28 @@
+.MemberList li{
+  float: left;
+  height: 45px;
+  line-height: 45px;
+  border-bottom: 1px solid #ddd;
+}
+.MemberList{
+  width: 90%;
+  margin: auto;
+}
+.MemberList li:nth-child(6n+1){
+  width: 8%;
+}
+.MemberList li:nth-child(6n+2){
+  width: 15%;
+}
+.MemberList li:nth-child(6n+3){
+  width: 20%;
+}
+.MemberList li:nth-child(6n+4){
+  width: 30%;
+}
+.MemberList li:nth-child(6n+5){
+  width: 20%;
+}
+.MemberList li:nth-child(6n){
+  width: 7%;
+}
