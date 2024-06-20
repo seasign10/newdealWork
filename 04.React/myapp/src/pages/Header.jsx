@@ -1,14 +1,33 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import './Header.css'
 import { useSigninUser } from '../components/member/SigninUserContext';
 
 export default function Header() {
-  const {user, signoutUser} = useSigninUser();
+  const {user, signoutUser, signinAuthUser} = useSigninUser();
   // context로 부터 user, signoutUser를 받아옴
+  // 새로고침 시, 로그인한 사용자 정보 유지를 위해 useEffect 훅에서
+  // context로부터 제공받은 user가 없다면, 세션 스토리지에서
+  // 로그인한 userInfo를 받아, context signinauthUser()함수에 전달
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(()=>{
+    if(!user){
+      const tmpUserInfo = sessionStorage.getItem('userInfo'); // 세션 스토리지에 저장된 userInfo를 가져옴
+      if(tmpUserInfo){//세션스토리지에 저장된 userInfo가 있으면
+        console.log('tmpUserInfo:'+tmpUserInfo, typeof tmpUserInfo); // string
+        // json 형태의 string을 json 객체로 변환해주는 함수 : JSON.parse(문자열)==>json객체
+        setUserInfo(JSON.parse(tmpUserInfo));
+        signinAuthUser(JSON.parse(tmpUserInfo));
+      }
+    }
+  },[]);
 
   const onSingout = () => {
     signoutUser();// 로그아웃 처리 Provider가 공급하는 user를 null로 변경
+    // sessionStorage.clear();
+    sessionStorage.removeItem('userInfo');
+    setUserInfo(null);
   }
 
   return <div className="header">
@@ -47,6 +66,9 @@ export default function Header() {
       </li>
       <li>
         <Link to="/members">Members</Link>
+      </li>
+      <li>
+        <Link to="/post">Post (Board)</Link>
       </li>
     </ul>
   </div>;

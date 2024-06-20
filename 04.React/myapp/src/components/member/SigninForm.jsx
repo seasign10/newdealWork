@@ -41,13 +41,25 @@ export default function SigninForm() {
         signinAuthUser(authUser); // 인증받은 no, name, userid를 SigninUserContext에 저장 
         console.log('authUser:', authUser);
         alert(res.msg);
-        navigate('/'); // 홈페이지로 이동
-    }else{
+        // navigate('/'); // 홈페이지로 이동 context 사용 시
+        // 새로고침시 인증받은 사용자 정보가 날라가기 때문에 context 사용
+        // 이를 해결하기 위해 sessionStorage에 인증받은 사용자 정보를 저장
+        // 브라우저를 닫으면 저장한 정보는 날라간다.
+
+        //sessionStorage.setItem('키값', '값');
+        sessionStorage.setItem('userInfo', JSON.stringify(authUser));
+
+    }else{// 로그인 실패
+      sessionStorage.clear(); // 세선 스토리지 초기화(저장한 모든 정보 삭제됨)
+      sessionStorage.removeItem('userInfo'); // userInfo만 삭제
       alert(res.msg);
       setSigninUser({...signinUser, userid:'', passwd:''});
     }
+    // window.location.href='/'; // 새로고침
+    navigate('/');
     }))
     .catch((err=>{
+      sessionStorage.clear();
       console.log(err.response.data.message);
     }))
   }
