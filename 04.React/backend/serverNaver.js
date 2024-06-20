@@ -1,6 +1,7 @@
 // 네이버 검색 API 예제 - 블로그 검색
 var express = require('express');
 var app = express();
+
 var client_id = '';
 var client_secret = '';
 app.get('/api/books', function (req, res) {

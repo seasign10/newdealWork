@@ -1,8 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './Header.css'
+import { useSigninUser } from '../components/member/SigninUserContext';
 
 export default function Header() {
+  const {user, signoutUser} = useSigninUser();
+  // context로 부터 user, signoutUser를 받아옴
+
+  const onSingout = () => {
+    signoutUser();// 로그아웃 처리 Provider가 공급하는 user를 null로 변경
+  }
+
   return <div className="header">
     <ul>
       <li>
@@ -14,17 +22,28 @@ export default function Header() {
       */}
         <Link to="/">Home</Link>
       </li>
+      {!user&&
+        <>
+          <li>
+            <Link to="/signup">SignUp</Link>
+          </li>
+          <li>
+            <Link to="/signin">SignIn</Link>
+          </li>
+        </>
+      }
+      {user&&
+        <>
+          <li className='bg-warning'>
+            <Link to="#">{user.userid}님 로그인 중</Link>
+          </li>
+          <li>
+            <Link to="#" onClick={onSingout}>SignOut</Link>
+          </li>
+        </>
+      }
       <li>
         <Link to="/comp1">MyComp1</Link>
-      </li>
-      <li>
-        <Link to="/naver">Naver Book</Link>
-      </li>
-      <li>
-        <Link to="/signup">SignUp</Link>
-      </li>
-      <li>
-        <Link to="/signin">SignIn</Link>
       </li>
       <li>
         <Link to="/members">Members</Link>

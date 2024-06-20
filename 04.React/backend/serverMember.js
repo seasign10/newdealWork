@@ -110,6 +110,31 @@ app.delete('/api/memvbers/:no', (req, res) => {
   });
 });
 
+app.post('/api/login', (req, res) => {
+  const {userid, passwd} = req.body;
+  console.log(userid, passwd)
+  const sql = `SELECT no, name, userid FROM member WHERE userid=? AND passwd=?`;
+  pool.getConnection((err, con) => {
+    if(err) return res.status(500).json({result: 'error', msg: 'Internat Server Error'});
+    con.query(sql, [userid, passwd], (err, result) => {
+      con.release();
+      if(err) return res.status(500).json({result: 'error', msg: 'Database SQL Error'});
+      
+      if(result.length>0){
+        const user = result[0];
+        res.json({result: 'success',msg: `${user.name}님 환영합니다` , 
+        data: {no: user.no, name: user.name, userid: user.userid}});
+        return;
+      }else{
+        res.json({result: 'fail', msg: '아이디 또는 비밀번호가 일치하지 않습니다.'});
+      }
+    });
+  });
+  res.json({result:'success'})
+})
+
+
+
 // 4. express 서버 라우팅
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

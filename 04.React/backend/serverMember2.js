@@ -59,6 +59,23 @@ app.delete('/api/members/:no', (req, res) => {
   });
 });
 
+app.post('/api/signin', (req, res) => {
+  const {userid, passwd} = req.body;
+  console.log(userid, passwd)
+  const sql = `select no, name, userid, email from member where userid=? and passwd=?`;
+  db.all(sql, [userid, passwd], (err, result) => {
+    console.log('result: ', result);
+    if(result.length>0){
+      const user = result[0];
+      res.json({result: 'success',msg: `${user.name}님 환영합니다` , 
+      data: {no: user.no, name: user.name, userid: user.userid}});
+      return;
+    }else{
+      res.json({result: 'fail', msg: '아이디 또는 비밀번호가 일치하지 않습니다.'});
+    }
+  });
+});
+
 // 4. express 서버 라우팅
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

@@ -26,7 +26,8 @@ export default function Side() {
       <Button as={Link} to={'/'} variant="primary">Home</Button>
       <Button as={Link} to={'/comp1'} variant="secondary">MyComp1</Button>
       <Button onClick={moveLoc} variant='danger'>Confirm</Button>
-      <Button as={Link} to={'/todo'} variant='danger'>TodoList</Button>
+      <Button as={Link} to={'/todo'} variant='warning'>TodoList</Button>
+      <Button as={Link} to={'/naver'} variant='danger'>NaverBook</Button>
       <hr />
       {/* ul */}
       <ListGroup>
