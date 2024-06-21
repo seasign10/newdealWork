@@ -133,6 +133,30 @@ app.post('/api/login', (req, res) => {
   res.json({result:'success'})
 })
 
+/////board/////
+app.post('/api/boards', (req, res) => {
+  // post 방식의 body 데이터 받기
+  const {title, userid, content} = req.body; 
+  if(!title||!userid||!content){
+    return res.status(400).send('제목, 작성자, 내용을 입력하세요.');
+  }
+  const sql = `insert into board set ?`;
+  const boardData = {title, userid, content}; // set으로 넣을때는 객체로 넣어야 한다.
+  pool.getConnection((err, con) => {
+    if(err) return res.status(500).send(err);
+    con.query(sql, boardData, (err, result) => {
+      con.release(); // 자원 반납을 하지 않으면 브라우저가 끊겨도 계속 연결이 유지된다.
+      if(err) return res.status(500).send(err);
+      console.log('board write result', result);
+      if(result.affectedRows>0){
+        res.json({result: 'success', msg: '게시글이 등록되었습니다.', data: {no: result.insertId}});
+      }else{
+        res.json({result: 'fail', msg: '게시글 등록에 실패했습니다.'});
+      }
+    });
+  });
+});
+
 
 
 // 4. express 서버 라우팅

@@ -76,6 +76,23 @@ app.post('/api/signin', (req, res) => {
   });
 });
 
+/////board/////
+app.post('/api/boards', (req, res) => {
+  // post 방식의 body 데이터 받기
+  const {title, userid, content} = req.body; 
+  if(!title||!userid||!content){
+    return res.status(400).send('제목, 작성자, 내용을 입력하세요.');
+  }
+  const sql = `insert into board (title, userid, content, wdate) 
+  values (?, ?, ?, datetime('now', 'localtime'))`;
+  db.run(sql, [title, userid, content], (err) => {
+    if(err){
+      return res.status(500).json({error: err.message});
+    } 
+    res.json({result: 'success', msg: '게시글이 등록되었습니다.'});
+  });
+});
+
 // 4. express 서버 라우팅
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

@@ -19,7 +19,7 @@ export default function BoardApp() {
         (mode==='list') && (<BoardList />)
       }
       {
-        (mode==='write') && (<BoardForm />)
+        (mode==='write') && (<BoardForm onMode={onChangeMode} />)
       }
     </div>
   );
