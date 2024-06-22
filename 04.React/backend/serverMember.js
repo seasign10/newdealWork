@@ -134,6 +134,19 @@ app.post('/api/login', (req, res) => {
 })
 
 /////board/////
+//총게시글
+app.get('/api/boardTotal', (req, res) => {
+  const sql=`select count(id) totalCount from board`;
+  pool.getConnection((err, con)=>{
+    if(err) return res.status(500).send(err);
+    con.query(sql, (err, result)=>{
+      con.release();
+      if(err) return res.status(500).send(err);
+      console.log(result);
+    });
+  });
+});
+// 게시글 등록
 app.post('/api/boards', (req, res) => {
   // post 방식의 body 데이터 받기
   const {title, userid, content} = req.body; 
@@ -156,8 +169,67 @@ app.post('/api/boards', (req, res) => {
     });
   });
 });
+// 게시글 목록 보기
+app.get('/api/boards', (req, res) => {
+  const sql = `SELECT no, title, userid, readnum, date_format(wdate, '%Y-%m-%d')wdate 
+  FROM board ORDER BY no DESC`;
+  pool.getConnection((err, con) => {});
+    if(err) return res.status(500).send('Internal Server Error'); //DB연결 오류
+    con.query(sql, (err, result) => {
+      con.release();
+      if(err) return res.status(500).send('Database SQL Error');//SQL문 오류
+      res.json(result);
+    });
+});
+// 게시글 조회수 증가
+app.put('/api/boardReadnum/:id', (req, res) => {
+  const id = req.params.id;
+  // 조회수 증가
+  const sql = `UPDATE board SET readnum = readnum+1 WHERE id=?`;
+  pool.getConnection((err, con) => {});
+    if(err) return res.status(500).send('Internal Server Error'); //DB연결 오류
+    con.query(sql,[id], (err, result) => {
+      con.release();
+      if(err) return res.status(500).send('Database SQL Error');//SQL문 오류
+      if(result.affectedRows>0){
+        res.json({result: 'success'});
+      }else{
+        return res.status(404).send('Board not found');
+      }
+    });
+});
 
-
+// 게시글 상세보기
+app.get('/api/boards/:id', (req, res) => {
+  const id = req.params.id;
+  const sql = `SELECT no, title, userid, readnum, date_format(wdate, '%Y-%m-%d')wdate 
+  FROM board WHERE id = ?`;
+  pool.getConnection((err, con) => {});
+    if(err) return res.status(500).send('Internal Server Error'); //DB연결 오류
+    con.query(sql,[id], (err, result) => {
+      con.release();
+      if(err) return res.status(500).send('Database SQL Error');//SQL문 오류
+      res.json(result);
+    });
+});
+// 게시글 삭제
+app.delete('/api/boards/:id', (req, res) => {
+  const id = res.params.id;
+  const sql = `delete from board where id = ?`;
+  pool.getConnection((err, con) => {
+    if(err) return res.status(500).send(err);
+    con.query(sql, [id], (err, result) => {
+      con.release();
+      if(err) return res.status(500).send(err);
+      if(result.affectedRows>0){
+        res.json({result: 'success', msg: '게시글이 삭제되었습니다.'});
+      }else{
+        res.json({result: 'fail', msg: '게시글 삭제에 실패했습니다.'});
+      
+      }
+    });
+  });
+});
 
 // 4. express 서버 라우팅
 app.listen(PORT, () => {

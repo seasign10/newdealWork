@@ -25,6 +25,7 @@ import TodoApp from './components/todo/TodoApp';
 import MemberList from './components/member/MemberList';
 import SignIn from './components/member/SignIn';
 import BoardApp from './components/board/BoardApp';
+import BoardView from './components/board/BoardView';
 
 // 로그인한 회원정보를 제공할 Context
 import {SigninUserProvider} from './components/member/SigninUserContext';
@@ -74,6 +75,7 @@ function App() {
                   <Route path='/members' element={<MemberList />} />
                   <Route path='/signin' element={<SignIn />} />
                   <Route path='/post' element={<BoardApp />} />
+                  <Route path='/post/:id' element={<BoardView />} />
 
                   {/* 위의 path 이외 나머지는 *가 전부 받는다. */}
                   <Route path="*" element={<PageNotFound/>} />

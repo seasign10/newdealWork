@@ -77,14 +77,26 @@ app.post('/api/signin', (req, res) => {
 });
 
 /////board/////
+// 총 게시글
+app.get('/api/boardTotal', (req, res) => {
+  const sql = `SELECT COUNT(id) AS totalCount FROM board`;
+  
+  db.get(sql, [], (err, row) => {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+    res.json(row);
+  });
+});
+// 게시글 등록
 app.post('/api/boards', (req, res) => {
   // post 방식의 body 데이터 받기
   const {title, userid, content} = req.body; 
   if(!title||!userid||!content){
     return res.status(400).send('제목, 작성자, 내용을 입력하세요.');
   }
-  const sql = `insert into board (title, userid, content, wdate) 
-  values (?, ?, ?, datetime('now', 'localtime'))`;
+  const sql = `insert into board (title, userid, content, wdate, readnum) 
+  values (?, ?, ?, datetime('now', 'localtime'), 0)`;
   db.run(sql, [title, userid, content], (err) => {
     if(err){
       return res.status(500).json({error: err.message});
@@ -92,6 +104,52 @@ app.post('/api/boards', (req, res) => {
     res.json({result: 'success', msg: '게시글이 등록되었습니다.'});
   });
 });
+// 게시글 목록 보기
+app.get('/api/boards', (req, res) => {
+  const sql = `select id, title, userid, content, 
+              strftime('%Y-%m-%d', wdate) wdate, readnum from board order by id desc`;
+  db.all(sql, [], (err, result) => {
+    if(err)return res.status(500).send(err);
+    res.json(result);
+  });
+});
+// 게시글 상세보기
+app.get('/api/boards/:id', (req, res) => {
+  const id = req.params.id;
+  console.log('id:', id);
+  const sql = `select id, title, userid, content, 
+              strftime('%Y-%m-%d', wdate) wdate, readnum from board where id=?`;
+  db.all(sql, [id], (err, result) => {
+    if(err)return res.status(500).send(err);
+    res.json(result);
+  });
+});
+// 게시글 조회수
+app.put('/api/boardReadnum/:id', (req, res) => {
+  const id = req.params.id;
+  const sql = `UPDATE board SET readnum = readnum + 1 WHERE id = ?`;
+  db.run(sql, [id], (err)=>{ // db.run을 사용하고, function의 this를 사용하기 위해 화살표 함수가 아닌 일반 함수를 사용합니다.
+    if (err) {return res.status(500).send(err);}
+    // this.changes는 쿼리에 의해 변경된 행의 수를 반환
+    if (this.changes > 0) {
+      res.json({ result: 'success' });
+    } else {
+      res.json({ result: 'fail' });
+    }
+  });
+});
+// 게시글 삭제
+app.delete('/api/boards/:id', (req, res) => {
+  const id = req.params.id;
+  const sql = `DELETE FROM board WHERE id = ?`;
+  db.run(sql, [id], function(err) {
+    if (err) return res.status(500).send(err);
+    if (this.changes > 0) {
+      res.json({ result: 'success', msg: '게시글이 삭제되었습니다.' });
+    } else {res.json({ result: 'fail', msg: '게시글 삭제에 실패했습니다.' });}
+  });
+});
+
 
 // 4. express 서버 라우팅
 app.listen(PORT, () => {
