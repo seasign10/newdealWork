@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import axios from '../../lib/axiosCreate';
 
@@ -15,6 +16,23 @@ export default function BoardForm({onMode}) {
   const refTitle = useRef();
   const refUserid = useRef();
   const refContent = useRef();
+
+  const navigate = useNavigate();
+
+  let uid=null; // 로그ㅡ인한 사람의 userid값 받을 예정 
+  useEffect(() => {
+    // 세션 스토리지에 저장된 userInfo가 있는지 꺼내보자
+    let str=sessionStorage.getItem('userInfo');
+    // alert(str, typeof str);
+    if(str!==null){
+      const user = JSON.parse(str); // parse > stringfy와 반대
+      uid=user.userid; // uid애 로그인한 사람의 아이디 할당
+      setForm({...form, userid:uid}); // 로그인한 사람의 아이디를 form.userid에 할당
+    }else{
+      alert('로그인이 필요합니다.');
+      navigate('/signin');
+    }
+  },[]);
 
   const onChangeHandler = (e) => {
     // [키]:값
@@ -93,7 +111,7 @@ export default function BoardForm({onMode}) {
               <Form.Control
                 type="text"
                 name="userid"
-                onChange={onChangeHandler}
+                onChange={onChangeHandler} readOnly
                 ref={refUserid}
                 value={form.userid}
                 placeholder="작성자를 입력하세요"

@@ -230,6 +230,26 @@ app.delete('/api/boards/:id', (req, res) => {
     });
   });
 });
+// 게시글 수정 처리
+app.put(`api/boards/:id`, (req, res) => {
+  // 글번호
+  const id = req.params.id;
+  // 수정한 글내용 받기
+  const {title, userid, content} = req.body;
+  console.log(title, userid, content);
+  
+  const sql = `UPDATE board SET title=?, userid=?, content=? WHERE id=?`;
+  pool.getConnection((err, con) => {
+    if(err) return res.status.send(err);
+    con.query(sql, [title, userid, content, id], (err, result) => {
+      con.release();
+      if(err) return res.status(500).send(err);
+      if(result.affectedRows>0){
+        res.json({result: 'success', msg: '게시글이 수정되었습니다.'});
+      }
+    });
+  })
+});
 
 // 4. express 서버 라우팅
 app.listen(PORT, () => {

@@ -8,6 +8,7 @@ import { log } from 'three/examples/jsm/nodes/Nodes.js';
 export default function BoardView() {
   const {id} = useParams(); // url 파라미터 값 가져오기 (게시글 번호)
   const [board, setBoard] = useState({});// 게시글 상세정보
+  const [logId, setLogId] = useState(''); // 로그인한 사람의 아이디
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,10 +25,23 @@ export default function BoardView() {
     fetchData();
   },[id]);
 
+  let uid=null; // 로그인한 사람의 userid값 받을 예정 
+  useEffect(() => {
+    // 세션 스토리지에 저장된 userInfo가 있는지 꺼내보자
+    let str=sessionStorage.getItem('userInfo');
+    // alert(str, typeof str);
+    if(str!==null){
+      const user = JSON.parse(str); // parse > stringfy와 반대
+      uid = user.userid; // uid애 로그인한 사람의 아이디 할당
+      setLogId(uid);
+    }
+  },[]);
+
   const onDelete = async()=>{
     let yn = window.confirm(`정말로 ${id} 삭제하시겠습니까?`);
     if(yn){
       await axios.delete(`/api/boards/${id}`)
+
       navigate('/post')
     }
   };
@@ -54,30 +68,37 @@ export default function BoardView() {
       <h2>BoardView [ No. {id}]</h2>
       {board&&
       <>
-      <div className="text-end my-2 mt-5 mb-2">
-        <Link to={`/postEdit/${id}`} className='mx-2'><Button variant="success">수정</Button></Link>
-        <Button 
-        onClick={onDelete}
-        variant='danger'>삭제</Button>
-      </div>
-        <Card>
-        <Card.Body>
-          <h4>{board.title}</h4>
-          <hr />
-          <div className="cArea">
-            {board.content}
-            <br />
-            <AiFillHeart style={{color:'red'}} />
-            <AiFillDislike style={{color:'green'}} />
-            &nbsp;&nbsp;
-            <Badge bg="primary">{board.readnum}</Badge>
-          </div>
-          </Card.Body>
-        <Card.Footer>
-          Create on {board.wdate} by {board.userid}
-        </Card.Footer>
-      </Card>
-      </>
+      {/* 로그인한 사람의 아이디(uid)와 글쓴이의 아이디(board.userid)가 같은 경우에만 수정, 삭제 버튼을 출력 하자 */}
+        <div className="text-end my-2 mt-5 mb-2">
+        {(logId==board.userid)&&
+        <>
+          <Link to={`/postEdit/${id}`} className='mx-1'><Button variant="success">수정</Button></Link>
+          <Button 
+          className='mx-1'
+          onClick={onDelete}
+          variant='danger'>삭제</Button>
+        </>
+        }
+        <Link to={`/post`} className='mx-1'><Button variant="dark">목록</Button></Link>
+        </div>
+          <Card>
+          <Card.Body>
+            <h4>{board.title}</h4>
+            <hr />
+            <div className="cArea">
+              {board.content}
+              <br />
+              <AiFillHeart style={{color:'red'}} />
+              <AiFillDislike style={{color:'green'}} />
+              &nbsp;&nbsp;
+              <Badge bg="primary">{board.readnum}</Badge>
+            </div>
+            </Card.Body>
+          <Card.Footer>
+            Create on {board.wdate} by {board.userid}
+          </Card.Footer>
+        </Card>
+        </>
       }
       {
         !board&& <h4 className='text-center my-5'>존재하지 않는 게시글입니다.</h4>

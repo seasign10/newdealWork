@@ -113,7 +113,7 @@ app.get('/api/boards', (req, res) => {
     res.json(result);
   });
 });
-// 게시글 상세보기
+// 게시글 상세보기 && 수정 게시글 조회
 app.get('/api/boards/:id', (req, res) => {
   const id = req.params.id;
   console.log('id:', id);
@@ -147,6 +147,26 @@ app.delete('/api/boards/:id', (req, res) => {
     if (this.changes > 0) {
       res.json({ result: 'success', msg: '게시글이 삭제되었습니다.' });
     } else {res.json({ result: 'fail', msg: '게시글 삭제에 실패했습니다.' });}
+  });
+});
+
+// 게시글 수정
+app.put('/api/boards/:id', (req, res) => {
+  // 글번호
+  const id = req.params.id;
+  // 수정한 글내용 받기
+  const { title, userid, content } = req.body;
+  console.log(title, userid, content);
+
+  const sql = `UPDATE board SET title = ?, userid = ?, content = ? WHERE id = ?`;
+
+  db.run(sql, [title, userid, content, id], function(err) {
+    if (err) return res.status(500).send(err);
+    if (this.changes > 0) {
+      res.json({ result: 'success', msg: '게시글이 수정되었습니다.' });
+    }else{
+      res.json({ result: 'fail', msg: '게시글 수정에 실패했습니다.' });
+    }
   });
 });
 
