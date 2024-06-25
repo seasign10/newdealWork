@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 // ex) /users/:id 와 같은 경로에서 :id 부분은 동적인 파라미터로 간주된다.
 // userParams를 사용하면 이 같은 파라미터를 쉽게 가져올 수 있다.
 import { userData } from '../data/userData';
-import { log } from 'three/examples/jsm/nodes/Nodes.js';
 
 export default function UserDetail() {
 

@@ -171,8 +171,10 @@ app.post('/api/boards', (req, res) => {
 });
 // 게시글 목록 보기
 app.get('/api/boards', (req, res) => {
+  // offset 파라미터값 받기
+  let offset = req.query.offset;
   const sql = `SELECT no, title, userid, readnum, date_format(wdate, '%Y-%m-%d')wdate 
-  FROM board ORDER BY no DESC`;
+  FROM board ORDER BY no DESC limit 5 offset ${offset}`;
   pool.getConnection((err, con) => {});
     if(err) return res.status(500).send('Internal Server Error'); //DB연결 오류
     con.query(sql, (err, result) => {
@@ -250,6 +252,37 @@ app.put(`api/boards/:id`, (req, res) => {
     });
   })
 });
+// 댓글 추가
+app.post(`/api/boards/:id/reply`, (req, res)=>{
+  const board_id = req.params.id;
+  const {userid, content} = req.body;
+  const sql = `INSERT INTO reply(userid, content, board_id) values(?,?,?)`;
+  pool.getConnection((err, con) => {
+    if(err) return res.status(500).send(err);
+    con.query(sql, [userid, content], (err, result)=>{
+      con.release();
+      if(err) return res.status(500).send(err);
+      if(result.affectedRows>0){
+        res.json({result: 'success', msg: '댓글이 추가되었습니다.'});
+      }else{
+        res.json({result: 'fail', msg: '댓글 추가에 실패했습니다.'});
+      }
+    });
+  })
+})
+// 게시글에 대한 댓글 목록
+app.get(`/api/boards/:id/reply`, (req, res)=>{
+  const board_id = req.params.id;
+  const sql = `select * from reply where board_id = ?`;
+  pool.getConnection((err, con)=>{
+    if(err) return res.status(500).send(err);
+    con.query(sql, [board_id], (err, result)=>{
+      con.release();
+      if(err) return res.status(500).send(err);
+      res.json(result);
+    })
+  })
+})
 
 // 4. express 서버 라우팅
 app.listen(PORT, () => {

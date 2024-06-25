@@ -1,6 +1,5 @@
 import React from 'react'
 // import './TodoListItem.css'
-import { color } from 'three/examples/jsm/nodes/Nodes.js';
 
 export default function TodoListItem(props) {
   const {id, content, wdate, isDone, onDelete, onChangeDone} = props

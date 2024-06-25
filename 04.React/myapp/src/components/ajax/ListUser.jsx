@@ -3,8 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 // useSearchParams : query string을 사용하기 위한 hook (?)
 // useParams : path parameter를 사용하기 위한 hook (:)
 import { Pagination, Spinner } from 'react-bootstrap';
-import { log } from 'three/examples/jsm/nodes/Nodes.js';
-import { getAll } from 'three/examples/jsm/libs/tween.module.js';
 
 // query string 사용
 // ajax2?page=1&per_page=3

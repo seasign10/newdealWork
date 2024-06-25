@@ -3,12 +3,14 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import {Button, Col, Row, Card, Container, Badge} from 'react-bootstrap';
 import {AiFillHeart, AiFillDislike} from 'react-icons/ai';
 import axios from '../../lib/axiosCreate'
-import { log } from 'three/examples/jsm/nodes/Nodes.js';
+import ReplyForm from './ReplyForm';
+import ReplyList from './ReplyList';
 
 export default function BoardView() {
   const {id} = useParams(); // url 파라미터 값 가져오기 (게시글 번호)
   const [board, setBoard] = useState({});// 게시글 상세정보
   const [logId, setLogId] = useState(''); // 로그인한 사람의 아이디
+  const [replies, setReplies] = useState([]); // 댓글 목록
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +23,7 @@ export default function BoardView() {
       // 게시글
       await getBoard();
       // 댓글
+      await getReplies();
     };
     fetchData();
   },[id]);
@@ -51,7 +54,7 @@ export default function BoardView() {
     .then(res=>{
       if(res.data.result==='success'){}
     })
-    .catch(err=>log('Error :', err.message))
+    .catch(err=>console.log('Error :', err.message))
   };
 
   const getBoard = async () => {
@@ -62,6 +65,29 @@ export default function BoardView() {
     })
     .catch(err=>alert('Error :', err.message))
   };
+
+  // 댓글 추가
+  const addReply = async(newReply)=>{
+    try{
+      const response = await axios.post(`api/boards/${id}/reply`, newReply);
+      if(response.data.result==='success'){
+        // 댓글 목록 다시 가져오기
+        // alert('댓글이 추가되었습니다.');
+        getReplies();
+      }
+    }catch(err){
+      alert('Error :', err.response.status);
+    }
+  }
+  // 댓글 목록
+  const getReplies = async()=>{
+    try{
+      const response = await axios.get(`api/boards/${id}/reply`);
+      setReplies(response.data);
+    }catch(err){
+      alert('Error :', err.response.status);
+    }
+  }
 
   return (
     <Container className='py-3'>
@@ -103,6 +129,20 @@ export default function BoardView() {
       {
         !board&& <h4 className='text-center my-5'>존재하지 않는 게시글입니다.</h4>
       }
+      {
+      <Row className='my-4'>
+        <Col className='px-3'>
+          <h3 className='mt-1'>댓글 목록</h3>
+          <ReplyList replise={replies} />
+        </Col>
+      </Row>
+      }
+      <Row className='my-4'>
+        <Col className='px-3'>
+          <h3 className='mt-1'>댓글 추가</h3>
+          <ReplyForm addReply={addReply} />
+        </Col>
+      </Row>
     </Container>
   )
 }
