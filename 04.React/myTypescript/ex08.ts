@@ -23,7 +23,7 @@ console.log(makePerson('Jane', 23));
 
 // let 변수명:Array<타입>
 let arr:Array<string> = new Array(3);
-console.log(arr); // [ <3 empty items> ] : [undefined, undefined, undefined]
+console.log(arr); // [ <3 empty items> ]
 arr[0]='도널드';
 arr[1]='데이지';
 arr[2]='미키';

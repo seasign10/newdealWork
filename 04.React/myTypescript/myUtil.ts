@@ -30,3 +30,7 @@ export const makePerson2 = (name:string, age:number=makeRandomNum2()):IPerson=>(
   {name,age}
 )
 
+export const range = (start: number, end: number): number[] => {
+  let array = start < end ? [start, ...range(start + 1, end)]:[];
+  return array;
+}
