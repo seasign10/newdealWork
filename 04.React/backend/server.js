@@ -3,8 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
-const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+const static = require('serve-static');
 
 const app = express();
 
@@ -14,6 +15,8 @@ const PORT = process.env.PORT || 5000; //process.env.PORT : 환경변수에 PORT
 // 2. 미들웨어 설정
 app.use(cors()); // cors 에러 해결
 app.use(bodyParser.json()); // json 형식으로 데이터 주고 받기
+app.use('/', static(path.join(__dirname, 'public'))); // 정적 파일 제공
+// public/index.html을 서비스하도록 설정
 
 // 3. db 접속 : mysqlite3
 const dbPath = path.join(__dirname, 'testDB.db');
@@ -216,7 +219,7 @@ app.put(`/api/boards/:id/reply/:rid`, (req, res)=>{
 
 // 4. express 서버 라우팅
 app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
+  console.log(`server.js is running on ${PORT}`);
   console.log(`http://localhost:${PORT}`);
 });
 

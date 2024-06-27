@@ -5,6 +5,7 @@ import {AiFillHeart, AiFillDislike} from 'react-icons/ai';
 import axios from '../../lib/axiosCreate'
 import ReplyForm from './ReplyForm';
 import ReplyList from './ReplyList';
+import ReplyEditForm from './ReplyEditForm';
 
 export default function BoardView() {
   const {id} = useParams(); // url 파라미터 값 가져오기 (게시글 번호)
@@ -12,6 +13,10 @@ export default function BoardView() {
   const [logId, setLogId] = useState(''); // 로그인한 사람의 아이디
   const [replies, setReplies] = useState([]); // 댓글 목록
   const navigate = useNavigate();
+
+  // 댓글 관련 state
+  const [showEditModal, setShowEditModal] = useState(false); // 댓글 수정 모달창 보이기/숨기기
+  const [editReply, setEditReply] = useState({}); // 수정할 댓글 정보
 
   useEffect(() => {
     // async가 useEffect에서는 사용하지 못하므로
@@ -89,6 +94,43 @@ export default function BoardView() {
     }
   }
 
+  const deleteReply = async(rid)=>{
+    // alert(rid); // reply id
+    const response = await axios.delete(`api/boards/reply/${rid}`);
+    if(response.data.result==='success'){
+      getReplies();
+    }else{
+      alert('댓글 삭제에 실패했습니다.');
+    }
+  }
+
+  const startEditReply = (reply)=>{
+    setEditReply(reply);
+    setShowEditModal(true);
+  }
+
+  // editForm의 input onChange 이벤트 처리  
+  const onEditInputChange = (e) => {
+    setEditReply({...editReply, [e.target.name]: e.target.value});
+  }
+  const updateReply = async(e)=>{
+    e.preventDefault();
+    // alert(editReply.rid);
+
+    try{
+      // editReply를 body로 전송
+      const response = await axios.put(`api/boards/${id}/reply/${editReply.rid}`, editReply);
+      if(response.data.result==='success'){
+        setShowEditModal(false); // 모달창 닫기
+        getReplies(); // 댓글 목록 다시 가져오기
+        setEditReply(null); // 수정할 댓글 정보 초기화
+      }else{
+        alert('댓글 수정에 실패했습니다.');
+      }
+    }catch(err){
+      alert(`Error:  ${err.response.status}`)
+    }}
+
   return (
     <Container className='py-3'>
       <h2>BoardView [ No. {id}]</h2>
@@ -133,14 +175,31 @@ export default function BoardView() {
       <Row className='my-4'>
         <Col className='px-3'>
           <h3 className='mt-1'>댓글 목록</h3>
-          <ReplyList replise={replies} />
+          <ReplyList 
+          logId={logId}
+          replise={replies} 
+          deleteReply={deleteReply} 
+          startEditReply={startEditReply} />
         </Col>
       </Row>
       }
       <Row className='my-4'>
         <Col className='px-3'>
           <h3 className='mt-1'>댓글 추가</h3>
-          <ReplyForm addReply={addReply} />
+          <ReplyForm addReply={addReply} logId={logId} />
+        </Col>
+      </Row>
+
+      {/* 댓글 수정 modal */}
+      <Row className='my-4'>
+        <Col className='px-3'>
+          <ReplyEditForm showEditModal={showEditModal}
+          editReply={editReply}
+          setShowEditModal={setShowEditModal}
+          setEditReply={setEditReply}
+          updateReply={updateReply}
+          onEditInputChange={onEditInputChange}
+           />
         </Col>
       </Row>
     </Container>

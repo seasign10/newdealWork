@@ -125,8 +125,10 @@ export default function BoardList() {
                 <td>{board.id}</td>
                 <td><Link 
                 to={`/post/${board.id}`}
-                style={{textDecoration: 'none'}}
-                >{board.title}</Link></td>
+                style={{textDecoration: 'none'}}>
+                  {board.title}</Link>
+                  {board.replyCnt>0&& <Badge bg='warning' className='m-1'>{board.replyCnt}</Badge>}
+                </td>
                 <td>{board.userid}</td>
                 <td>{board.wdate}</td>
                 <td>{board.readnum}</td>

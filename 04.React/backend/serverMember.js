@@ -71,7 +71,8 @@ app.post('/api/members', (req, res) => {
 
 app.get('/api/members', (req, res) => {
   console.log('GET /api/members');
-  const sql = `SELECT no, name, userid, passwd, email, date_format(regdate, '%Y-%m-%d')regdate FROM member ORDER BY no ASC`;
+  const sql = `SELECT no, name, userid, passwd, email, 
+  date_format(regdate, '%Y-%m-%d')regdate FROM member ORDER BY no ASC`;
   
   positionLocal.getConnection((err, con) => {
     if(err) return res.status(500).json(err);
@@ -173,8 +174,9 @@ app.post('/api/boards', (req, res) => {
 app.get('/api/boards', (req, res) => {
   // offset 파라미터값 받기
   let offset = req.query.offset;
-  const sql = `SELECT no, title, userid, readnum, date_format(wdate, '%Y-%m-%d')wdate 
-  FROM board ORDER BY no DESC limit 5 offset ${offset}`;
+  const sql = `SELECT no, title, userid, readnum, date_format(wdate, '%Y-%m-%d')wdate,
+  (select count(rid) from reply where board_id=B.id) replyCnt
+  FROM board B ORDER BY no DESC limit 5 offset ${offset}`;
   pool.getConnection((err, con) => {});
     if(err) return res.status(500).send('Internal Server Error'); //DB연결 오류
     con.query(sql, (err, result) => {
@@ -283,6 +285,43 @@ app.get(`/api/boards/:id/reply`, (req, res)=>{
     })
   })
 })
+// 댓글 삭제
+app.delete(`/api/boards/reply/:rid`, (req, res)=>{
+  const rid = req.params.rid;
+  console.log('rid : ', rid);
+  const sql = `delete from reply where rid = ?`;
+  pool.getConnection((err, con)=>{
+    if(err) return res.status(500).send(err);
+    con.query(sql, [rid], (err, result)=>{
+      con.release();
+      if(err) return res.status(500).send(err);
+      if(result.affectedRows>0){
+        res.json({result: 'success', msg: '댓글이 삭제되었습니다.'});
+      }else{
+        res.json({result: 'fail', msg: '댓글 삭제에 실패했습니다.'});
+      }
+    });
+  });
+});
+// 댓글 수정
+app.put(`/api/boards/reply/:rid`, (req, res)=>{
+  const {rid} = req.params;
+  const {userid, content} = req.body;
+  const sql = `update reply set userid=?, content=?, wdate=now() where rid=?`;
+  pool.getConnection((err, con)=>{
+    if(err) return res.status(500).send(err);
+    con.query(sql, [userid, content, rid], (err, result)=>{
+      con.release();
+      if(err) return res.status(500).send(err);
+      if(result.affectedRows>0){
+        res.json({result: 'success', msg: '댓글이 수정되었습니다.'});
+      }else{
+        res.json({result: 'fail', msg: '댓글 수정에 실패했습니다.'});
+      }
+    });
+  });
+});
+
 
 // 4. express 서버 라우팅
 app.listen(PORT, () => {

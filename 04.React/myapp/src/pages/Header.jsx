@@ -25,9 +25,10 @@ export default function Header() {
 
   const onSingout = () => {
     signoutUser();// 로그아웃 처리 Provider가 공급하는 user를 null로 변경
-    // sessionStorage.clear();
+    sessionStorage.clear();
     sessionStorage.removeItem('userInfo');
     setUserInfo(null);
+    window.location.href='/'; // 홈으로 이동
   }
 
   return <div className="header">
