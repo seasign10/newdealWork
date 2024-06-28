@@ -1,5 +1,5 @@
 import React, {FC} from 'react'; // FC : 함수형 컴포넌트를 정의하기 위해서 필요
-import EventComp from './component/EventComp';
+import EventComp from './components/EventComp';
 
 const App02:FC = ()=>{
 

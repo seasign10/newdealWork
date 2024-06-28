@@ -1,24 +1,32 @@
-import React from 'react';
-import './App.css';
-import MyComp1 from './component/MyComp1';
-import Greeting from './component/MyComp2';
+import {FC} from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Container, Row, Col} from 'react-bootstrap';
+import Header from './pages/Header';
+import Signup from './components/SignUp';
+import PostForm from './components/PostForm';
+import PageNotFound from './pages/PageNotFound';
 
-function App() {
+interface AppProps {}
+
+const App:FC<AppProps> = ()=>{
   return (
-    <div className="App">
-      <h1>App</h1>
-      <hr />
-      <MyComp1 text='타입스크립트를 사용한 리액트' 
-      href='http://www.naver.com'
-      target='_blank'
-      ></MyComp1>
-      <MyComp1 text='Google' 
-      href='http://www.google.com'
-      />
-      <Greeting name='Mr.TypeScript' color='blue'></Greeting>
-      <Greeting name='Mr.React' color='green'></Greeting>
-    </div>
-  );
+    <>
+      <BrowserRouter>
+        <div className='container py-5'>
+          <Header />
+          <div>
+            <Routes>
+              {/* <Route path='/' element={<Home />}></Route> */}
+              <Route path='/signup' element={<Signup />}></Route>
+              <Route path='/postform' element={<PostForm />}></Route>
+
+              <Route path='*' element={<PageNotFound />} />
+            </Routes>
+          </div>
+        </div>
+      </BrowserRouter>
+    </>
+  )
 }
 
 export default App;
