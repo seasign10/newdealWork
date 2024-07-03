@@ -5,6 +5,7 @@ import Header from './pages/Header';
 import Signup from './components/SignUp';
 import PostForm from './components/PostForm';
 import PageNotFound from './pages/PageNotFound';
+import PostList from './components/PostList';
 
 interface AppProps {}
 
@@ -19,6 +20,7 @@ const App:FC<AppProps> = ()=>{
               {/* <Route path='/' element={<Home />}></Route> */}
               <Route path='/signup' element={<Signup />}></Route>
               <Route path='/postform' element={<PostForm />}></Route>
+              <Route path='/postlist' element={<PostList />}></Route>
 
               <Route path='*' element={<PageNotFound />} />
             </Routes>

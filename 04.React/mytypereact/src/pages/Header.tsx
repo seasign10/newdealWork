@@ -13,7 +13,10 @@ export default function Header(props:any) {
         <Link to="/signup">Signup</Link>
       </li>
       <li>
-        <Link to="/postForm">Post</Link>
+        <Link to="/postForm">Post Form</Link>
+      </li>
+      <li>
+        <Link to="/postList">Post List</Link>
       </li>
     </ul>
   </div>;
